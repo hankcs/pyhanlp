@@ -35,8 +35,8 @@ else:
 
 if os.path.exists(HANLP_JAR_PATH) and os.path.exists(STATIC_ROOT):
     print("加载 HanLP jar [%s] ..." % HANLP_JAR_PATH)
-    print("加载 HanLP config [%s%shanlp.properties] ..." % (STATIC_ROOT, os.pathsep))
-    print("加载 HanLP data [%s%sdata] ..." % (STATIC_ROOT, os.pathsep))
+    print("加载 HanLP config [%s/hanlp.properties] ..." % (STATIC_ROOT))
+    print("加载 HanLP data [%s/data] ..." % (STATIC_ROOT))
 else:
     raise BaseException("Error: %s or %s does not exists." % (HANLP_JAR_PATH, STATIC_ROOT))
 

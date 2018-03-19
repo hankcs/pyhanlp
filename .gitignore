@@ -103,7 +103,8 @@ ENV/
 *.zip
 pyhanlp/static/data
 .idea/
-pyhanlp/static/hanlp.propertiestmp
+pyhanlp/static/hanlp.properties
 
+tmp
 *.swp
 *.swo

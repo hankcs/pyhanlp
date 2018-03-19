@@ -5,8 +5,8 @@
 
 # constants
 baseDir=$(cd `dirname "$0"`;pwd)
-HANLP_STATIC_ROOT=$baseDir/../data/data
-HANLP_JAR_PATH=$baseDir/../data/hanlp-portable-1.6.0.jar
+export HANLP_STATIC_ROOT=$baseDir/../data
+export HANLP_JAR_PATH=$baseDir/../data/hanlp-portable-1.6.0.jar
 
 # functions
 

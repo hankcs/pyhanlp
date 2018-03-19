@@ -19,7 +19,11 @@ pip install pyhanlp
 | HANLP_JAR_PATH | pyhanlp所在安装路径的static文件夹 | HanLP jar 包位置 | 
 
 
-注意：**使用pip初次安装 pyhanlp 后，不设置上述变量，程序会自动下载所需依赖到默认位置。如果是设置了上述变量，则不进行下载。因为文件比较大，网络下载稳定性等原因，建议提前准备好[jar](https://mvnrepository.com/artifact/com.hankcs/hanlp)包，[配置文件](https://github.com/hankcs/HanLP#3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)和[data](https://github.com/hankcs/HanLP#2%E4%B8%8B%E8%BD%BDdata)，并使用环境变量进行配置。**
+注意：
+
+1. **使用pip初次安装 pyhanlp 后，不设置上述变量，程序会自动下载所需依赖到默认位置。如果是设置了上述变量，则不进行下载。因为文件比较大，网络下载稳定性等原因，建议提前准备好[jar](https://mvnrepository.com/artifact/com.hankcs/hanlp)包，[配置文件](https://github.com/hankcs/HanLP#3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)和[data](https://github.com/hankcs/HanLP#2%E4%B8%8B%E8%BD%BDdata)，并使用环境变量进行配置。**
+
+2. 保证 hanLP.properties 中的 root 是指向正确的data路径。
 
 比如：
 ```
