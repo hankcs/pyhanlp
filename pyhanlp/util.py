@@ -51,7 +51,7 @@ except ImportError:
 try:
     from smart_open import smart_open
 except ImportError:
-    print("smart_open library not found; falling back to local-filesystem-only")
+    # print("smart_open library not found; falling back to local-filesystem-only")
 
     def make_closing(base, **attrs):
         """
