@@ -4,42 +4,16 @@ HanLP的Python接口，支持自动下载与升级HanLP的jar包和数据包，�
 
 ## 安装
 
+### Python3
+
+```
+pip3 install pyhanlp
+```
+
+### Python2
+
 ```
 pip install pyhanlp
-```
-
-
-## 配置
-
-通过设置环境变量来自定义HanLP版本和数据位置。
-
-| 变量名 | 默认值 | 备注 |
-| --- | --- | --- |
-| HANLP\_STATIC\_ROOT | pyhanlp所在安装路径的static文件夹 | 静态文件位置，包括配置文件(hanLP.properties)和数据字典(data)。 | 
-| HANLP_JAR_PATH | pyhanlp所在安装路径的static文件夹 | HanLP jar 包位置 | 
-
-
-注意：
-
-1. **使用pip初次安装 pyhanlp 后，不设置上述变量，程序会自动下载所需依赖到默认位置。如果是设置了上述变量，则不进行下载。因为文件比较大，网络下载稳定性等原因，建议提前准备好[jar](https://mvnrepository.com/artifact/com.hankcs/hanlp)包，[配置文件](https://github.com/hankcs/HanLP#3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)和[data](https://github.com/hankcs/HanLP#2%E4%B8%8B%E8%BD%BDdata)，并使用环境变量进行配置。**
-
-2. 保证 hanLP.properties 中的 root 是指向正确的data路径。
-
-比如：
-```
-export HANLP_JAR_PATH=/data/hanlp-portable-1.6.0.jar
-export HANLP_STATIC_ROOT=/data
-```
-
-就需要保证有如下的目录结构：
-```
-data
-├── data
-│   ├── README.url
-│   ├── dictionary
-│   └── model
-├── hanLP.properties
-└── hanlp-portable-1.6.0.jar
 ```
 
 ## 命令行
@@ -131,17 +105,6 @@ print(HanLP.extractSummary(document, 3))
 print(HanLP.parseDependency("徐先生还具体帮助他确定了把画雄鹰、松鼠和麻雀作为主攻目标。"))
 ```
 
-测试
-
-```
-git clone https://github.com/hankcs/pyhanlp.git
-cd pyhanlp
-pip install -r requirements.txt # 安装依赖
-export HANLP_JAR_PATH=          # 配置环境变量
-export HANLP_STATIC_ROOT=       # 配置环境变量
-python tests/test_hanlp.py      # 执行测试
-```
-
 ### 更多功能
 
 更多功能，包括但不限于：
@@ -180,6 +143,59 @@ HanLP具备高度可自定义的特点，所有模型和词典都可以自由替
 ```
 hanlp segment --config path/to/another/hanlp.properties
 ```
+
+## 配置
+
+### 自动配置
+
+默认在首次调用HanLP时自动下载jar包和数据包，并自动完成配置。
+
+### 手动配置
+
+如因网络等原因自动配置失败，可以通过设置环境变量来自定义HanLP版本和数据位置。
+
+| 变量名 | 默认值 | 备注 |
+| --- | --- | --- |
+| HANLP\_STATIC\_ROOT | pyhanlp所在安装路径的static文件夹 | 静态文件位置，包括配置文件(hanLP.properties)和数据字典(data)。 | 
+| HANLP_JAR_PATH | pyhanlp所在安装路径的static文件夹 | HanLP jar 包位置 | 
+
+
+注意：
+
+1. **使用pip初次安装 pyhanlp 后，不设置上述变量，程序会自动下载所需依赖到默认位置。如果是设置了上述变量，则不进行下载。因为文件比较大，网络下载稳定性等原因，建议提前准备好[jar](https://mvnrepository.com/artifact/com.hankcs/hanlp)包，[配置文件](https://github.com/hankcs/HanLP#3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)和[data](https://github.com/hankcs/HanLP#2%E4%B8%8B%E8%BD%BDdata)，并使用环境变量进行配置。**
+
+2. 保证 hanlp.properties 中的 root 是指向正确的data路径。
+
+比如：
+
+```
+export HANLP_JAR_PATH=/data/hanlp-portable-1.6.0.jar
+export HANLP_STATIC_ROOT=/data
+```
+
+就需要保证有如下的目录结构：
+
+```
+data
+├── data
+│   ├── README.url
+│   ├── dictionary
+│   └── model
+├── hanLP.properties
+└── hanlp-portable-1.6.0.jar
+```
+
+## 测试
+
+```
+git clone https://github.com/hankcs/pyhanlp.git
+cd pyhanlp
+pip install -r requirements.txt # 安装依赖
+export HANLP_JAR_PATH=          # 配置环境变量
+export HANLP_STATIC_ROOT=       # 配置环境变量
+python tests/test_hanlp.py      # 执行测试
+```
+
 
 ## 授权协议
 

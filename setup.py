@@ -7,17 +7,14 @@ from setuptools import find_packages, setup
 
 this_dir = abspath(dirname(__file__))
 if sys.version_info[0] < 3:  # In Python3 TypeError: a bytes-like object is required, not 'str'
-    from pyhanlp.util import smart_open
-
-    with smart_open(join(this_dir, 'README.md')) as file:
-        long_description = file.read()
+    long_description = 'Python wrapper for HanLP: Han Language Processing'
 else:
     with open(join(this_dir, 'README.md'), encoding='utf-8') as file:
         long_description = file.read()
 
 setup(
     name='pyhanlp',
-    version='0.1.2',
+    version='0.1.4',
     description='Python wrapper for HanLP: Han Language Processing',
     long_description=long_description,
     url='https://github.com/hankcs/pyhanlp',

@@ -1,5 +1,6 @@
 include README.md
 include setup.cfg
 include README.md
+include requirements.txt
 include pyhanlp/static/hanlp.properties.in
 include pyhanlp/static/index.html
