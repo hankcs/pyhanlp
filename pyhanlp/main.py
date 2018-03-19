@@ -20,7 +20,7 @@ if sys.version_info[0] < 3:
 import argparse
 from jpype import JClass
 
-from pyhanlp import HanLP, server
+from pyhanlp import HanLP
 from pyhanlp.static import eprint, PATH_CONFIG, update_hanlp, HANLP_JAR_VERSION, HANLP_JAR_PATH, HANLP_DATA_PATH, \
     hanlp_installed_data_version
 
@@ -73,7 +73,11 @@ def main():
             line = line.strip()
             print(HanLP.parseDependency(any2utf8(line)))
     elif args.task == 'serve':
-        server.run(port=args.port)
+        if PY == 3:
+            from pyhanlp import server
+            server.run(port=args.port)
+        else:
+            die('现在server.py暂时不支持Python2，欢迎参与移植')
     elif args.task == 'update':
         update_hanlp()
 
