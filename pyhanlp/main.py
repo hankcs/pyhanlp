@@ -7,7 +7,7 @@ import sys
 import os
 from jpype import JClass
 
-from pyhanlp import HanLP
+from pyhanlp import HanLP, server
 from pyhanlp.static import eprint, PATH_CONFIG, update_hanlp, HANLP_JAR_VERSION, HANLP_JAR_PATH, HANLP_DATA_PATH, \
     hanlp_installed_data_version
 
@@ -22,6 +22,8 @@ def main():
     task_parser = arg_parser.add_subparsers(dest="task", help='which task to perform?')
     segment_parser = task_parser.add_parser(name='segment', help='word segmentation')
     parse_parser = task_parser.add_parser(name='parse', help='dependency parsing')
+    server_parser = task_parser.add_parser(name='serve', help='start http server', description='A http server for HanLP')
+    server_parser.add_argument('--port', type=int, default=8765)
     update_parser = task_parser.add_parser(name='update', help='update jar and data of HanLP')
 
     def add_args(p):
@@ -38,7 +40,7 @@ def main():
         eprint(msg)
         exit(1)
 
-    if args.config:
+    if hasattr(args, 'config') and args.config:
         if os.path.isfile(args.config):
             JClass('com.hankcs.hanlp.utility.Predefine').HANLP_PROPERTIES_PATH = args.config
         else:
@@ -57,6 +59,8 @@ def main():
         for line in sys.stdin:
             line = line.strip()
             print(HanLP.parseDependency(line))
+    elif args.task == 'serve':
+        server.run(port=args.port)
     elif args.task == 'update':
         update_hanlp()
 

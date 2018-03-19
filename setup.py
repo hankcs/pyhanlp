@@ -12,7 +12,7 @@ with open(join(this_dir, 'README.md'), encoding='utf-8') as file:
 
 setup(
     name='pyhanlp',
-    version='0.0.8',
+    version='0.1.1',
     description='Python wrapper for HanLP: Han Language Processing',
     long_description=long_description,
     url='https://github.com/hankcs/pyhanlp',

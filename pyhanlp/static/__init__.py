@@ -21,6 +21,7 @@ PATH_DATA_VERSION = os.path.join(HANLP_DATA_PATH, 'version.txt')
 HANLP_JAR_VERSION = None
 HANLP_DATA_VERSION = None
 HANLP_RELEASES = None
+INDEX_HTML = os.path.join(STATIC_ROOT, 'index.html')
 
 
 def eprint(*args, **kwargs):
