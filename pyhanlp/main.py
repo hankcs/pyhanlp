@@ -72,7 +72,6 @@ def main():
         for line in sys.stdin:
             line = line.strip()
             print(HanLP.parseDependency(any2utf8(line)))
-            print(HanLP.parseDependency(line))
     elif args.task == 'serve':
         server.run(port=args.port)
     elif args.task == 'update':

@@ -30,6 +30,7 @@ sys.path.append(os.path.join(curdir, os.path.pardir))
 PY = 3
 if sys.version_info[0] < 3:
     PY = 2
+    # noinspection PyUnresolvedReferences
     reload(sys)
     sys.setdefaultencoding("utf-8")
     # raise "Must be using Python 3"
@@ -40,6 +41,7 @@ ENVIRON = os.environ.copy()
 try:
     from html.entities import name2codepoint as n2cp
 except ImportError:
+    # noinspection PyUnresolvedReferences
     from htmlentitydefs import name2codepoint as n2cp
 try:
     import cPickle as _pickle
@@ -83,7 +85,11 @@ except ImportError:
             return make_closing(GzipFile)(fname, mode)
         return open(fname, mode)
 
+
+# noinspection PyUnresolvedReferences
 def any2utf8(text, errors='strict', encoding='utf8'):
+    if PY == 3:
+        return text
     """Convert a string (unicode or bytestring in `encoding`), to bytestring in utf8."""
     if isinstance(text, unicode):
         return text.encode('utf8')
@@ -93,7 +99,7 @@ def any2utf8(text, errors='strict', encoding='utf8'):
 
 to_utf8 = any2utf8
 
-
+# noinspection PyUnresolvedReferences
 def any2unicode(text, encoding='utf8', errors='strict'):
     """Convert a string (bytestring in `encoding` or unicode), to unicode."""
     if isinstance(text, unicode):
