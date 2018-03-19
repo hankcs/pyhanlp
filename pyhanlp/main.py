@@ -1,13 +1,25 @@
 # -*- coding:utf-8 -*-
 # Author：hankcs
 # Date: 2018-03-19 01:05
-import argparse
-import sys
+from __future__ import print_function
+from __future__ import division
 
 import os
+import sys
+
+PY = 3
+if sys.version_info[0] < 3:
+    PY = 2
+    reload(sys)
+    sys.setdefaultencoding("utf-8")
+    # raise "Must be using Python 3"
+
+import argparse
 from jpype import JClass
 
 from pyhanlp import HanLP, server
+from util import any2utf8
+from pyhanlp import HanLP
 from pyhanlp.static import eprint, PATH_CONFIG, update_hanlp, HANLP_JAR_VERSION, HANLP_JAR_PATH, HANLP_DATA_PATH, \
     hanlp_installed_data_version
 
@@ -54,10 +66,11 @@ def main():
     if args.task == 'segment':
         for line in sys.stdin:
             line = line.strip()
-            print(' '.join(term.toString() for term in HanLP.segment(line)))
+            print(' '.join(term.toString() for term in HanLP.segment(any2utf8(line))))
     elif args.task == 'parse':
         for line in sys.stdin:
             line = line.strip()
+            print(HanLP.parseDependency(any2utf8(line)))
             print(HanLP.parseDependency(line))
     elif args.task == 'serve':
         server.run(port=args.port)

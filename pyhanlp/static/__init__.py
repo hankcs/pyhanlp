@@ -1,16 +1,29 @@
 # -*- coding:utf-8 -*-
 # Author：hankcs
 # Date: 2018-03-18 20:05
+from __future__ import print_function
+from __future__ import division
+
+import os
+import sys
+
+curdir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(curdir, os.path.pardir))
+
+PY = 3
+if sys.version_info[0] < 3:
+    PY = 2
+    reload(sys)
+    sys.setdefaultencoding("utf-8")
+    # raise "Must be using Python 3"
+
 import errno
 import glob
 import json
-import os
 import re
-import sys
-import urllib.request
 import zipfile
-
 from shutil import copyfile
+from ..util import urllib
 
 import time
 
@@ -45,7 +58,7 @@ def hanlp_releases(cache=True):
     if cache and HANLP_RELEASES:
         return HANLP_RELEASES
     # print('Request GitHub API')
-    content = urllib.request.urlopen("http://api.github.com/repos/hankcs/HanLP/releases").read()
+    content = urllib.urlopen("http://api.github.com/repos/hankcs/HanLP/releases").read()
     content = json.loads(content)
     meta = []
     for r in content:
@@ -104,10 +117,10 @@ def hanlp_installed_data_path():
 
 
 def download(url, path):
-    opener = urllib.request.build_opener()
+    opener = urllib.build_opener()
     opener.addheaders = [('User-agent',
                           'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36')]
-    urllib.request.install_opener(opener)
+    urllib.install_opener(opener)
     print('Downloading {} to {}'.format(url, path))
     tmp_path = '{}.downloading'.format(path)
     try:
@@ -128,7 +141,7 @@ def download(url, path):
                              (percent, progress_size / (1024 * 1024), speed, minutes, seconds))
             sys.stdout.flush()
 
-        urllib.request.urlretrieve(url, tmp_path, reporthook)
+        urllib.urlretrieve(url, tmp_path, reporthook)
         print()
     except:
         try:
