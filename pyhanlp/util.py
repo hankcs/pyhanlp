@@ -48,13 +48,6 @@ try:
 except ImportError:
     import pickle as _pickle
 
-if PY == 3:
-  import urllib.request as urllib
-  import urllib.parse as urlparse
-else:
-  import urllib
-  import urlparse
-
 try:
     from smart_open import smart_open
 except ImportError:

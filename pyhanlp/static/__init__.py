@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 # Author：hankcs
 # Date: 2018-03-18 20:05
-from __future__ import print_function
 from __future__ import division
+from __future__ import print_function
 
 import os
 import sys
@@ -23,7 +23,10 @@ import json
 import re
 import zipfile
 from shutil import copyfile
-from ..util import urllib
+if PY == 3:
+    import urllib.request as urllib
+else:
+    import urllib
 
 import time
 
@@ -99,7 +102,7 @@ def hanlp_installed_data_version():
             global HANLP_DATA_VERSION
             HANLP_DATA_VERSION = f.readlines()[0].strip()
             return HANLP_DATA_VERSION
-    except FileNotFoundError:
+    except:
         return None
 
 
@@ -117,10 +120,10 @@ def hanlp_installed_data_path():
 
 
 def download(url, path):
-    opener = urllib.build_opener()
-    opener.addheaders = [('User-agent',
-                          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36')]
-    urllib.install_opener(opener)
+    # opener = urllib.build_opener()
+    # opener.addheaders = [('User-agent',
+    #                       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36')]
+    # urllib.install_opener(opener)
     print('Downloading {} to {}'.format(url, path))
     tmp_path = '{}.downloading'.format(path)
     try:
