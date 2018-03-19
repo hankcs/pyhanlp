@@ -1,6 +1,16 @@
 # -*- coding:utf-8 -*-
 # Author：hankcs
 # Date: 2018-03-18 21:07
+# 
+from __future__ import print_function
+from __future__ import division
+
+import os
+import sys
+curdir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(curdir, os.path.pardir))
+
+
 from pyhanlp import *
 
 print(HanLP.segment('你好，欢迎在Python中调用HanLP的API'))
