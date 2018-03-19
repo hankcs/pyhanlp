@@ -2,16 +2,22 @@
 # Author：hankcs
 # Date: 2018-03-11 20:54
 from os.path import abspath, join, dirname
-from pyhanlp.util import smart_open
+import sys
 from setuptools import find_packages, setup
 
 this_dir = abspath(dirname(__file__))
-with smart_open(join(this_dir, 'README.md')) as file:
-    long_description = file.read()
+if sys.version_info[0] < 3:  # In Python3 TypeError: a bytes-like object is required, not 'str'
+    from pyhanlp.util import smart_open
+
+    with smart_open(join(this_dir, 'README.md')) as file:
+        long_description = file.read()
+else:
+    with open(join(this_dir, 'README.md'), encoding='utf-8') as file:
+        long_description = file.read()
 
 setup(
     name='pyhanlp',
-    version='0.1.1',
+    version='0.1.2',
     description='Python wrapper for HanLP: Han Language Processing',
     long_description=long_description,
     url='https://github.com/hankcs/pyhanlp',

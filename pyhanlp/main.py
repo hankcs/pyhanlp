@@ -7,9 +7,12 @@ from __future__ import division
 import os
 import sys
 
+from pyhanlp.util import any2utf8
+
 PY = 3
 if sys.version_info[0] < 3:
     PY = 2
+    # noinspection PyUnresolvedReferences
     reload(sys)
     sys.setdefaultencoding("utf-8")
     # raise "Must be using Python 3"
@@ -18,8 +21,6 @@ import argparse
 from jpype import JClass
 
 from pyhanlp import HanLP, server
-from util import any2utf8
-from pyhanlp import HanLP
 from pyhanlp.static import eprint, PATH_CONFIG, update_hanlp, HANLP_JAR_VERSION, HANLP_JAR_PATH, HANLP_DATA_PATH, \
     hanlp_installed_data_version
 
