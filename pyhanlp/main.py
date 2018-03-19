@@ -47,6 +47,13 @@ def main():
 
     add_args(segment_parser)
     add_args(parse_parser)
+
+    if '-v' in sys.argv or '--version' in sys.argv:
+        print('jar  {}: {}'.format(HANLP_JAR_VERSION, HANLP_JAR_PATH))
+        data_version = hanlp_installed_data_version()
+        print('data {}: {}'.format(data_version if data_version else '自定义', HANLP_DATA_PATH))
+        exit(0)
+
     args = arg_parser.parse_args()
 
     def die(msg):
@@ -58,11 +65,6 @@ def main():
             JClass('com.hankcs.hanlp.utility.Predefine').HANLP_PROPERTIES_PATH = args.config
         else:
             die('Can\'t find config file {}'.format(args.config))
-
-    if args.version:
-        print('jar  {}: {}'.format(HANLP_JAR_VERSION, HANLP_JAR_PATH))
-        data_version = hanlp_installed_data_version()
-        print('data {}: {}'.format(data_version if data_version else '自定义', HANLP_DATA_PATH))
 
     if args.task == 'segment':
         for line in sys.stdin:
