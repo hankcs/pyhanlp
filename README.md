@@ -1,6 +1,6 @@
 # pyhanlp: Python interfaces for HanLP
 
-HanLP的Python接口，支持自动下载与升级HanLP的jar包和数据包，兼容py2, py3。
+HanLP的Python接口，支持自动下载与升级HanLP，兼容py2、py3。
 
 ## 安装
 
@@ -16,9 +16,9 @@ pip3 install pyhanlp
 pip install pyhanlp
 ```
 
-## 命令行
+使用命令`hanlp`来验证安装，如因网络等原因自动安装HanLP失败，可参考[《手动配置》](https://github.com/hankcs/pyhanlp#%E6%89%8B%E5%8A%A8%E9%85%8D%E7%BD%AE)。
 
-通过`hanlp --help`查看最新帮助手册。
+## 命令行
 
 ### 中文分词
 
@@ -75,6 +75,8 @@ hanlp parse <<< '徐先生还具体帮助他确定了把画雄鹰、松鼠 和�
 ### 升级
 
 通过`hanlp update`命令来将HanLP升级到最新版。该命令会获取GitHub最新版本并自动下载安装。
+
+欢迎通过`hanlp --help`查看最新帮助手册。
 
 ## API
 
@@ -156,7 +158,7 @@ hanlp segment --config path/to/another/hanlp.properties
 
 | 变量名 | 默认值 | 备注 |
 | --- | --- | --- |
-| HANLP\_STATIC\_ROOT | pyhanlp所在安装路径的static文件夹 | 静态文件位置，包括配置文件(hanLP.properties)和数据字典(data)。 | 
+| HANLP\_STATIC\_ROOT | pyhanlp所在安装路径的static文件夹 | 配置文件hanlp.properties所在的目录| 
 | HANLP_JAR_PATH | pyhanlp所在安装路径的static文件夹 | HanLP jar 包位置 | 
 
 
@@ -169,19 +171,19 @@ hanlp segment --config path/to/another/hanlp.properties
 比如：
 
 ```
-export HANLP_JAR_PATH=/data/hanlp-portable-1.6.0.jar
-export HANLP_STATIC_ROOT=/data
+export HANLP_JAR_PATH=/hanlp/hanlp-portable-1.6.0.jar
+export HANLP_STATIC_ROOT=/hanlp
 ```
 
 就需要保证有如下的目录结构：
 
 ```
-data
+hanlp
 ├── data
 │   ├── README.url
 │   ├── dictionary
 │   └── model
-├── hanLP.properties
+├── hanlp.properties
 └── hanlp-portable-1.6.0.jar
 ```
 
