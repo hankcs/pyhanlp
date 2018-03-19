@@ -99,3 +99,8 @@ ENV/
 
 # mypy
 .mypy_cache/
+*.jar
+*.zip
+pyhanlp/static/data
+.idea/
+pyhanlp/static/hanlp.properties

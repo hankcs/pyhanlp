@@ -1,0 +1,4 @@
+include README.md
+include setup.cfg
+include README.md
+include pyhanlp/static/hanlp.properties.in
