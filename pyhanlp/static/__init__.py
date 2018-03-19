@@ -61,7 +61,7 @@ def hanlp_releases(cache=True):
     if cache and HANLP_RELEASES:
         return HANLP_RELEASES
     # print('Request GitHub API')
-    content = urllib.urlopen("http://api.github.com/repos/hankcs/HanLP/releases").read()
+    content = urllib.urlopen("https://api.github.com/repos/hankcs/HanLP/releases").read()
     content = json.loads(content)
     meta = []
     for r in content:
