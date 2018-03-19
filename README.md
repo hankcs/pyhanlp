@@ -5,8 +5,21 @@ HanLP的Python接口，支持自动下载与升级HanLP的jar包和数据包。
 ## 安装
 
 ```
-pip3 install pyhanlp
+pip install pyhanlp
 ```
+
+
+## 配置
+
+通过设置环境变量来自定义HanLP版本和数据位置。
+
+| 变量名 | 默认值 | 备注 |
+| --- | --- | --- |
+| HANLP\_STATIC\_ROOT | pyhanlp所在安装路径的static文件夹 | 静态文件位置，包括配置文件(hanLP.properties)和数据字典(data)。 | 
+| HANLP_JAR_PATH | pyhanlp所在安装路径的static文件夹 | HanLP jar 包位置 | 
+
+
+注意：使用pip初次安装 pyhanlp 后，不设置上述变量，程序会自动下载所需依赖到默认位置。如果是设置了上述变量，则不进行下载。因为文件比较大，网络下载稳定性等原因，建议提前准备好jar包，配置文件和data，并使用环境变量进行配置。
 
 ## 命令行
 
@@ -91,6 +104,17 @@ print(HanLP.extractKeyword(document, 2))
 print(HanLP.extractSummary(document, 3))
 # 依存句法分析
 print(HanLP.parseDependency("徐先生还具体帮助他确定了把画雄鹰、松鼠和麻雀作为主攻目标。"))
+```
+
+测试
+
+```
+git clone https://github.com/hankcs/pyhanlp.git
+cd pyhanlp
+pip install -r requirements.txt # 安装依赖
+export HANLP_JAR_PATH=          # 配置环境变量
+export HANLP_STATIC_ROOT=       # 配置环境变量
+python tests/test_hanlp.py      # 执行测试
 ```
 
 ### 更多功能
