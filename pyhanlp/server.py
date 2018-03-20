@@ -17,11 +17,14 @@ Send a POST request::
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qs, urlparse, quote
 
-from pyhanlp import HanLP
+from pyhanlp import HanLP, ENVIRON
 from pyhanlp.static import INDEX_HTML
 
 SENTENCE = 'sentence'
 TEMPLATE = 'Error'
+HANLP_GOOGLE_UA = 'UA-XXXXX-X'
+if "HANLP_GOOGLE_UA" in ENVIRON:
+    HANLP_GOOGLE_UA = ENVIRON["HANLP_GOOGLE_UA"]
 with open(INDEX_HTML) as src:
     TEMPLATE = src.read()
 
@@ -48,7 +51,9 @@ class S(BaseHTTPRequestHandler):
         if len(sentence) > MAX_LENGTH:
             sentence = sentence[:MAX_LENGTH]
         conll = quote(HanLP.parseDependency(sentence).__str__())
-        self.write(TEMPLATE.replace('{SENTENCE}', sentence).replace('{CONLL}', conll))
+        self.write(TEMPLATE.replace('{SENTENCE}', sentence).replace('{CONLL}', conll)
+                   .replace('{HANLP_GOOGLE_UA}', HANLP_GOOGLE_UA, 1)
+                   )
 
     def do_HEAD(self):
         self._set_headers()
