@@ -21,13 +21,16 @@ FLAGS([__file__, '--verbosity', '1']) # DEBUG 1; INFO 0; WARNING -1; ERROR -2
 import unittest
 from pyhanlp import *
 
-# run testcase: python /Users/hain/ai/textsum/app/py/classifier/preprocesser.py Test.testExample
+# run a single testcase: python test_hanlp.py Test.test_keywords 
 class Test(unittest.TestCase):
     '''
-    
+    Testcase for HanLP
     '''
     def setUp(self):
-        pass
+        self.document = "水利部水资源司司长陈明忠9月29日在国务院新闻办举行的新闻发布会上透露，" \
+                   "根据刚刚完成了水资源管理制度的考核，有部分省接近了红线的指标，" \
+                   "有部分省超过红线的指标。对一些超过红线的地方，陈明忠表示，对一些取用水项目进行区域的限批，" \
+                   "严格地进行水资源论证和取水许可的批准。"
 
     def tearDown(self):
         pass
@@ -35,25 +38,18 @@ class Test(unittest.TestCase):
     def test_keywords(self):
         logging.info("test_keywords")
         # 关键词提取
-        document = "水利部水资源司司长陈明忠9月29日在国务院新闻办举行的新闻发布会上透露，" \
-                   "根据刚刚完成了水资源管理制度的考核，有部分省接近了红线的指标，" \
-                   "有部分省超过红线的指标。对一些超过红线的地方，陈明忠表示，对一些取用水项目进行区域的限批，" \
-                   "严格地进行水资源论证和取水许可的批准。"
-        print(HanLP.extractKeyword(document, 2))
+        print(HanLP.extractKeyword(self.document, 2))
         
     def test_textsum(self):
         logging.info("test_textsum")
         # 自动摘要
-        document = "水利部水资源司司长陈明忠9月29日在国务院新闻办举行的新闻发布会上透露，" \
-                   "根据刚刚完成了水资源管理制度的考核，有部分省接近了红线的指标，" \
-                   "有部分省超过红线的指标。对一些超过红线的地方，陈明忠表示，对一些取用水项目进行区域的限批，" \
-                   "严格地进行水资源论证和取水许可的批准。"
-        print(HanLP.extractSummary(document, 3))
+        print(HanLP.extractSummary(self.document, 3))
         # 依存句法分析
         
     def test_parsedependency(self):
         logging.info("test_parsedependency")
-        logging.info(HanLP.parseDependency("徐先生还具体帮助他确定了把画雄鹰、松鼠和麻雀作为主攻目标。"))
+        sentence = "徐先生还具体帮助他确定了把画雄鹰、松鼠和麻雀作为主攻目标。"
+        logging.info(HanLP.parseDependency(sentence))
         # 更底层的API需要参考Java语法用JClass引入更深的类路径
 
     def test_analyze(self):
