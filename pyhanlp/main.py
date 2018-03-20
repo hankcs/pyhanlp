@@ -22,7 +22,7 @@ from jpype import JClass
 
 from pyhanlp import HanLP
 from pyhanlp.static import eprint, PATH_CONFIG, update_hanlp, HANLP_JAR_VERSION, HANLP_JAR_PATH, HANLP_DATA_PATH, \
-    hanlp_installed_data_version
+    hanlp_installed_data_version, STATIC_ROOT
 
 
 def main():
@@ -52,6 +52,7 @@ def main():
         print('jar  {}: {}'.format(HANLP_JAR_VERSION, HANLP_JAR_PATH))
         data_version = hanlp_installed_data_version()
         print('data {}: {}'.format(data_version if data_version else '自定义', HANLP_DATA_PATH))
+        print('config    : {}'.format(os.path.join(STATIC_ROOT, 'hanlp.properties')))
         exit(0)
 
     args = arg_parser.parse_args()
