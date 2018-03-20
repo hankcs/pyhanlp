@@ -4,14 +4,6 @@ HanLP的Python接口，支持自动下载与升级HanLP，兼容py2、py3。
 
 ## 安装
 
-### Python3
-
-```
-pip3 install pyhanlp
-```
-
-### Python2
-
 ```
 pip install pyhanlp
 ```

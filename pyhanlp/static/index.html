@@ -25,10 +25,14 @@
     <!-- Color the status bar on mobile devices -->
     <meta name="theme-color" content="#2F3BA2">
 
-    <link rel="icon" href="http://www.hankcs.com/wp-content/uploads/2017/04/cropped-Hankcs_512-32x32.png" sizes="32x32" />
-    <link rel="icon" href="http://www.hankcs.com/wp-content/uploads/2017/04/cropped-Hankcs_512-192x192.png" sizes="192x192" />
-    <link rel="apple-touch-icon-precomposed" href="http://www.hankcs.com/wp-content/uploads/2017/04/cropped-Hankcs_512-180x180.png" />
-    <meta name="msapplication-TileImage" content="http://www.hankcs.com/wp-content/uploads/2017/04/cropped-Hankcs_512-270x270.png" />
+    <link rel="icon" href="http://www.hankcs.com/wp-content/uploads/2017/04/cropped-Hankcs_512-32x32.png"
+          sizes="32x32"/>
+    <link rel="icon" href="http://www.hankcs.com/wp-content/uploads/2017/04/cropped-Hankcs_512-192x192.png"
+          sizes="192x192"/>
+    <link rel="apple-touch-icon-precomposed"
+          href="http://www.hankcs.com/wp-content/uploads/2017/04/cropped-Hankcs_512-180x180.png"/>
+    <meta name="msapplication-TileImage"
+          content="http://www.hankcs.com/wp-content/uploads/2017/04/cropped-Hankcs_512-270x270.png"/>
     <link rel="shortcut icon" href="http://www.hankcs.com/favicon.ico">
 
     <!-- Material Design icons -->
@@ -307,7 +311,9 @@
             <a href="#overview" class="mdl-layout__tab is-active">首页</a>
             <a href="#features" class="mdl-layout__tab">安装</a>
             <a href="https://github.com/hankcs/HanLP" target="_blank" class="mdl-layout__tab">源码</a>
-            <a href="https://github.com/hankcs/HanLP/blob/master/README.md" target="_blank" class="mdl-layout__tab">文档</a>
+            <a href="https://github.com/hankcs/HanLP/blob/master/README.md" target="_blank"
+               class="mdl-layout__tab">文档</a>
+            <a href="https://github.com/hankcs/HanLP/wiki/%E8%AE%BA%E6%96%87%E5%BC%95%E7%94%A8" target="_blank" class="mdl-layout__tab">引用</a>
             <a href="https://github.com/hankcs/HanLP/issues" target="_blank" class="mdl-layout__tab">FAQ</a>
         </div>
         <a
@@ -372,16 +378,22 @@
 
                     <li class="mdl-menu__item"><a href="http://nlp.hankcs.com/visualization/dep.php?conll={CONLL}"
                                                   target="_blank">全屏</a></li>
-                    <li class="mdl-menu__item"><a href="http://nlp.hankcs.com/visualization/dep.php?conll={CONLL}&download=1"
-                                                  target="_blank">下载</a></li>
+                    <li class="mdl-menu__item"><a
+                            href="http://nlp.hankcs.com/visualization/dep.php?conll={CONLL}&download=1"
+                            target="_blank">下载</a></li>
                 </ul>
             </section>
             <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
                 <div class="mdl-card mdl-cell mdl-cell--12-col">
                     <div class="mdl-card__supporting-text">
                         <h4>简介</h4>
-                        HanLP是由一系列模型与算法组成的Java工具包，目标是普及自然语言处理在生产环境中的应用。HanLP具备功能完善、性能高效、架构清晰、语料时新、可自定义的特点。
-                        提供词法分析（中文分词、词性标注、命名实体识别）、句法分析、文本分类和情感分析等功能。详见<a href="https://github.com/hankcs/HanLP" target="_blank">项目主页</a>。
+                        <p>
+                            HanLP是由一系列模型与算法组成的工具包，目标是普及自然语言处理在生产环境中的应用。HanLP具备功能完善、性能高效、架构清晰、语料时新、可自定义的特点；提供词法分析（中文分词、词性标注、命名实体识别）、句法分析、文本分类和情感分析等功能。
+                        </p>
+                        <p>
+                            HanLP已经被广泛用于Lucene、Solr、ElasticSearch、Hadoop、Android、Resin等平台，有大量开源作者开发各种插件与拓展，并且被包装或移植到Python、C#、R、JavaScript等语言上去。详见<a href="https://github.com/hankcs/HanLP"
+                                 target="_blank">项目主页</a>。
+                        </p>
                     </div>
                     <div class="mdl-card__actions">
                         <a href="https://github.com/hankcs/HanLP" target="_blank" class="mdl-button">Fork Me</a>
@@ -392,9 +404,17 @@
         <div class="mdl-layout__tab-panel" id="features">
             <section class="section--center mdl-grid mdl-grid--no-spacing">
                 <div class="mdl-cell mdl-cell--12-col">
-                        <code>
-                            pip install pyhanlp
-                        </code>
+                    <h5><a href="https://github.com/hankcs/pyhanlp" target="_blank">Python</a></h5>
+                    <p>
+                        <code>pip install pyhanlp
+                        </code></p>
+                    <h5>Java </h5>
+                    <pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.hankcs&lt;/groupId&gt;
+    &lt;artifactId&gt;hanlp&lt;/artifactId&gt;
+    &lt;version&gt;portable-1.6.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>请将版本号替换为右图所示最新版：<a href="https://maven-badges.herokuapp.com/maven-central/com.hankcs/hanlp/" rel="nofollow"><img src="https://camo.githubusercontent.com/dc6b1a87ebafd2c18a000887c063ab1415ddcdd6/68747470733a2f2f6d6176656e2d6261646765732e6865726f6b756170702e636f6d2f6d6176656e2d63656e7472616c2f636f6d2e68616e6b63732f68616e6c702f62616467652e737667" alt="Maven Central" data-canonical-src="https://maven-badges.herokuapp.com/maven-central/com.hankcs/hanlp/badge.svg" style="max-width:100%;"></a>
                 </div>
             </section>
         </div>
@@ -411,7 +431,8 @@
                     <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
                     <h1 class="mdl-mega-footer--heading">Licence</h1>
                     <ul class="mdl-mega-footer--link-list">
-                        <li><a href="https://github.com/hankcs/HanLP/blob/master/LICENSE" target="_blank">Apache License 2.0</a>
+                        <li><a href="https://github.com/hankcs/HanLP/blob/master/LICENSE" target="_blank">Apache License
+                            2.0</a>
                         </li>
                     </ul>
                 </div>
