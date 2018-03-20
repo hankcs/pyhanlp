@@ -158,9 +158,10 @@ hanlp segment --config path/to/another/hanlp.properties
 
 | 变量名 | 默认值 | 备注 |
 | --- | --- | --- |
-| HANLP\_STATIC\_ROOT | pyhanlp所在安装路径的static文件夹 | 配置文件hanlp.properties所在的目录| 
+| HANLP_STATIC_ROOT | pyhanlp所在安装路径的static文件夹 | 配置文件hanlp.properties所在的目录| 
 | HANLP_JAR_PATH | pyhanlp所在安装路径的static文件夹 | HanLP jar 包位置 | 
-
+| HANLP_JVM_XMS | 1g | Java 虚拟机 初始申请内存大小 |
+| HANLP_JVM_XMX | 1g | Java 虚拟机 可占用的最大内存 |
 
 注意：
 
