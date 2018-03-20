@@ -62,7 +62,8 @@ def hanlp_releases(cache=True):
         return HANLP_RELEASES
     # print('Request GitHub API')
     content = urllib.urlopen("https://api.github.com/repos/hankcs/HanLP/releases").read()
-    content = json.loads(content)
+    # https://stackoverflow.com/questions/48174702/python-unable-to-load-a-json-file-with-utf-8-encoding
+    content = json.loads(content.decode('utf-8-sig'))
     meta = []
     for r in content:
         jar_version = r['tag_name']
