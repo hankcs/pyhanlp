@@ -237,7 +237,7 @@ def uninstall_hanlp_jar(version='old'):
     if version == 'old':
         vs = hanlp_installed_jar_versions()
         if len(vs) > 1:
-            for v in vs[0:]:
+            for v in vs[1:]:
                 remove_file(hanlp_jar_path(v))
     else:
         remove_file(hanlp_jar_path(version))
