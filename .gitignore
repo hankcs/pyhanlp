@@ -108,3 +108,4 @@ pyhanlp/static/hanlp.properties
 tmp
 *.swp
 *.swo
+data
