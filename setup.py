@@ -14,7 +14,7 @@ else:
 
 setup(
     name='pyhanlp',
-    version='0.1.14',
+    version='0.1.15',
     description='Python wrapper for HanLP: Han Language Processing',
     long_description=long_description,
     url='https://github.com/hankcs/pyhanlp',
@@ -37,7 +37,7 @@ setup(
     keywords='corpus,machine-learning,NLU,NLP',
     packages=find_packages(exclude=['docs', 'tests*']),
     include_package_data=True,
-    install_requires=['jpype1', 'absl-py==0.1.10'],
+    install_requires=['jpype1'],
     entry_points={
         'console_scripts': [
             'hanlp=pyhanlp.main:main',

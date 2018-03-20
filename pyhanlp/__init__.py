@@ -6,6 +6,7 @@ from __future__ import division
 
 import os
 import sys
+
 curdir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(curdir, os.path.pardir))
 
@@ -21,7 +22,6 @@ if sys.version_info[0] < 3:
 ENVIRON = os.environ.copy()
 
 import os
-from absl import logging #absl-py
 from jpype import *
 
 '''
@@ -47,10 +47,16 @@ if "HANLP_JVM_XMX" in ENVIRON:
 else:
     HANLP_JVM_XMX = "1g"
 
+if "HANLP_VERBOSE" in ENVIRON:
+    HANLP_VERBOSE = int(ENVIRON["HANLP_VERBOSE"])
+else:
+    HANLP_VERBOSE = 0
+
 if os.path.exists(HANLP_JAR_PATH) and os.path.exists(STATIC_ROOT):
-    logging.debug("加载 HanLP jar [%s] ..." % HANLP_JAR_PATH)
-    logging.debug("加载 HanLP config [%s/hanlp.properties] ..." % (STATIC_ROOT))
-    logging.debug("加载 HanLP data [%s/data] ..." % (STATIC_ROOT))
+    if HANLP_VERBOSE:
+        print("加载 HanLP jar [%s] ..." % HANLP_JAR_PATH)
+        print("加载 HanLP config [%s/hanlp.properties] ..." % (STATIC_ROOT))
+        print("加载 HanLP data [%s/data] ..." % (STATIC_ROOT))
 else:
     raise BaseException(
         "Error: %s or %s does not exists." %
@@ -58,7 +64,7 @@ else:
 
 JAVA_JAR_CLASSPATH = "-Djava.class.path=%s%s%s" % (
     HANLP_JAR_PATH, os.pathsep, STATIC_ROOT)
-logging.debug("设置 JAVA_JAR_CLASSPATH [%s]" % JAVA_JAR_CLASSPATH)
+if HANLP_VERBOSE: print("设置 JAVA_JAR_CLASSPATH [%s]" % JAVA_JAR_CLASSPATH)
 # 启动JVM
 startJVM(
     getDefaultJVMPath(),

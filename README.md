@@ -163,6 +163,7 @@ hanlp segment --config path/to/another/hanlp.properties
 | HANLP_JVM_XMS | 1g | Java 虚拟机 初始申请内存大小 |
 | HANLP_JVM_XMX | 1g | Java 虚拟机 可占用的最大内存 |
 | HANLP_GOOGLE_UA | UA-XXXXX-X | Google Analytics 网站 id |
+| HANLP_VERBOSE | 0 | 调试日志开关 |
 
 注意：
 
