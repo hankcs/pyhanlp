@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# Author：hankcs
+# Author：hankcs, Hai Liang Wang<hailiang.hl.wang@gmail.com>
 # Date: 2018-03-18 19:49
 from __future__ import print_function
 from __future__ import division
@@ -21,8 +21,8 @@ if sys.version_info[0] < 3:
 ENVIRON = os.environ.copy()
 
 import os
+from absl import logging #absl-py
 from jpype import *
-
 
 '''
 Load variables in Environment
@@ -48,10 +48,9 @@ else:
     HANLP_JVM_XMX = "1g"
 
 if os.path.exists(HANLP_JAR_PATH) and os.path.exists(STATIC_ROOT):
-    pass  # 调试输出会干扰pipeline
-    # print("加载 HanLP jar [%s] ..." % HANLP_JAR_PATH)
-    # print("加载 HanLP config [%s/hanlp.properties] ..." % (STATIC_ROOT))
-    # print("加载 HanLP data [%s/data] ..." % (STATIC_ROOT))
+    logging.debug("加载 HanLP jar [%s] ..." % HANLP_JAR_PATH)
+    logging.debug("加载 HanLP config [%s/hanlp.properties] ..." % (STATIC_ROOT))
+    logging.debug("加载 HanLP data [%s/data] ..." % (STATIC_ROOT))
 else:
     raise BaseException(
         "Error: %s or %s does not exists." %
@@ -59,8 +58,7 @@ else:
 
 JAVA_JAR_CLASSPATH = "-Djava.class.path=%s%s%s" % (
     HANLP_JAR_PATH, os.pathsep, STATIC_ROOT)
-# print("设置 JAVA_JAR_CLASSPATH [%s]" % JAVA_JAR_CLASSPATH)
-# JAVA_JAR_CLASSPATH="-Djava.class.path=/pyhanlp/jars/hanlp-portable-1.6.0.jar"
+logging.debug("设置 JAVA_JAR_CLASSPATH [%s]" % JAVA_JAR_CLASSPATH)
 # 启动JVM
 startJVM(
     getDefaultJVMPath(),

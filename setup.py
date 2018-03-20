@@ -37,7 +37,7 @@ setup(
     keywords='corpus,machine-learning,NLU,NLP',
     packages=find_packages(exclude=['docs', 'tests*']),
     include_package_data=True,
-    install_requires=['jpype1'],
+    install_requires=['jpype1', 'absl-py==0.1.10'],
     entry_points={
         'console_scripts': [
             'hanlp=pyhanlp.main:main',
