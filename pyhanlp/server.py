@@ -17,6 +17,8 @@ Send a POST request::
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qs, urlparse, quote
 
+import re
+
 from pyhanlp import HanLP, ENVIRON
 from pyhanlp.static import INDEX_HTML
 
@@ -47,9 +49,11 @@ class S(BaseHTTPRequestHandler):
             s = params[SENTENCE]
             if len(s):
                 sentence = s[0].strip()
+        punctuation = re.compile('[。！？!?]')
+        sentence = sentence[:len(punctuation.split(sentence)[0]) + 1]
         MAX_LENGTH = 50
         if len(sentence) > MAX_LENGTH:
-            sentence = sentence[:MAX_LENGTH]
+            sentence = '请输入{}字以内的句子'.format(MAX_LENGTH)
         conll = quote(HanLP.parseDependency(sentence).__str__())
         self.write(TEMPLATE.replace('{SENTENCE}', sentence).replace('{CONLL}', conll)
                    .replace('{HANLP_GOOGLE_UA}', HANLP_GOOGLE_UA, 1)
