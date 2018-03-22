@@ -47,7 +47,7 @@ class S(BaseHTTPRequestHandler):
             s = params[SENTENCE]
             if len(s):
                 sentence = s[0].strip()
-        MAX_LENGTH = 200
+        MAX_LENGTH = 50
         if len(sentence) > MAX_LENGTH:
             sentence = sentence[:MAX_LENGTH]
         conll = quote(HanLP.parseDependency(sentence).__str__())
