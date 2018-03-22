@@ -84,6 +84,21 @@ class Test(unittest.TestCase):
             "随着页游兴起到现在的页游繁盛，依赖于存档进行逻辑判断的设计减少了，但这块也不能完全忽略掉。"]
         for sentence in testCases: print(HanLP.segment(sentence))
 
+
+    def test_custom_dict(self):
+        logging.info("test_custom_dict")
+        # 动态增加
+        text = "攻城狮逆袭单身狗，迎娶白富美，走上人生巅峰" # 怎么可能噗哈哈！
+        assert len(HanLP.segment(text)) == 12, "添加自定义词汇前，分词结果预期"
+
+        # 强行插入
+        CustomDictionary.add("攻城狮")
+        CustomDictionary.insert("白富美", "nz 1024")
+        CustomDictionary.add("单身狗", "nz 1024 n 1")
+        CustomDictionary.get("单身狗")
+        text = "攻城狮逆袭单身狗，迎娶白富美，走上人生巅峰" # 怎么可能噗哈哈！
+        assert len(HanLP.segment(text)) == 10, "添加自定义词汇后，分词结果预期"
+
 def test():
     unittest.main()
 

@@ -75,6 +75,7 @@ startJVM(
     HANLP_JVM_XMX)
 
 # API列表
+CustomDictionary = JClass('com.hankcs.hanlp.dictionary.CustomDictionary')  # HanLP工具类
 HanLP = JClass('com.hankcs.hanlp.HanLP')  # HanLP工具类
 PerceptronLexicalAnalyzer = JClass(
     'com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')
