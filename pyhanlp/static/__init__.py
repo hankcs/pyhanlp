@@ -81,14 +81,14 @@ def hanlp_releases(cache=True):
 
 
 def hanlp_installed_jar_versions():
-    # print(glob.glob(os.path.join(STATIC_ROOT, 'hanlp-portable-{}.jar'.format(version))))
+    # print(glob.glob(os.path.join(STATIC_ROOT, 'hanlp-{}.jar'.format(version))))
     # if not version:
     #     pass
     # if os.path.exists(version):
     #     pass
     versions = []
-    for jar in glob.glob(os.path.join(STATIC_ROOT, 'hanlp-portable-*.jar')):
-        versions.append(os.path.basename(jar)[len('hanlp-portable-'):-len('.jar')])
+    for jar in glob.glob(os.path.join(STATIC_ROOT, 'hanlp-*.jar')):
+        versions.append(os.path.basename(jar)[len('hanlp-'):-len('.jar')])
 
     versions = sorted(versions, reverse=True)
     if versions:
@@ -160,9 +160,16 @@ def download(url, path):
 def install_hanlp_jar(version=None):
     if version is None:
         version = hanlp_latest_version()[0]
-    url = 'http://search.maven.org/remotecontent?filepath=com/hankcs/hanlp/portable-{}/hanlp-portable-{}.jar'.format(
+    url = 'https://github.com/hankcs/HanLP/releases/download/v{}/hanlp-{}-release.zip'.format(
         version, version)
-    download(url, hanlp_jar_path(version))
+    jar_zip = os.path.join(STATIC_ROOT, 'hanlp-{}-release.zip'.format(version))
+    download(url, jar_zip)
+    with zipfile.ZipFile(jar_zip, "r") as archive:
+        # for f in archive.namelist():
+        #     print(f)
+        archive.extract('hanlp-{}-release/hanlp-{}.jar'.format(version, version), STATIC_ROOT)
+    # todo: jar is in pyhanlp/static/hanlp-1.6.0-release, should move to upper folder
+    remove_file(jar_zip)
     global HANLP_JAR_VERSION
     HANLP_JAR_VERSION = version
 
@@ -230,7 +237,7 @@ def read_config():
 
 
 def hanlp_jar_path(version):
-    return os.path.join(STATIC_ROOT, 'hanlp-portable-{}.jar'.format(version))
+    return os.path.join(STATIC_ROOT, 'hanlp-{}.jar'.format(version))
 
 
 def uninstall_hanlp_jar(version='old'):
