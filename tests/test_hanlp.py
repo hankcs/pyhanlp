@@ -54,7 +54,7 @@ class Test(unittest.TestCase):
 
     def test_analyze(self):
         logging.info("test_analyze")
-        analyzer = PerceptronLexicalAnalyzer()
+        analyzer = PerceptronLexicalAnalyzer
         print(analyzer.analyze("上海华安工业（集团）公司董事长谭旭光和秘书胡花蕊来到美国纽约现代艺术博物馆参观"))
         # 任何模型总会有失误，特别是98年这种陈旧的语料库
         print(analyzer.analyze("总统普京与特朗普通电话讨论太空探索技术公司"))
@@ -85,6 +85,21 @@ class Test(unittest.TestCase):
             "工信处女干事每月经过下属科室都要亲口交代24口交换机等技术性器件的安装工作",
             "随着页游兴起到现在的页游繁盛，依赖于存档进行逻辑判断的设计减少了，但这块也不能完全忽略掉。"]
         for sentence in testCases: print(HanLP.segment(sentence))
+
+
+    def test_custom_dict(self):
+        logging.info("test_custom_dict")
+        # 动态增加
+        text = "攻城狮逆袭单身狗，迎娶白富美，走上人生巅峰" # 怎么可能噗哈哈！
+        assert len(HanLP.segment(text)) == 12, "添加自定义词汇前，分词结果预期"
+
+        # 强行插入
+        CustomDictionary.add("攻城狮")
+        CustomDictionary.insert("白富美", "nz 1024")
+        CustomDictionary.add("单身狗", "nz 1024 n 1")
+        CustomDictionary.get("单身狗")
+        text = "攻城狮逆袭单身狗，迎娶白富美，走上人生巅峰" # 怎么可能噗哈哈！
+        assert len(HanLP.segment(text)) == 10, "添加自定义词汇后，分词结果预期"
 
 def test():
     unittest.main()

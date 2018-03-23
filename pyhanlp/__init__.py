@@ -65,6 +65,7 @@ else:
 JAVA_JAR_CLASSPATH = "-Djava.class.path=%s%s%s" % (
     HANLP_JAR_PATH, os.pathsep, STATIC_ROOT)
 if HANLP_VERBOSE: print("设置 JAVA_JAR_CLASSPATH [%s]" % JAVA_JAR_CLASSPATH)
+
 # 启动JVM
 startJVM(
     getDefaultJVMPath(),
@@ -74,7 +75,25 @@ startJVM(
     "-Xmx%s" %
     HANLP_JVM_XMX)
 
-# API列表
-HanLP = JClass('com.hankcs.hanlp.HanLP')  # HanLP工具类
-PerceptronLexicalAnalyzer = JClass(
-    'com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')
+'''
+API列表
+    use attachThreadToJVM to fix multi-thread issues: https://github.com/hankcs/pyhanlp/issues/7
+'''
+attach_jvm_to_thread = lambda : None if isThreadAttachedToJVM() else attachThreadToJVM()
+
+class AttachJVMWrapper(object):
+    def __init__(self, class_name, is_construct = False):
+        if is_construct:
+            self.proxy = JClass(class_name)()
+        else:
+            self.proxy = JClass(class_name)
+
+        # self.proxy = JClass('com.hankcs.hanlp.dictionary.CustomDictionary')  # HanLP工具类
+
+    def __getattr__(self, attr):
+        attach_jvm_to_thread()
+        return getattr(self.proxy, attr)
+
+CustomDictionary = AttachJVMWrapper('com.hankcs.hanlp.dictionary.CustomDictionary')
+HanLP = AttachJVMWrapper('com.hankcs.hanlp.HanLP')
+PerceptronLexicalAnalyzer = AttachJVMWrapper('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer', True)
