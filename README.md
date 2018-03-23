@@ -77,6 +77,8 @@ $ hanlp parse <<< '徐先生还具体帮助他确定了把画雄鹰、松鼠和�
 from pyhanlp import *
 
 print(HanLP.segment('你好，欢迎在Python中调用HanLP的API'))
+for term in HanLP.segment('下雨天地面积水'):
+            print('{}\t{}'.format(term.word, term.nature)) # 获取单词与词性
 testCases = [
     "商品和服务",
     "结婚的和尚未结婚的确实在干扰分词啊",
