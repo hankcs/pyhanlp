@@ -54,7 +54,7 @@ class Test(unittest.TestCase):
 
     def test_analyze(self):
         logging.info("test_analyze")
-        analyzer = PerceptronLexicalAnalyzer()
+        analyzer = PerceptronLexicalAnalyzer
         print(analyzer.analyze("上海华安工业（集团）公司董事长谭旭光和秘书胡花蕊来到美国纽约现代艺术博物馆参观"))
         # 任何模型总会有失误，特别是98年这种陈旧的语料库
         print(analyzer.analyze("总统普京与特朗普通电话讨论太空探索技术公司"))

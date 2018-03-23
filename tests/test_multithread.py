@@ -25,7 +25,7 @@ __date__      = "2018-03-23:17:18:30"
 import os
 import sys
 curdir = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(curdir)
+sys.path.append(os.path.join(curdir, os.path.pardir))
 
 if sys.version_info[0] < 3:
     reload(sys)
@@ -42,7 +42,7 @@ FLAGS = flags.FLAGS
 
 import threading
 import time
-from pyhanlp import *
+from pyhanlp import HanLP
 
 class MyThread (threading.Thread):
     def __init__(self, thread_id, name, counter, lock):
@@ -59,10 +59,9 @@ class MyThread (threading.Thread):
         # Free lock to release next thread
         self.lock.release()
 
-
 def print_time(thread_name, delay, counter):
     while counter:
-        time.sleep(delay)
+        # time.sleep(delay)
         print("%s: %s, seg: %s" % (thread_name, time.ctime(time.time()), HanLP.segment("攻城狮逆袭单身狗，迎娶白富美，走上人生巅峰")))
         counter -= 1
 
