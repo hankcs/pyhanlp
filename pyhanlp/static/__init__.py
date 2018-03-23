@@ -5,6 +5,7 @@ from __future__ import division
 from __future__ import print_function
 
 import os
+import shutil
 import sys
 
 curdir = os.path.dirname(os.path.abspath(__file__))
@@ -168,7 +169,10 @@ def install_hanlp_jar(version=None):
         # for f in archive.namelist():
         #     print(f)
         archive.extract('hanlp-{}-release/hanlp-{}.jar'.format(version, version), STATIC_ROOT)
-    # todo: jar is in pyhanlp/static/hanlp-1.6.0-release, should move to upper folder
+    zip_folder = os.path.join(STATIC_ROOT, 'hanlp-{}-release'.format(version))
+    jar_file_name = 'hanlp-{}.jar'.format(version)
+    os.rename(os.path.join(zip_folder, jar_file_name), os.path.join(STATIC_ROOT, jar_file_name))
+    shutil.rmtree(zip_folder)
     remove_file(jar_zip)
     global HANLP_JAR_VERSION
     HANLP_JAR_VERSION = version
@@ -244,6 +248,11 @@ def uninstall_hanlp_jar(version='old'):
     if version == 'old':
         vs = hanlp_installed_jar_versions()
         if len(vs) > 1:
+            if vs[0].startswith('portable'):
+                remove_file(hanlp_jar_path(vs[0]))
+                vs = vs[1:]
+                global HANLP_JAR_VERSION
+                HANLP_JAR_VERSION = vs[0]
             for v in vs[1:]:
                 remove_file(hanlp_jar_path(v))
     else:
@@ -269,4 +278,3 @@ HANLP_JAR_PATH = hanlp_jar_path(HANLP_JAR_VERSION)
 # print(hanlp_installed_data_versions())
 # download('http://storage.live.com/items/D4A741A579C555F7!65703:/data-for-1.6.0.zip', 'tmp')
 # print(hanlp_installed_data_version())
-# update_hanlp()

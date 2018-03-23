@@ -160,14 +160,14 @@ hanlp segment --config path/to/another/hanlp.properties
 
 注意：
 
-1. **使用pip初次安装 pyhanlp 后，不设置上述变量，程序会自动下载所需依赖到默认位置。如果是设置了上述变量，则不进行下载。因为文件比较大，网络下载稳定性等原因，建议提前准备好[jar](https://mvnrepository.com/artifact/com.hankcs/hanlp)包，[配置文件](https://github.com/hankcs/HanLP#3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)和[data](https://github.com/hankcs/HanLP#2%E4%B8%8B%E8%BD%BDdata)，并使用环境变量进行配置。**
+1. **使用pip初次安装 pyhanlp 后，不设置上述变量，程序会自动下载所需依赖到默认位置。如果是设置了上述变量，则不进行下载。因为文件比较大，网络下载稳定性等原因，建议提前准备好[jar](https://github.com/hankcs/HanLP/releases)包，[配置文件](https://github.com/hankcs/HanLP#3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)和[data](https://github.com/hankcs/HanLP#2%E4%B8%8B%E8%BD%BDdata)，并使用环境变量进行配置。**
 
 2. 保证 hanlp.properties 中的 root 是指向正确的data路径。
 
 比如：
 
 ```
-export HANLP_JAR_PATH=/hanlp/hanlp-portable-1.6.0.jar
+export HANLP_JAR_PATH=/hanlp/hanlp-1.6.0.jar
 export HANLP_STATIC_ROOT=/hanlp
 ```
 
@@ -180,7 +180,7 @@ hanlp
 │   ├── dictionary
 │   └── model
 ├── hanlp.properties
-└── hanlp-portable-1.6.0.jar
+└── hanlp-1.6.0.jar
 ```
 
 ## 测试
