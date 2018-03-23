@@ -81,30 +81,19 @@ API列表
 '''
 attach_jvm_to_thread = lambda : None if isThreadAttachedToJVM() else attachThreadToJVM()
 
-class CustomDictionaryWrapper(object):
-    def __init__(self):
-        self.proxy = JClass('com.hankcs.hanlp.dictionary.CustomDictionary')  # HanLP工具类
+class AttachJVMWrapper(object):
+    def __init__(self, class_name, is_construct = False):
+        if is_construct:
+            self.proxy = JClass(class_name)()
+        else:
+            self.proxy = JClass(class_name)
+
+        # self.proxy = JClass('com.hankcs.hanlp.dictionary.CustomDictionary')  # HanLP工具类
 
     def __getattr__(self, attr):
         attach_jvm_to_thread()
         return getattr(self.proxy, attr)
 
-class HanLPWrapper(object):
-    def __init__(self):
-        self.proxy = JClass('com.hankcs.hanlp.HanLP')  # HanLP工具类
-
-    def __getattr__(self, attr):
-        attach_jvm_to_thread()
-        return getattr(self.proxy, attr)
-
-class PerceptronLexicalAnalyzerWrapper(object):
-    def __init__(self):
-        self.proxy = JClass('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')()
-
-    def __getattr__(self, attr):
-        attach_jvm_to_thread()
-        return getattr(self.proxy, attr)
-
-CustomDictionary = CustomDictionaryWrapper()
-HanLP = HanLPWrapper()
-PerceptronLexicalAnalyzer = PerceptronLexicalAnalyzerWrapper()
+CustomDictionary = AttachJVMWrapper('com.hankcs.hanlp.dictionary.CustomDictionary')
+HanLP = AttachJVMWrapper('com.hankcs.hanlp.HanLP')
+PerceptronLexicalAnalyzer = AttachJVMWrapper('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer', True)
