@@ -83,8 +83,8 @@ attach_jvm_to_thread = lambda: None if isThreadAttachedToJVM() else attachThread
 
 
 class AttachJVMWrapper(object):
-    def __init__(self, class_name):
-        self.proxy = JClass(class_name)
+    def __init__(self, proxy):
+        self.proxy = JClass(proxy) if type(proxy) is str else proxy
 
     def __getattr__(self, attr):
         attach_jvm_to_thread()
@@ -92,10 +92,10 @@ class AttachJVMWrapper(object):
 
     def __call__(self, *args):
         if args:
-            self.proxy = self.proxy(*args)
+            proxy = self.proxy(*args)
         else:
-            self.proxy = self.proxy()
-        return self
+            proxy = self.proxy()
+        return AttachJVMWrapper(proxy)
 
 
 CustomDictionary = AttachJVMWrapper('com.hankcs.hanlp.dictionary.CustomDictionary')
