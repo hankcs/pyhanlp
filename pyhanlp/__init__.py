@@ -88,8 +88,6 @@ class AttachJVMWrapper(object):
         else:
             self.proxy = JClass(class_name)
 
-        # self.proxy = JClass('com.hankcs.hanlp.dictionary.CustomDictionary')  # HanLP工具类
-
     def __getattr__(self, attr):
         attach_jvm_to_thread()
         return getattr(self.proxy, attr)

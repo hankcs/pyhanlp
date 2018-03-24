@@ -54,14 +54,14 @@ class MyThread (threading.Thread):
 
     def run(self):
         print("Starting " + self.name)
-        self.lock.acquire()
-        print_time(self.name, self.counter, 3)
+        # self.lock.acquire()
+        print_time(self.name, self.counter, 10)
         # Free lock to release next thread
-        self.lock.release()
+        # self.lock.release()
 
 def print_time(thread_name, delay, counter):
     while counter:
-        # time.sleep(delay)
+        time.sleep(delay)
         print("%s: %s, seg: %s" % (thread_name, time.ctime(time.time()), HanLP.segment("攻城狮逆袭单身狗，迎娶白富美，走上人生巅峰")))
         counter -= 1
 
