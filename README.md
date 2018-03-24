@@ -1,6 +1,6 @@
 # pyhanlp: Python interfaces for HanLP
 
-HanLP的Python接口，支持自动下载与升级HanLP，兼容py2、py3。
+[HanLP](https://github.com/hankcs/HanLP)的Python接口，支持自动下载与升级[HanLP](https://github.com/hankcs/HanLP)，兼容py2、py3。
 
 ## 安装
 
@@ -8,13 +8,13 @@ HanLP的Python接口，支持自动下载与升级HanLP，兼容py2、py3。
 pip install pyhanlp
 ```
 
-使用命令`hanlp`来验证安装，如因网络等原因自动安装HanLP失败，可参考[《手动配置》](https://github.com/hankcs/pyhanlp#%E6%89%8B%E5%8A%A8%E9%85%8D%E7%BD%AE)。
+使用命令`hanlp`来验证安装，如因网络等原因自动安装[HanLP](https://github.com/hankcs/HanLP)失败，可参考[《手动配置》](https://github.com/hankcs/pyhanlp#%E6%89%8B%E5%8A%A8%E9%85%8D%E7%BD%AE)。
 
 ## 命令行
 
 ### 中文分词
 
-使用命令`hanlp segment`进入交互分词模式，输入一个句子并回车，HanLP会输出分词结果：
+使用命令`hanlp segment`进入交互分词模式，输入一个句子并回车，[HanLP](https://github.com/hankcs/HanLP)会输出分词结果：
 
 ```
 $ hanlp segment
@@ -65,18 +65,20 @@ $ hanlp parse <<< '徐先生还具体帮助他确定了把画雄鹰、松鼠和�
 
 ### 升级
 
-通过`hanlp update`命令来将HanLP升级到最新版。该命令会获取GitHub最新版本并自动下载安装。
+通过`hanlp update`命令来将[HanLP](https://github.com/hankcs/HanLP)升级到最新版。该命令会获取[HanLP主项目最新版本](https://github.com/hankcs/HanLP/releases)并自动下载安装。
 
 欢迎通过`hanlp --help`查看最新帮助手册。
 
 ## API
 
-通过工具类`HanLP`调用常用接口：
+通过工具类`[HanLP](https://github.com/hankcs/HanLP/blob/master/src/main/java/com/hankcs/hanlp/HanLP.java#L42)`调用常用接口：
 
 ```python
 from pyhanlp import *
 
 print(HanLP.segment('你好，欢迎在Python中调用HanLP的API'))
+for term in HanLP.segment('下雨天地面积水'):
+    print('{}\t{}'.format(term.word, term.nature)) # 获取单词与词性
 testCases = [
     "商品和服务",
     "结婚的和尚未结婚的确实在干扰分词啊",
@@ -111,7 +113,7 @@ print(HanLP.parseDependency("徐先生还具体帮助他确定了把画雄鹰、
 - 关键词提取、自动摘要
 - 文本分类、情感分析
 
-请阅读[HanLP主项目文档](https://github.com/hankcs/HanLP)以了解更多。调用更底层的API需要参考Java语法用JClass引入更深的类路径。以感知机词法分析器为例，这个类位于包名[`com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer`](https://github.com/hankcs/HanLP/blob/master/src/main/java/com/hankcs/hanlp/model/perceptron/PerceptronLexicalAnalyzer.java)下，所以先用`JClass`得到类，然后就可以调用了：
+请阅读[HanLP主项目文档](https://github.com/hankcs/HanLP/blob/master/README.md)以了解更多。调用更底层的API需要参考Java语法用JClass引入更深的类路径。以感知机词法分析器为例，这个类位于包名[`com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer`](https://github.com/hankcs/HanLP/blob/master/src/main/java/com/hankcs/hanlp/model/perceptron/PerceptronLexicalAnalyzer.java)下，所以先用`JClass`得到类，然后就可以调用了：
 
 ```
 PerceptronLexicalAnalyzer = JClass('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')
@@ -129,7 +131,7 @@ print(analyzer.analyze("上海华安工业（集团）公司董事长谭旭光�
 
 ## 与其他项目共享data
 
-HanLP具备高度可自定义的特点，所有模型和词典都可以自由替换。如果你希望与别的项目共享同一套data，只需将该项目的配置文件`hanlp.properties`拷贝到pyhanlp的安装目录下即可。本机安装目录可以通过`hanlp --version`获取。
+[HanLP](https://github.com/hankcs/HanLP)具备高度可自定义的特点，所有模型和词典都可以自由替换。如果你希望与别的项目共享同一套data，只需将该项目的配置文件`hanlp.properties`拷贝到pyhanlp的安装目录下即可。本机安装目录可以通过`hanlp --version`获取。
 
 同时，还可以通过`--config`临时加载另一个配置文件：
 
@@ -141,16 +143,16 @@ hanlp segment --config path/to/another/hanlp.properties
 
 ### 自动配置
 
-默认在首次调用HanLP时自动下载jar包和数据包，并自动完成配置。
+默认在首次调用`pyhanlp`时自动下载jar包和数据包，并自动完成配置。
 
 ### 手动配置
 
-如因网络等原因自动配置失败，可以通过设置环境变量来自定义HanLP版本和数据位置。
+如因网络等原因自动配置失败，可以通过设置环境变量来自定义[HanLP](https://github.com/hankcs/HanLP)版本和数据位置。
 
 | 变量名 | 默认值 | 备注 |
 | --- | --- | --- |
 | HANLP_STATIC_ROOT | pyhanlp所在安装路径的static文件夹 | 配置文件hanlp.properties所在的目录| 
-| HANLP_JAR_PATH | pyhanlp所在安装路径的static文件夹 | HanLP jar 包位置 | 
+| HANLP_JAR_PATH | pyhanlp所在安装路径的static文件夹 | [HanLP](https://github.com/hankcs/HanLP) jar 包位置 | 
 | HANLP_JVM_XMS | 1g | Java 虚拟机 初始申请内存大小 |
 | HANLP_JVM_XMX | 1g | Java 虚拟机 可占用的最大内存 |
 | HANLP_GOOGLE_UA | UA-XXXXX-X | Google Analytics 网站 id |
@@ -158,14 +160,14 @@ hanlp segment --config path/to/another/hanlp.properties
 
 注意：
 
-1. **使用pip初次安装 pyhanlp 后，不设置上述变量，程序会自动下载所需依赖到默认位置。如果是设置了上述变量，则不进行下载。因为文件比较大，网络下载稳定性等原因，建议提前准备好[jar](https://mvnrepository.com/artifact/com.hankcs/hanlp)包，[配置文件](https://github.com/hankcs/HanLP#3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)和[data](https://github.com/hankcs/HanLP#2%E4%B8%8B%E8%BD%BDdata)，并使用环境变量进行配置。**
+1. **使用pip初次安装 pyhanlp 后，不设置上述变量，程序会自动下载所需依赖到默认位置。如果是设置了上述变量，则不进行下载。因为文件比较大，网络下载稳定性等原因，建议提前准备好[jar](https://github.com/hankcs/HanLP/releases)包，[配置文件](https://github.com/hankcs/HanLP#3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)和[data](https://github.com/hankcs/HanLP#2%E4%B8%8B%E8%BD%BDdata)，并使用环境变量进行配置。**
 
 2. 保证 hanlp.properties 中的 root 是指向正确的data路径。
 
 比如：
 
 ```
-export HANLP_JAR_PATH=/hanlp/hanlp-portable-1.6.0.jar
+export HANLP_JAR_PATH=/hanlp/hanlp-1.6.0.jar
 export HANLP_STATIC_ROOT=/hanlp
 ```
 
@@ -178,7 +180,7 @@ hanlp
 │   ├── dictionary
 │   └── model
 ├── hanlp.properties
-└── hanlp-portable-1.6.0.jar
+└── hanlp-1.6.0.jar
 ```
 
 ## 测试
