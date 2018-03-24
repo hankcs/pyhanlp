@@ -71,7 +71,7 @@ $ hanlp parse <<< '徐先生还具体帮助他确定了把画雄鹰、松鼠和�
 
 ## API
 
-通过工具类`[HanLP](https://github.com/hankcs/HanLP/blob/master/src/main/java/com/hankcs/hanlp/HanLP.java#L42)`调用常用接口：
+通过工具类[`HanLP`](https://github.com/hankcs/HanLP/blob/master/src/main/java/com/hankcs/hanlp/HanLP.java#L42)调用常用接口：
 
 ```python
 from pyhanlp import *
