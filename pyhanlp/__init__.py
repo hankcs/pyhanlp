@@ -94,4 +94,5 @@ class AttachJVMWrapper(object):
 
 CustomDictionary = AttachJVMWrapper('com.hankcs.hanlp.dictionary.CustomDictionary')
 HanLP = AttachJVMWrapper('com.hankcs.hanlp.HanLP')
-PerceptronLexicalAnalyzer = AttachJVMWrapper('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer', True)
+# PerceptronLexicalAnalyzer = AttachJVMWrapper('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer', True)
+PerceptronLexicalAnalyzer = JClass('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')
