@@ -79,20 +79,25 @@ startJVM(
 API列表
     use attachThreadToJVM to fix multi-thread issues: https://github.com/hankcs/pyhanlp/issues/7
 '''
-attach_jvm_to_thread = lambda : None if isThreadAttachedToJVM() else attachThreadToJVM()
+attach_jvm_to_thread = lambda: None if isThreadAttachedToJVM() else attachThreadToJVM()
+
 
 class AttachJVMWrapper(object):
-    def __init__(self, class_name, is_construct = False):
-        if is_construct:
-            self.proxy = JClass(class_name)()
-        else:
-            self.proxy = JClass(class_name)
+    def __init__(self, class_name):
+        self.proxy = JClass(class_name)
 
     def __getattr__(self, attr):
         attach_jvm_to_thread()
         return getattr(self.proxy, attr)
 
+    def __call__(self, *args):
+        if args:
+            self.proxy = self.proxy(*args)
+        else:
+            self.proxy = self.proxy()
+        return self
+
+
 CustomDictionary = AttachJVMWrapper('com.hankcs.hanlp.dictionary.CustomDictionary')
 HanLP = AttachJVMWrapper('com.hankcs.hanlp.HanLP')
-# PerceptronLexicalAnalyzer = AttachJVMWrapper('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer', True)
-PerceptronLexicalAnalyzer = JClass('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')
+PerceptronLexicalAnalyzer = AttachJVMWrapper('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')
