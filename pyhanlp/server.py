@@ -14,13 +14,14 @@ Send a HEAD request::
 Send a POST request::
     curl -d "foo=bar&bin=baz" http://localhost
 """
+import random
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qs, urlparse, quote
 
 import re
 
-from pyhanlp import HanLP, ENVIRON
-from pyhanlp.static import INDEX_HTML
+from pyhanlp import HanLP, ENVIRON, PerceptronLexicalAnalyzer
+from pyhanlp.static import INDEX_HTML, HANLP_JAR_VERSION
 
 SENTENCE = 'sentence'
 TEMPLATE = 'Error'
@@ -29,6 +30,9 @@ if "HANLP_GOOGLE_UA" in ENVIRON:
     HANLP_GOOGLE_UA = ENVIRON["HANLP_GOOGLE_UA"]
 with open(INDEX_HTML) as src:
     TEMPLATE = src.read()
+lexical_analyzer = None
+if HANLP_JAR_VERSION >= '1.6.2':
+    lexical_analyzer = PerceptronLexicalAnalyzer()
 
 
 class S(BaseHTTPRequestHandler):
@@ -44,7 +48,18 @@ class S(BaseHTTPRequestHandler):
         params = parse_qs(urlparse(self.path).query)
         self._set_headers()
         # {'text': ['I looove iparser!']}
-        sentence = 'HanLP是面向生产环境的自然语言处理工具包。'
+        titles = ['HanLP是面向生产环境的自然语言处理工具包。',
+                  '上海华安工业（集团）公司董事长谭旭光和秘书张晚霞来到美国纽约现代艺术博物馆参观。',
+                  # '词法分析包括中文分词、词性标注和命名实体识别。',
+                  # '本页面词法分析采用的是感知机算法。',
+                  '剑桥分析公司多位高管对卧底记者说，他们确保了唐纳德·特朗普在总统大选中获胜。',
+                  '收件人在万博·齐都国际绿茵花园（东门）A8栋，靠近泰山护理职业学院。',
+                  '双桥街道双桥社区劳动和社会保障工作站地址是扬州市四望亭路293号双桥村4楼。',
+                  # '可以自由设置句法分析模块中的分词算法。',
+                  # '敬请注意本页面不接受过长的句子。',
+                  # '徐先生还具体帮助他确定了把画雄鹰、松鼠和麻雀作为主攻目标。',
+                  '香港特别行政区的张朝阳说商品和服务是三原县鲁桥食品厂的主营业务。']
+        sentence = random.choice(titles)
         if SENTENCE in params:
             s = params[SENTENCE]
             if len(s):
@@ -54,9 +69,13 @@ class S(BaseHTTPRequestHandler):
         MAX_LENGTH = 50
         if len(sentence) > MAX_LENGTH:
             sentence = '请输入{}字以内的句子'.format(MAX_LENGTH)
-        conll = quote(HanLP.parseDependency(sentence).__str__())
-        self.write(TEMPLATE.replace('{SENTENCE}', sentence).replace('{CONLL}', conll)
+        ann = '词法分析可视化仅支持 HanLP 1.6.2及以上版本'
+        if lexical_analyzer:
+            ann = lexical_analyzer.analyze(sentence).translateCompoundWordLabels().toStandoff().__str__()
+        conll = HanLP.parseDependency(sentence).__str__()
+        self.write(TEMPLATE.replace('{SENTENCE}', sentence).replace('{CONLL}', quote(conll))
                    .replace('{HANLP_GOOGLE_UA}', HANLP_GOOGLE_UA, 1)
+                   .replace('{ANN}', quote(ann))
                    )
 
     def do_HEAD(self):
