@@ -34,6 +34,10 @@ def main():
                             help='show installed versions of HanLP')
     task_parser = arg_parser.add_subparsers(dest="task", help='which task to perform?')
     segment_parser = task_parser.add_parser(name='segment', help='word segmentation')
+    tag_parser = segment_parser.add_mutually_exclusive_group(required=False)
+    tag_parser.add_argument('--tag', dest='tag', action='store_true', help='show part-of-speech tags')
+    tag_parser.add_argument('--no-tag', dest='tag', action='store_false', help='don\'t show part-of-speech tags')
+    segment_parser.set_defaults(tag=True)
     parse_parser = task_parser.add_parser(name='parse', help='dependency parsing')
     server_parser = task_parser.add_parser(name='serve', help='start http server', description='A http server for HanLP')
     server_parser.add_argument('--port', type=int, default=8765)
@@ -68,6 +72,8 @@ def main():
             die('Can\'t find config file {}'.format(args.config))
 
     if args.task == 'segment':
+        if not args.tag:
+            JClass('com.hankcs.hanlp.HanLP$Config').ShowTermNature = False
         for line in sys.stdin:
             line = line.strip()
             print(' '.join(term.toString() for term in HanLP.segment(any2utf8(line))))
