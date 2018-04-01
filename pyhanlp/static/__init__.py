@@ -130,14 +130,17 @@ def download(url, path):
     tmp_path = '{}.downloading'.format(path)
     try:
         def reporthook(count, block_size, total_size):
-            global start_time
+            global start_time, progress_size
             if count == 0:
                 start_time = time.time()
+                progress_size = 0
                 return
             duration = time.time() - start_time
             progress_size = int(count * block_size)
+            if progress_size > total_size:
+                progress_size = total_size
             speed = int(progress_size / (1024 * duration))
-            ratio = count * block_size / total_size
+            ratio = progress_size / total_size
             percent = ratio * 100
             eta = duration / ratio * (1 - ratio)
             minutes = eta / 60
