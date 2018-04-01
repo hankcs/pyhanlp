@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 # Author：hankcs
 # Date: 2018-03-19 01:05
-from __future__ import print_function
 from __future__ import division
+from __future__ import print_function
 
 import os
 import sys
@@ -18,7 +18,7 @@ if sys.version_info[0] < 3:
     # raise "Must be using Python 3"
 
 import argparse
-from jpype import JClass
+from jpype import JClass, JavaException
 
 from pyhanlp import HanLP
 from pyhanlp.static import eprint, PATH_CONFIG, update_hanlp, HANLP_JAR_VERSION, HANLP_JAR_PATH, HANLP_DATA_PATH, \
@@ -38,8 +38,11 @@ def main():
     tag_parser.add_argument('--tag', dest='tag', action='store_true', help='show part-of-speech tags')
     tag_parser.add_argument('--no-tag', dest='tag', action='store_false', help='don\'t show part-of-speech tags')
     segment_parser.set_defaults(tag=True)
+    segment_parser.add_argument('-a', '--algorithm', type=str, default='viterbi',
+                                help='algorithm of segmentation e.g. perceptron')
     parse_parser = task_parser.add_parser(name='parse', help='dependency parsing')
-    server_parser = task_parser.add_parser(name='serve', help='start http server', description='A http server for HanLP')
+    server_parser = task_parser.add_parser(name='serve', help='start http server',
+                                           description='A http server for HanLP')
     server_parser.add_argument('--port', type=int, default=8765)
     update_parser = task_parser.add_parser(name='update', help='update jar and data of HanLP')
 
@@ -72,11 +75,25 @@ def main():
             die('Can\'t find config file {}'.format(args.config))
 
     if args.task == 'segment':
+        segmenter = None
+        try:
+            segmenter = HanLP.newSegment(args.algorithm)
+        except JavaException as e:
+            if e.javaClass() == JClass('java.lang.IllegalArgumentException'):
+                die('invalid algorithm {}'.format(args.algorithm))
+            elif e.javaClass() == JClass('java.lang.RuntimeException'):
+                die('failed to load required model')
+
+        is_lexical_analyzer = hasattr(segmenter, 'analyze')
         if not args.tag:
-            JClass('com.hankcs.hanlp.HanLP$Config').ShowTermNature = False
+            if is_lexical_analyzer:
+                segmenter.enablePartOfSpeechTagging(False)
+                JClass('com.hankcs.hanlp.HanLP$Config').ShowTermNature = False
+            else:
+                JClass('com.hankcs.hanlp.HanLP$Config').ShowTermNature = False
         for line in sys.stdin:
             line = line.strip()
-            print(' '.join(term.toString() for term in HanLP.segment(any2utf8(line))))
+            print(' '.join(term.toString() for term in segmenter.seg(any2utf8(line))))
     elif args.task == 'parse':
         for line in sys.stdin:
             line = line.strip()
