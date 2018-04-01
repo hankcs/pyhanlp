@@ -149,6 +149,8 @@ def download(url, path):
                              (percent, progress_size / (1024 * 1024), speed, minutes, seconds))
             sys.stdout.flush()
 
+        import socket
+        socket.setdefaulttimeout(5)
         urllib.urlretrieve(url, tmp_path, reporthook)
         print()
     except:
@@ -211,12 +213,15 @@ def install_hanlp_data(the_jar_version):
             data_zip = 'data-for-{}.zip'.format(data_version)
             data_zip = os.path.join(STATIC_ROOT, data_zip)
             download(data_url, os.path.join(STATIC_ROOT, data_zip))
+            print('Extracting data.zip...')
             with zipfile.ZipFile(data_zip, "r") as zip_ref:
                 zip_ref.extractall(STATIC_ROOT)
             os.remove(data_zip)
             write_config(root=STATIC_ROOT)
             with open(PATH_DATA_VERSION, 'w') as f:
                 f.write(data_version)
+            global HANLP_DATA_VERSION
+            HANLP_DATA_VERSION = data_version
             return True
 
 
