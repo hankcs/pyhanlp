@@ -14,7 +14,7 @@ else:
 
 setup(
     name='pyhanlp',
-    version='0.1.31',
+    version='0.1.32',
     description='Python wrapper for HanLP: Han Language Processing',
     long_description=long_description,
     url='https://github.com/hankcs/pyhanlp',

@@ -7,8 +7,6 @@ from __future__ import print_function
 import os
 import sys
 
-from pyhanlp.util import any2utf8
-
 PY = 3
 if sys.version_info[0] < 3:
     PY = 2
@@ -19,10 +17,9 @@ if sys.version_info[0] < 3:
 
 import argparse
 from jpype import JClass, JavaException
-
-from pyhanlp import HanLP
-from pyhanlp.static import eprint, PATH_CONFIG, update_hanlp, HANLP_JAR_VERSION, HANLP_JAR_PATH, HANLP_DATA_PATH, \
+from pyhanlp import HanLP, PATH_CONFIG, HANLP_JAR_VERSION, HANLP_JAR_PATH, HANLP_DATA_PATH, \
     hanlp_installed_data_version, STATIC_ROOT
+from pyhanlp.util import any2utf8
 
 
 def main():
@@ -63,6 +60,9 @@ def main():
         exit(0)
 
     args = arg_parser.parse_args()
+
+    def eprint(*args, **kwargs):
+        print(*args, file=sys.stderr, **kwargs)
 
     def die(msg):
         eprint(msg)
@@ -105,7 +105,11 @@ def main():
         else:
             die('现在server.py暂时不支持Python2，欢迎参与移植')
     elif args.task == 'update':
-        update_hanlp()
+        if hanlp_installed_data_version() == '手动安装':
+            die('手动配置不支持自动升级，若要恢复自动安装，请清除HANLP相关环境变量')
+        else:
+            from pyhanlp.static import update_hanlp
+            update_hanlp()
 
 
 if __name__ == '__main__':

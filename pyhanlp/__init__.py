@@ -53,6 +53,15 @@ else:
     HANLP_VERBOSE = 0
 
 if os.path.exists(HANLP_JAR_PATH) and os.path.exists(STATIC_ROOT):
+    PATH_CONFIG = os.path.join(STATIC_ROOT, 'hanlp.properties')
+    HANLP_JAR_VERSION = os.path.basename(HANLP_JAR_PATH)[len('hanlp-'):-len('.jar')]
+    HANLP_DATA_PATH = os.path.join(STATIC_ROOT, 'data')
+
+
+    def hanlp_installed_data_version():
+        return '手动安装'
+
+
     if HANLP_VERBOSE:
         print("加载 HanLP jar [%s] ..." % HANLP_JAR_PATH)
         print("加载 HanLP config [%s/hanlp.properties] ..." % (STATIC_ROOT))
