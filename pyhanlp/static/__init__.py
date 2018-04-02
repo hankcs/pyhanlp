@@ -235,6 +235,8 @@ def install_hanlp_data(the_jar_version):
 
 
 def write_config(root=None):
+    if root and os.name == 'nt':
+        root = root.replace('\\', '/')  # For Windows
     content = []
     with open(PATH_CONFIG, encoding='utf-8') as f:
         for line in f:
