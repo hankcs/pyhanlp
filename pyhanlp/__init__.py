@@ -91,22 +91,26 @@ API列表
 attach_jvm_to_thread = lambda: None if isThreadAttachedToJVM() else attachThreadToJVM()
 
 
-class AttachJVMWrapper(object):
+class SafeJClass(object):
     def __init__(self, proxy):
-        self.proxy = JClass(proxy) if type(proxy) is str else proxy
+        """
+        JClass的线程安全版
+        :param proxy: Java类的完整路径，或者一个Java对象
+        """
+        self._proxy = JClass(proxy) if type(proxy) is str else proxy
 
     def __getattr__(self, attr):
         attach_jvm_to_thread()
-        return getattr(self.proxy, attr)
+        return getattr(self._proxy, attr)
 
     def __call__(self, *args):
         if args:
-            proxy = self.proxy(*args)
+            proxy = self._proxy(*args)
         else:
-            proxy = self.proxy()
-        return AttachJVMWrapper(proxy)
+            proxy = self._proxy()
+        return SafeJClass(proxy)
 
 
-CustomDictionary = AttachJVMWrapper('com.hankcs.hanlp.dictionary.CustomDictionary')
-HanLP = AttachJVMWrapper('com.hankcs.hanlp.HanLP')
-PerceptronLexicalAnalyzer = AttachJVMWrapper('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')
+CustomDictionary = SafeJClass('com.hankcs.hanlp.dictionary.CustomDictionary')
+HanLP = SafeJClass('com.hankcs.hanlp.HanLP')
+PerceptronLexicalAnalyzer = SafeJClass('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')
