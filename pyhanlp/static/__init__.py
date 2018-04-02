@@ -24,6 +24,7 @@ import json
 import re
 import zipfile
 from shutil import copyfile
+
 if PY == 3:
     import urllib.request as urllib
 else:
@@ -128,6 +129,7 @@ def download(url, path):
     # urllib.install_opener(opener)
     print('Downloading {} to {}'.format(url, path))
     tmp_path = '{}.downloading'.format(path)
+    remove_file(tmp_path)
     try:
         def reporthook(count, block_size, total_size):
             global start_time, progress_size
@@ -136,11 +138,13 @@ def download(url, path):
                 progress_size = 0
                 return
             duration = time.time() - start_time
+            duration = max(1e-8, duration)  # 防止除零错误
             progress_size = int(count * block_size)
             if progress_size > total_size:
                 progress_size = total_size
             speed = int(progress_size / (1024 * duration))
             ratio = progress_size / total_size
+            ratio = max(1e-8, ratio)
             percent = ratio * 100
             eta = duration / ratio * (1 - ratio)
             minutes = eta / 60
@@ -150,15 +154,20 @@ def download(url, path):
             sys.stdout.flush()
 
         import socket
-        socket.setdefaulttimeout(5)
+        socket.setdefaulttimeout(10)
         urllib.urlretrieve(url, tmp_path, reporthook)
         print()
-    except:
+    except Exception as e:
         try:
-            os.system('wget {} -O {}'.format(url, path))
+            if os.name != 'nt':
+                os.system('wget {} -O {}'.format(url, tmp_path))
+            else:
+                raise e
         except:
             eprint('Failed to download {}'.format(url))
+            eprint('Please refer to https://github.com/hankcs/pyhanlp for manually installation.')
             return False
+    remove_file(path)
     os.rename(tmp_path, path)
     return True
 
