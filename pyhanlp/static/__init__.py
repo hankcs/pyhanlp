@@ -100,7 +100,7 @@ def hanlp_installed_jar_versions():
 
 def hanlp_installed_data_version():
     try:
-        with open(os.path.join(HANLP_DATA_PATH, 'version.txt')) as f:
+        with open(os.path.join(HANLP_DATA_PATH, 'version.txt'), encoding='utf-8') as f:
             global HANLP_DATA_VERSION
             HANLP_DATA_VERSION = f.readlines()[0].strip()
             return HANLP_DATA_VERSION
@@ -218,7 +218,7 @@ def install_hanlp_data(the_jar_version):
                 zip_ref.extractall(STATIC_ROOT)
             os.remove(data_zip)
             write_config(root=STATIC_ROOT)
-            with open(PATH_DATA_VERSION, 'w') as f:
+            with open(PATH_DATA_VERSION, 'w', encoding='utf-8') as f:
                 f.write(data_version)
             global HANLP_DATA_VERSION
             HANLP_DATA_VERSION = data_version
@@ -227,13 +227,13 @@ def install_hanlp_data(the_jar_version):
 
 def write_config(root=None):
     content = []
-    with open(PATH_CONFIG) as f:
+    with open(PATH_CONFIG, encoding='utf-8') as f:
         for line in f:
             if root:
                 if line.startswith('root'):
                     line = 'root={}{}'.format(root, os.linesep)
             content.append(line)
-    with open(PATH_CONFIG, 'w') as f:
+    with open(PATH_CONFIG, 'w', encoding='utf-8') as f:
         f.writelines(content)
 
 
@@ -241,7 +241,7 @@ def read_config():
     root = None
     if not os.path.isfile(PATH_CONFIG):
         copyfile(PATH_CONFIG + '.in', PATH_CONFIG)
-    with open(PATH_CONFIG) as f:
+    with open(PATH_CONFIG, encoding='utf-8') as f:
         for line in f:
             if line.startswith('root'):
                 root = line.strip().split('=')[1]

@@ -28,7 +28,7 @@ TEMPLATE = 'Error'
 HANLP_GOOGLE_UA = 'UA-XXXXX-X'
 if "HANLP_GOOGLE_UA" in ENVIRON:
     HANLP_GOOGLE_UA = ENVIRON["HANLP_GOOGLE_UA"]
-with open(INDEX_HTML) as src:
+with open(INDEX_HTML, encoding='utf-8') as src:
     TEMPLATE = src.read()
 lexical_analyzer = None
 if HANLP_JAR_VERSION >= '1.6.2':
