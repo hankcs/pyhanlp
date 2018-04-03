@@ -29,8 +29,12 @@ Load variables in Environment
 '''
 if "HANLP_STATIC_ROOT" in ENVIRON:
     STATIC_ROOT = ENVIRON["HANLP_STATIC_ROOT"]
+
+
+    def hanlp_installed_data_version():
+        return '手动安装'
 else:
-    from pyhanlp.static import STATIC_ROOT
+    from pyhanlp.static import STATIC_ROOT, hanlp_installed_data_version
 
 if "HANLP_JAR_PATH" in ENVIRON:
     HANLP_JAR_PATH = ENVIRON["HANLP_JAR_PATH"]
@@ -56,11 +60,6 @@ if os.path.exists(HANLP_JAR_PATH) and os.path.exists(STATIC_ROOT):
     PATH_CONFIG = os.path.join(STATIC_ROOT, 'hanlp.properties')
     HANLP_JAR_VERSION = os.path.basename(HANLP_JAR_PATH)[len('hanlp-'):-len('.jar')]
     HANLP_DATA_PATH = os.path.join(STATIC_ROOT, 'data')
-
-
-    def hanlp_installed_data_version():
-        return '手动安装'
-
 
     if HANLP_VERBOSE:
         print("加载 HanLP jar [%s] ..." % HANLP_JAR_PATH)
