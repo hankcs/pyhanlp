@@ -16,9 +16,8 @@ from pyhanlp.util import any2utf8
 PY = 3
 if sys.version_info[0] < 3:
     PY = 2
-    # noinspection PyUnresolvedReferences
-    reload(sys)
-    sys.setdefaultencoding("utf-8")
+    # noinspection PyUnresolvedReferences,PyCompatibility
+    reload(sys), sys.setdefaultencoding("utf-8")
 
 
 def main():

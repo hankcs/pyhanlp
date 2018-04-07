@@ -10,9 +10,8 @@ from jpype import *
 
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.path.pardir))
 if sys.version_info[0] < 3:
-    # noinspection PyUnresolvedReferences
-    reload(sys)
-    sys.setdefaultencoding("utf-8")
+    # noinspection PyUnresolvedReferences,PyCompatibility
+    reload(sys), sys.setdefaultencoding("utf-8")
 
 
 def _start_jvm_for_hanlp():
