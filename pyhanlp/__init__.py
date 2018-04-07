@@ -5,8 +5,9 @@ from __future__ import division
 from __future__ import print_function
 
 import os
+import sys
 
-from jpype import *
+from jpype import JClass, startJVM, getDefaultJVMPath, isThreadAttachedToJVM, attachThreadToJVM
 
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.path.pardir))
 if sys.version_info[0] < 3:
@@ -76,7 +77,7 @@ def _start_jvm_for_hanlp():
 _start_jvm_for_hanlp()
 
 
-def attach_jvm_to_thread():
+def _attach_jvm_to_thread():
     """
     use attachThreadToJVM to fix multi-thread issues: https://github.com/hankcs/pyhanlp/issues/7
     """
@@ -93,7 +94,7 @@ class SafeJClass(object):
         self._proxy = JClass(proxy) if type(proxy) is str else proxy
 
     def __getattr__(self, attr):
-        attach_jvm_to_thread()
+        _attach_jvm_to_thread()
         return getattr(self._proxy, attr)
 
     def __call__(self, *args):
