@@ -6,6 +6,12 @@ from __future__ import print_function
 
 import os
 import sys
+import argparse
+from jpype import JClass, JavaException
+# noinspection PyUnresolvedReferences
+from pyhanlp import HanLP, PATH_CONFIG, HANLP_JAR_VERSION, HANLP_JAR_PATH, HANLP_DATA_PATH, \
+    hanlp_installed_data_version, STATIC_ROOT
+from pyhanlp.util import any2utf8
 
 PY = 3
 if sys.version_info[0] < 3:
@@ -13,13 +19,6 @@ if sys.version_info[0] < 3:
     # noinspection PyUnresolvedReferences
     reload(sys)
     sys.setdefaultencoding("utf-8")
-    # raise "Must be using Python 3"
-
-import argparse
-from jpype import JClass, JavaException
-from pyhanlp import HanLP, PATH_CONFIG, HANLP_JAR_VERSION, HANLP_JAR_PATH, HANLP_DATA_PATH, \
-    hanlp_installed_data_version, STATIC_ROOT
-from pyhanlp.util import any2utf8
 
 
 def main():
