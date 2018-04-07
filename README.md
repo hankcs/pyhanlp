@@ -8,7 +8,7 @@
 pip install pyhanlp
 ```
 
-使用命令`hanlp`来验证安装，如因网络等原因自动安装[HanLP](https://github.com/hankcs/HanLP)失败，可参考[《手动配置》](https://github.com/hankcs/pyhanlp#%E6%89%8B%E5%8A%A8%E9%85%8D%E7%BD%AE)。
+使用命令`hanlp`来验证安装，如因网络等原因自动安装失败，可参考[手动配置](https://github.com/hankcs/pyhanlp#%E6%89%8B%E5%8A%A8%E9%85%8D%E7%BD%AE)或[Windows指南](https://github.com/hankcs/pyhanlp/wiki/Windows)。
 
 ## 命令行
 
