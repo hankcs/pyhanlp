@@ -82,8 +82,27 @@ def _start_jvm_for_hanlp():
             print("加载 HanLP jar [%s] ..." % HANLP_JAR_PATH)
             print("加载 HanLP config [%s/hanlp.properties] ..." % (STATIC_ROOT))
             print("加载 HanLP data [%s/data] ..." % (STATIC_ROOT))
+    pathsep = os.pathsep
+    import platform
+    cygwin = platform.system().startswith('CYGWIN')
+    if cygwin:
+        jvmpath = getDefaultJVMPath()
+        if not jvmpath.startswith('/cygdrive'):  # CYGWIN 使用了宿主机器的JVM，必须将路径翻译为真实路径
+            pathsep = ';'
+            if STATIC_ROOT.startswith('/usr/lib'):
+                cygwin_root = os.popen('cygpath -w /').read().strip().replace('\\', '/')
+                STATIC_ROOT = cygwin_root + STATIC_ROOT[len('/usr'):]
+                HANLP_JAR_PATH = cygwin_root + HANLP_JAR_PATH[len('/usr'):]
+                PATH_CONFIG = cygwin_root + PATH_CONFIG[len('/usr'):]
+            elif STATIC_ROOT.startswith('/cygdrive'):
+                driver = STATIC_ROOT.split('/')
+                cygwin_driver = '/'.join(driver[:3])
+                win_driver = driver[2].upper() + ':'
+                HANLP_JAR_PATH = HANLP_JAR_PATH.replace(cygwin_driver, win_driver)
+                STATIC_ROOT = STATIC_ROOT.replace(cygwin_driver, win_driver)
+                PATH_CONFIG = PATH_CONFIG.replace(cygwin_driver, win_driver)
     JAVA_JAR_CLASSPATH = "-Djava.class.path=%s%s%s" % (
-        HANLP_JAR_PATH, os.pathsep, STATIC_ROOT)
+        HANLP_JAR_PATH, pathsep, STATIC_ROOT)
     if HANLP_VERBOSE: print("设置 JAVA_JAR_CLASSPATH [%s]" % JAVA_JAR_CLASSPATH)
     # 启动JVM
     startJVM(
