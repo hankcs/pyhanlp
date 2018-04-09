@@ -48,19 +48,35 @@ def _start_jvm_for_hanlp():
         HANLP_JVM_XMX = ENVIRON["HANLP_JVM_XMX"]
     else:
         HANLP_JVM_XMX = "1g"
-    if os.path.exists(HANLP_JAR_PATH) and os.path.exists(STATIC_ROOT):
-        PATH_CONFIG = os.path.join(STATIC_ROOT, 'hanlp.properties')
+    HANLP_DATA_PATH = os.path.join(STATIC_ROOT, 'data')
+    PATH_CONFIG = os.path.join(STATIC_ROOT, 'hanlp.properties')
+    if not os.path.exists(HANLP_JAR_PATH):
+        raise ValueError(
+            "配置错误: HANLP_JAR_PATH=%s 不存在" %
+            HANLP_JAR_PATH)
+    elif not os.path.isfile(HANLP_JAR_PATH) or not HANLP_JAR_PATH.endswith('.jar'):
+        raise ValueError(
+            "配置错误: HANLP_JAR_PATH=%s 不是jar文件" %
+            HANLP_JAR_PATH)
+    elif not os.path.exists(STATIC_ROOT):
+        raise ValueError(
+            "配置错误: STATIC_ROOT=%s 不存在" %
+            STATIC_ROOT)
+    elif not os.path.isdir(HANLP_DATA_PATH):
+        raise ValueError(
+            "配置错误: STATIC_ROOT=%s 目录下没有data文件夹" %
+            STATIC_ROOT)
+    elif not os.path.isfile(PATH_CONFIG):
+        raise ValueError(
+            "配置错误: STATIC_ROOT=%s 目录下没有hanlp.properties" %
+            STATIC_ROOT)
+    else:
         HANLP_JAR_VERSION = os.path.basename(HANLP_JAR_PATH)[len('hanlp-'):-len('.jar')]
-        HANLP_DATA_PATH = os.path.join(STATIC_ROOT, 'data')
 
         if HANLP_VERBOSE:
             print("加载 HanLP jar [%s] ..." % HANLP_JAR_PATH)
             print("加载 HanLP config [%s/hanlp.properties] ..." % (STATIC_ROOT))
             print("加载 HanLP data [%s/data] ..." % (STATIC_ROOT))
-    else:
-        raise BaseException(
-            "Error: %s or %s does not exists." %
-            (HANLP_JAR_PATH, STATIC_ROOT))
     JAVA_JAR_CLASSPATH = "-Djava.class.path=%s%s%s" % (
         HANLP_JAR_PATH, os.pathsep, STATIC_ROOT)
     if HANLP_VERBOSE: print("设置 JAVA_JAR_CLASSPATH [%s]" % JAVA_JAR_CLASSPATH)
