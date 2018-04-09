@@ -29,11 +29,12 @@ def _start_jvm_for_hanlp():
         STATIC_ROOT = ENVIRON["HANLP_STATIC_ROOT"]
         if HANLP_VERBOSE:
             print('使用环境变量 HANLP_STATIC_ROOT={}'.format(STATIC_ROOT))
+        HANLP_DATA_PATH = os.path.join(STATIC_ROOT, 'data')
 
         def hanlp_installed_data_version():
             return '手动安装'
     else:
-        from pyhanlp.static import STATIC_ROOT, hanlp_installed_data_version
+        from pyhanlp.static import STATIC_ROOT, hanlp_installed_data_version, HANLP_DATA_PATH
     if "HANLP_JAR_PATH" in ENVIRON:
         HANLP_JAR_PATH = ENVIRON["HANLP_JAR_PATH"]
         if HANLP_VERBOSE:
@@ -48,7 +49,6 @@ def _start_jvm_for_hanlp():
         HANLP_JVM_XMX = ENVIRON["HANLP_JVM_XMX"]
     else:
         HANLP_JVM_XMX = "1g"
-    HANLP_DATA_PATH = os.path.join(STATIC_ROOT, 'data')
     PATH_CONFIG = os.path.join(STATIC_ROOT, 'hanlp.properties')
     if not os.path.exists(HANLP_JAR_PATH):
         raise ValueError(
@@ -63,9 +63,14 @@ def _start_jvm_for_hanlp():
             "配置错误: STATIC_ROOT=%s 不存在" %
             STATIC_ROOT)
     elif not os.path.isdir(HANLP_DATA_PATH):
-        raise ValueError(
-            "配置错误: STATIC_ROOT=%s 目录下没有data文件夹" %
-            STATIC_ROOT)
+        if HANLP_DATA_PATH.startswith(STATIC_ROOT):
+            raise ValueError(
+                "配置错误: STATIC_ROOT=%s 目录下没有data文件夹" %
+                STATIC_ROOT)
+        else:
+            raise ValueError(
+                "配置错误: 数据包 %s 不存在，请修改配置文件中的root" %
+                HANLP_DATA_PATH)
     elif not os.path.isfile(PATH_CONFIG):
         raise ValueError(
             "配置错误: STATIC_ROOT=%s 目录下没有hanlp.properties" %
