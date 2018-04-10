@@ -6,6 +6,7 @@ from __future__ import print_function
 
 import os
 import sys
+import platform
 
 from jpype import JClass, startJVM, getDefaultJVMPath, isThreadAttachedToJVM, attachThreadToJVM
 
@@ -83,7 +84,7 @@ def _start_jvm_for_hanlp():
             print("加载 HanLP config [%s/hanlp.properties] ..." % (STATIC_ROOT))
             print("加载 HanLP data [%s/data] ..." % (STATIC_ROOT))
     pathsep = os.pathsep
-    if sys.platform.system().startswith('CYGWIN'):
+    if platform.system().startswith('CYGWIN'):
         jvmpath = getDefaultJVMPath()
         if not jvmpath.startswith('/cygdrive'):  # CYGWIN 使用了宿主机器的JVM，必须将路径翻译为真实路径
             pathsep = ';'

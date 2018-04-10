@@ -7,6 +7,7 @@ from __future__ import print_function
 import os
 import shutil
 import sys
+import platform
 
 curdir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(curdir, os.path.pardir))
@@ -136,48 +137,52 @@ def download(url, path):
     # opener.addheaders = [('User-agent',
     #                       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36')]
     # urllib.install_opener(opener)
-    print('Downloading {} to {}'.format(url, path))
-    tmp_path = '{}.downloading'.format(path)
-    remove_file(tmp_path)
-    try:
-        def reporthook(count, block_size, total_size):
-            global start_time, progress_size
-            if count == 0:
-                start_time = time.time()
-                progress_size = 0
-                return
-            duration = time.time() - start_time
-            duration = max(1e-8, duration)  # 防止除零错误
-            progress_size = int(count * block_size)
-            if progress_size > total_size:
-                progress_size = total_size
-            speed = int(progress_size / (1024 * duration))
-            ratio = progress_size / total_size
-            ratio = max(1e-8, ratio)
-            percent = ratio * 100
-            eta = duration / ratio * (1 - ratio)
-            minutes = eta / 60
-            seconds = eta % 60
-            sys.stdout.write("\r%.2f%%, %d MB, %d KB/s, ETA %d min %d s" %
-                             (percent, progress_size / (1024 * 1024), speed, minutes, seconds))
-            sys.stdout.flush()
-
-        import socket
-        socket.setdefaulttimeout(10)
-        urllib.urlretrieve(url, tmp_path, reporthook)
-        print()
-    except Exception as e:
+    if os.path.isfile(path):
+        print('Using local {}, ignore {}'.format(path, url))
+        return True
+    else:
+        print('Downloading {} to {}'.format(url, path))
+        tmp_path = '{}.downloading'.format(path)
+        remove_file(tmp_path)
         try:
-            if os.name != 'nt':
-                os.system('wget {} -O {}'.format(url, tmp_path))
-            else:
-                raise e
-        except:
-            eprint('Failed to download {}'.format(url))
-            eprint('Please refer to https://github.com/hankcs/pyhanlp for manually installation.')
-            return False
-    remove_file(path)
-    os.rename(tmp_path, path)
+            def reporthook(count, block_size, total_size):
+                global start_time, progress_size
+                if count == 0:
+                    start_time = time.time()
+                    progress_size = 0
+                    return
+                duration = time.time() - start_time
+                duration = max(1e-8, duration)  # 防止除零错误
+                progress_size = int(count * block_size)
+                if progress_size > total_size:
+                    progress_size = total_size
+                speed = int(progress_size / (1024 * duration))
+                ratio = progress_size / total_size
+                ratio = max(1e-8, ratio)
+                percent = ratio * 100
+                eta = duration / ratio * (1 - ratio)
+                minutes = eta / 60
+                seconds = eta % 60
+                sys.stdout.write("\r%.2f%%, %d MB, %d KB/s, ETA %d min %d s" %
+                                 (percent, progress_size / (1024 * 1024), speed, minutes, seconds))
+                sys.stdout.flush()
+
+            import socket
+            socket.setdefaulttimeout(10)
+            urllib.urlretrieve(url, tmp_path, reporthook)
+            print()
+        except Exception as e:
+            try:
+                if os.name != 'nt':
+                    os.system('wget {} -O {}'.format(url, tmp_path))
+                else:
+                    raise e
+            except:
+                eprint('Failed to download {}'.format(url))
+                eprint('Please refer to https://github.com/hankcs/pyhanlp for manually installation.')
+                return False
+        remove_file(path)
+        os.rename(tmp_path, path)
     return True
 
 
@@ -246,7 +251,7 @@ def install_hanlp_data(the_jar_version):
 def write_config(root=None):
     if root and os.name == 'nt':
         root = root.replace('\\', '/')  # For Windows
-    if root and sys.platform.system().startswith('CYGWIN'):  # For cygwin
+    if root and platform.system().startswith('CYGWIN'):  # For cygwin
         if root.startswith('/usr/lib'):
             cygwin_root = os.popen('cygpath -w /').read().strip().replace('\\', '/')
             root = cygwin_root + root[len('/usr'):]
