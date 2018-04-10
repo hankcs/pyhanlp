@@ -246,6 +246,15 @@ def install_hanlp_data(the_jar_version):
 def write_config(root=None):
     if root and os.name == 'nt':
         root = root.replace('\\', '/')  # For Windows
+    if sys.platform.system().startswith('CYGWIN'):  # For cygwin
+        if root.startswith('/usr/lib'):
+            cygwin_root = os.popen('cygpath -w /').read().strip().replace('\\', '/')
+            root = cygwin_root + root[len('/usr'):]
+        elif STATIC_ROOT.startswith('/cygdrive'):
+            driver = STATIC_ROOT.split('/')
+            cygwin_driver = '/'.join(driver[:3])
+            win_driver = driver[2].upper() + ':'
+            root = root.replace(cygwin_driver, win_driver)
     content = []
     with open_(PATH_CONFIG, encoding='utf-8') as f:
         for line in f:
