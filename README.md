@@ -8,7 +8,7 @@
 pip install pyhanlp
 ```
 
-使用命令`hanlp`来验证安装，如因网络等原因自动安装失败，可参考[手动配置](https://github.com/hankcs/pyhanlp#%E6%89%8B%E5%8A%A8%E9%85%8D%E7%BD%AE)或[Windows指南](https://github.com/hankcs/pyhanlp/wiki/Windows)。
+使用命令`hanlp`来验证安装，如因网络等原因自动安装失败，可参考[手动配置](https://github.com/hankcs/pyhanlp/wiki/%E6%89%8B%E5%8A%A8%E9%85%8D%E7%BD%AE)或[Windows指南](https://github.com/hankcs/pyhanlp/wiki/Windows)。
 
 ## 命令行
 
@@ -127,7 +127,7 @@ print(analyzer.analyze("上海华安工业（集团）公司董事长谭旭光�
 [上海/ns 华安/nz 工业/n （/w 集团/n ）/w 公司/n]/nt 董事长/n 谭旭光/nr 和/c 秘书/n 胡花蕊/nr 来到/v [美国/ns 纽约/ns 现代/t 艺术/n 博物馆/n]/ns 参观/v
 ```
 
-如果你经常使用某个类，欢迎将其写入`pyhanlp/__init__.py`中并提交pull request，谢谢！
+如果你需要多线程安全性，可使用`SafeJClass`；如果你需要延迟加载，可使用`LazyLoadingJClass`。如果你经常使用某个类，欢迎将其写入`pyhanlp/__init__.py`中并提交pull request，谢谢！
 
 ## 与其他项目共享data
 
@@ -139,63 +139,13 @@ print(analyzer.analyze("上海华安工业（集团）公司董事长谭旭光�
 hanlp segment --config path/to/another/hanlp.properties
 ```
 
-## 配置
-
-### 自动配置
-
-默认在首次调用`pyhanlp`时自动下载jar包和数据包，并自动完成配置。
-
-### 手动配置
-
-如因网络等原因自动配置失败，可以通过设置环境变量来自定义[HanLP](https://github.com/hankcs/HanLP)版本和数据位置。
-
-| 变量名 | 默认值 | 备注 |
-| --- | --- | --- |
-| **HANLP_STATIC_ROOT** | pyhanlp所在安装路径的static文件夹 | 配置文件hanlp.properties所在的目录| 
-| **HANLP_JAR_PATH** | pyhanlp所在安装路径的static文件夹 | [HanLP](https://github.com/hankcs/HanLP) jar 包位置 | 
-| HANLP_JVM_XMS | 1g | Java 虚拟机 初始申请内存大小 |
-| HANLP_JVM_XMX | 1g | Java 虚拟机 可占用的最大内存 |
-| HANLP_GOOGLE_UA | UA-XXXXX-X | Google Analytics 网站 id |
-| HANLP_VERBOSE | 0 | 调试日志开关 |
-
-注意：
-
-1. 使用pip初次安装 pyhanlp 后，不设置上述**加粗变量**，程序会自动下载所需依赖到默认位置。如果是设置了上述变量，则不进行下载。因为文件比较大，网络下载稳定性等原因，建议提前准备好[data](http://nlp.hankcs.com/download.php?file=data)、[jar与配置文件](http://nlp.hankcs.com/download.php?file=jar)，并使用环境变量进行配置。
-
-2. 保证 hanlp.properties 中的 root 是指向正确的data路径。
-
-比如：
-
-```
-export HANLP_JAR_PATH=/hanlp/hanlp-1.6.0.jar
-export HANLP_STATIC_ROOT=/hanlp
-tree $HANLP_STATIC_ROOT -L 2
-ll $HANLP_JAR_PATH
-cat $HANLP_STATIC_ROOT/hanlp.properties | grep root
-```
-
-就需要保证有如下的目录结构：
-
-```
-hanlp
-├── data
-│   ├── README.url
-│   ├── dictionary
-│   └── model
-├── hanlp.properties
-└── hanlp-1.6.0.jar
-root=/hanlp
-```
-
 ## 测试
 
 ```
 git clone https://github.com/hankcs/pyhanlp.git
 cd pyhanlp
-pip install -r requirements.txt # 安装依赖
-export HANLP_JAR_PATH=          # 配置环境变量
-export HANLP_STATIC_ROOT=       # 配置环境变量
-python tests/test_hanlp.py      # 执行测试
+pip install -e .
+python tests/test_hanlp.py
 ```
 
 
