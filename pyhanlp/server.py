@@ -20,12 +20,15 @@ from urllib.parse import parse_qs, urlparse, quote
 
 import re
 
-from pyhanlp import HanLP, ENVIRON, PerceptronLexicalAnalyzer
+import os
+
+from pyhanlp import HanLP, PerceptronLexicalAnalyzer
 from pyhanlp.static import INDEX_HTML, HANLP_JAR_VERSION
 
 SENTENCE = 'sentence'
 TEMPLATE = 'Error'
 HANLP_GOOGLE_UA = 'UA-XXXXX-X'
+ENVIRON = os.environ.copy()
 if "HANLP_GOOGLE_UA" in ENVIRON:
     HANLP_GOOGLE_UA = ENVIRON["HANLP_GOOGLE_UA"]
 with open(INDEX_HTML, encoding='utf-8') as src:

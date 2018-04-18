@@ -174,4 +174,3 @@ class LazyLoadingJClass(object):
 CustomDictionary = LazyLoadingJClass('com.hankcs.hanlp.dictionary.CustomDictionary')
 HanLP = SafeJClass('com.hankcs.hanlp.HanLP')
 PerceptronLexicalAnalyzer = SafeJClass('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')
-ENVIRON = os.environ.copy()
