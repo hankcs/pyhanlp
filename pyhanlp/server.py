@@ -74,6 +74,7 @@ class S(BaseHTTPRequestHandler):
                 sentence = s[0].strip()
         punctuation = re.compile('[。！？!?]')
         sentence = sentence[:len(punctuation.split(sentence)[0]) + 1]
+        sentence = sentence.replace(' ', '')
         MAX_LENGTH = 50
         if len(sentence) > MAX_LENGTH:
             sentence = '请输入{}字以内的句子'.format(MAX_LENGTH)

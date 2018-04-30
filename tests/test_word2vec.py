@@ -4,7 +4,7 @@
 import zipfile
 
 from pyhanlp import *
-from pyhanlp.static import download
+from pyhanlp.static import download, remove_file
 
 if not os.path.isdir('tests/data/'):
     print('请在项目根目录下运行本脚本')
@@ -15,6 +15,7 @@ if not os.path.isdir('tests/data/hanlp-wiki-vec-zh'):
     download('http://hanlp.linrunsoft.com/release/model/hanlp-wiki-vec-zh.zip', model_path)
     with zipfile.ZipFile(model_path, "r") as archive:
         archive.extractall('tests/data/')
+    remove_file(model_path)
 
 WordVectorModel = JClass('com.hankcs.hanlp.mining.word2vec.WordVectorModel')
 DocVectorModel = JClass('com.hankcs.hanlp.mining.word2vec.DocVectorModel')
