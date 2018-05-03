@@ -113,7 +113,7 @@ print(HanLP.parseDependency("徐先生还具体帮助他确定了把画雄鹰、
 - 关键词提取、自动摘要
 - 文本分类、情感分析
 
-请阅读[HanLP主项目文档](https://github.com/hankcs/HanLP/blob/master/README.md)以了解更多。调用更底层的API需要参考Java语法用JClass引入更深的类路径。以感知机词法分析器为例，这个类位于包名[`com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer`](https://github.com/hankcs/HanLP/blob/master/src/main/java/com/hankcs/hanlp/model/perceptron/PerceptronLexicalAnalyzer.java)下，所以先用`JClass`得到类，然后就可以调用了：
+请阅读[HanLP主项目文档](https://github.com/hankcs/HanLP/blob/master/README.md)和[demos目录](https://github.com/hankcs/pyhanlp/tree/master/tests/demos)以了解更多。调用更底层的API需要参考Java语法用JClass引入更深的类路径。以感知机词法分析器为例，这个类位于包名[`com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer`](https://github.com/hankcs/HanLP/blob/master/src/main/java/com/hankcs/hanlp/model/perceptron/PerceptronLexicalAnalyzer.java)下，所以先用`JClass`得到类，然后就可以调用了：
 
 ```
 PerceptronLexicalAnalyzer = JClass('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')
