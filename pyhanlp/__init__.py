@@ -174,3 +174,6 @@ class LazyLoadingJClass(object):
 CustomDictionary = LazyLoadingJClass('com.hankcs.hanlp.dictionary.CustomDictionary')
 HanLP = SafeJClass('com.hankcs.hanlp.HanLP')
 PerceptronLexicalAnalyzer = SafeJClass('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')
+DoubleArrayTrieSegment = SafeJClass('com.hankcs.hanlp.seg.Other.DoubleArrayTrieSegment')
+AhoCorasickDoubleArrayTrie = SafeJClass('com.hankcs.hanlp.collection.AhoCorasick.AhoCorasickDoubleArrayTrie')
+IOUtil = SafeJClass('com.hankcs.hanlp.corpus.io.IOUtil')
