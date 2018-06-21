@@ -4,19 +4,18 @@
 import zipfile
 import os
 
-from pyhanlp.static import download, remove_file
+from pyhanlp.static import download, remove_file, HANLP_DATA_PATH
 
 
 def test_data_path():
-    this_dir = os.getcwd()
-    # print(this_dir)
-    data_path = os.path.join(this_dir, 'data')
-    if os.path.isdir(data_path):
-        return data_path
-    data_path = os.path.join(this_dir[:this_dir.find('pyhanlp')], 'pyhanlp', 'tests', 'data')
-    if os.path.isdir(data_path):
-        return data_path
-    raise FileNotFoundError('找不到测试data目录，请在项目根目录下运行测试脚本')
+    """
+    获取测试数据路径，位于$root/data/test，根目录由配置文件指定。
+    :return:
+    """
+    data_path = os.path.join(HANLP_DATA_PATH, 'test')
+    if not os.path.isdir(data_path):
+        os.mkdir(data_path)
+    return data_path
 
 
 def ensure_data(data_name, data_url):
