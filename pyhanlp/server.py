@@ -14,16 +14,14 @@ Send a HEAD request::
 Send a POST request::
     curl -d "foo=bar&bin=baz" http://localhost
 """
+import os
 import random
+import re
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qs, urlparse, quote
 
-import re
-
-import os
-
-from pyhanlp import HanLP, PerceptronLexicalAnalyzer
-from pyhanlp.static import INDEX_HTML, HANLP_JAR_VERSION
+from pyhanlp import HanLP, JClass
+from pyhanlp.static import INDEX_HTML
 
 SENTENCE = 'sentence'
 TEMPLATE = 'Error'
@@ -33,9 +31,7 @@ if "HANLP_GOOGLE_UA" in ENVIRON:
     HANLP_GOOGLE_UA = ENVIRON["HANLP_GOOGLE_UA"]
 with open(INDEX_HTML, encoding='utf-8') as src:
     TEMPLATE = src.read()
-lexical_analyzer = None
-if HANLP_JAR_VERSION >= '1.6.2':
-    lexical_analyzer = PerceptronLexicalAnalyzer()
+lexical_analyzer = JClass('com.hankcs.hanlp.tokenizer.NLPTokenizer').ANALYZER
 
 
 class S(BaseHTTPRequestHandler):
