@@ -20,6 +20,7 @@ def train_or_load_classifier():
     classifier.train(corpus_path)
     model = classifier.getModel()
     IOUtil.saveObjectTo(model, model_path)
+    return model
 
 
 def predict(classifier, text):
