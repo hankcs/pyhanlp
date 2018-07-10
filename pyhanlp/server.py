@@ -76,7 +76,7 @@ class S(BaseHTTPRequestHandler):
             sentence = '请输入{}字以内的句子'.format(MAX_LENGTH)
         ann = '词法分析可视化仅支持 HanLP 1.6.2及以上版本'
         if lexical_analyzer:
-            ann = lexical_analyzer.analyze(sentence).translateCompoundWordLabels().toStandoff().__str__()
+            ann = lexical_analyzer.analyze(sentence).translateCompoundWordLabels().toStandoff(True).__str__()
         conll = HanLP.parseDependency(sentence).__str__()
         self.write(TEMPLATE.replace('{SENTENCE}', sentence).replace('{CONLL}', quote(conll))
                    .replace('{HANLP_GOOGLE_UA}', HANLP_GOOGLE_UA, 1)
