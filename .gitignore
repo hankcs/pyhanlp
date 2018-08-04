@@ -108,3 +108,5 @@ pyhanlp/static/hanlp.properties
 tmp
 *.swp
 *.swo
+/pyhanlp/static/*.java
+/pyhanlp/static/*.class
