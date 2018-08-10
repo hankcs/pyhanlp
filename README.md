@@ -148,6 +148,9 @@ pip install -e .
 python tests/test_hanlp.py
 ```
 
+## 反馈
+
+任何问题，请前往[HanLP issue区](https://github.com/hankcs/HanLP/issues)反馈，谢谢。
 
 ## 授权协议
 
