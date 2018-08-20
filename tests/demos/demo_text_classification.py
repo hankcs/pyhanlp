@@ -8,19 +8,19 @@ from tests.test_utility import ensure_data
 
 NaiveBayesClassifier = SafeJClass('com.hankcs.hanlp.classification.classifiers.NaiveBayesClassifier')
 IOUtil = SafeJClass('com.hankcs.hanlp.corpus.io.IOUtil')
+sogou_corpus_path = ensure_data('搜狗文本分类语料库迷你版',
+                                'http://hanlp.linrunsoft.com/release/corpus/sogou-text-classification-corpus-mini.zip')
 
 
 def train_or_load_classifier():
-    corpus_path = ensure_data('搜狗文本分类语料库迷你版',
-                              'http://hanlp.linrunsoft.com/release/corpus/sogou-text-classification-corpus-mini.zip')
-    model_path = corpus_path + '.ser'
+    model_path = sogou_corpus_path + '.ser'
     if os.path.isfile(model_path):
         return NaiveBayesClassifier(IOUtil.readObjectFrom(model_path))
     classifier = NaiveBayesClassifier()
-    classifier.train(corpus_path)
+    classifier.train(sogou_corpus_path)
     model = classifier.getModel()
     IOUtil.saveObjectTo(model, model_path)
-    return model
+    return NaiveBayesClassifier(model)
 
 
 def predict(classifier, text):
