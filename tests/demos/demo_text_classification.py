@@ -24,7 +24,9 @@ def train_or_load_classifier():
 
 
 def predict(classifier, text):
-    print("《%16s》\t属于分类\t【%s】" % (text, classifier.predict(text)))
+    print("《%16s》\t属于分类\t【%s】" % (text, classifier.classify(text)))
+    # 如需获取离散型随机变量的分布，请使用predict接口
+    # print("《%16s》\t属于分类\t【%s】" % (text, classifier.predict(text)))
 
 
 if __name__ == '__main__':
