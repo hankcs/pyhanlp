@@ -24,7 +24,7 @@ def train_or_load_classifier():
 
 
 def predict(classifier, text):
-    print("《%16s》\t属于分类\t【%s】" % (text, classifier.classify(text)))
+    print("《%16s》\t属于分类\t【%s】" % (text, classifier.predict(text)))
 
 
 if __name__ == '__main__':
