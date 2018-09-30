@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#===============================================================================
+# ===============================================================================
 #
 # Copyright (c) 2017 <> All Rights Reserved
 #
@@ -9,21 +9,17 @@
 # Author: Hai Liang Wang
 # Date: 2018-03-23:17:18:30
 #
-#===============================================================================
-
-"""
-   
-"""
+# ===============================================================================
 from __future__ import print_function
 from __future__ import division
 
 __copyright__ = "Copyright (c) 2017 . All Rights Reserved"
-__author__    = "Hai Liang Wang"
-__date__      = "2018-03-23:17:18:30"
-
+__author__ = "Hai Liang Wang"
+__date__ = "2018-03-23:17:18:30"
 
 import os
 import sys
+
 curdir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(curdir, os.path.pardir))
 
@@ -32,46 +28,36 @@ if sys.version_info[0] < 3:
     sys.setdefaultencoding("utf-8")
     # raise "Must be using Python 3"
 
-# Get ENV
-ENVIRON = os.environ.copy()
-
-from absl import flags   #absl-py
-from absl import logging #absl-py
+from absl import flags  # absl-py
+from absl import logging  # absl-py
 
 FLAGS = flags.FLAGS
-
+import unittest
 import threading
 import time
-from pyhanlp import HanLP
+from pyhanlp import HanLP, SafeJClass
 
-class MyThread (threading.Thread):
-    def __init__(self, thread_id, name, counter, lock):
+# 在线程体外部用SafeJClass线程安全地引入类名
+CRFLexicalAnalyzer = SafeJClass("com.hankcs.hanlp.model.crf.CRFLexicalAnalyzer")
+
+
+class MyThread(threading.Thread):
+    def __init__(self, name, counter, analyzer):
         threading.Thread.__init__(self)
-        self.threadID = thread_id
-        self.name = name
+        self.thread_name = name
         self.counter = counter
-        self.lock = lock
+        self.analyzer = analyzer
 
     def run(self):
-        print("Starting " + self.name)
-        # self.lock.acquire()
-        print_time(self.name, self.counter, 10)
-        # Free lock to release next thread
-        # self.lock.release()
+        print("Starting " + self.thread_name)
+        while self.counter:
+            time.sleep(1)
+            sentence = self.analyzer.analyze("商品和服务")
+            print("%s: %s, seg: %s" % (self.thread_name, time.ctime(time.time()), sentence))
+            self.counter -= 1
 
-def print_time(thread_name, delay, counter):
-    while counter:
-        time.sleep(delay)
-        print("%s: %s, seg: %s" % (thread_name, time.ctime(time.time()), HanLP.segment("攻城狮逆袭单身狗，迎娶白富美，走上人生巅峰")))
-        counter -= 1
 
-import unittest
-
-# run testcase: python /Users/hain/ai/pyhanlp/tests/test_multithread.py Test.testExample
 class Test(unittest.TestCase):
-    '''
-    
-    '''
     def setUp(self):
         pass
 
@@ -80,11 +66,11 @@ class Test(unittest.TestCase):
 
     def test_multithread(self):
         logging.info("test_multithread")
+        # 在线程外部创建对象，供多个线程共用
+        analyzer = CRFLexicalAnalyzer()
 
-        threadLock = threading.Lock()
-
-        thread1 = MyThread(1, "Thread-1", 1, threadLock)
-        thread2 = MyThread(2, "Thread-2", 2, threadLock)
+        thread1 = MyThread("Thread-1", 1, analyzer)
+        thread2 = MyThread("Thread-2", 2, analyzer)
 
         thread1.start()
         thread2.start()
@@ -96,9 +82,11 @@ class Test(unittest.TestCase):
 
         print("Exiting Main Thread")
 
+
 def test():
     unittest.main()
 
+
 if __name__ == '__main__':
-    FLAGS([__file__, '--verbosity', '1']) # DEBUG 1; INFO 0; WARNING -1
+    FLAGS([__file__, '--verbosity', '1'])  # DEBUG 1; INFO 0; WARNING -1
     test()
