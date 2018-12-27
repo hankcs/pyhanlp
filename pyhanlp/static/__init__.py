@@ -73,7 +73,11 @@ def hanlp_releases(cache=True):
     if cache and HANLP_RELEASES:
         return HANLP_RELEASES
     # print('Request GitHub API')
-    content = urllib.urlopen("https://api.github.com/repos/hankcs/HanLP/releases").read()
+    if PY == 3:
+        import ssl
+        content = urllib.urlopen("https://api.github.com/repos/hankcs/HanLP/releases", context=ssl._create_unverified_context()).read()
+    else:
+        content = urllib.urlopen("https://api.github.com/repos/hankcs/HanLP/releases").read()
     # https://stackoverflow.com/questions/48174702/python-unable-to-load-a-json-file-with-utf-8-encoding
     content = json.loads(content.decode('utf-8-sig'))
     meta = []
