@@ -4,6 +4,7 @@
 from __future__ import division
 from __future__ import print_function
 
+import glob
 import os
 import sys
 import platform
@@ -102,6 +103,11 @@ def _start_jvm_for_hanlp():
                 PATH_CONFIG = PATH_CONFIG.replace(cygwin_driver, win_driver)
     JAVA_JAR_CLASSPATH = "-Djava.class.path=%s%s%s" % (
         HANLP_JAR_PATH, pathsep, STATIC_ROOT)
+    # 加载插件jar
+    for jar in glob.glob(os.path.join(STATIC_ROOT, '*.jar')):
+        if HANLP_JAR_PATH.endswith(jar):
+            continue
+        JAVA_JAR_CLASSPATH = JAVA_JAR_CLASSPATH + pathsep + os.path.join(STATIC_ROOT, jar)
     if HANLP_VERBOSE: print("设置 JAVA_JAR_CLASSPATH [%s]" % JAVA_JAR_CLASSPATH)
     # 启动JVM
     startJVM(
