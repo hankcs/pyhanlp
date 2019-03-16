@@ -279,6 +279,7 @@ def read_config():
     root = None
     if not os.path.isfile(PATH_CONFIG):
         copyfile(PATH_CONFIG + '.in', PATH_CONFIG)
+        write_config(root=STATIC_ROOT)
     with open_(PATH_CONFIG, encoding='utf-8') as f:
         for line in f:
             if line.startswith('root'):
