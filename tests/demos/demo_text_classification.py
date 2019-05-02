@@ -9,7 +9,7 @@ from tests.test_utility import ensure_data
 NaiveBayesClassifier = SafeJClass('com.hankcs.hanlp.classification.classifiers.NaiveBayesClassifier')
 IOUtil = SafeJClass('com.hankcs.hanlp.corpus.io.IOUtil')
 sogou_corpus_path = ensure_data('搜狗文本分类语料库迷你版',
-                                'http://hanlp.linrunsoft.com/release/corpus/sogou-text-classification-corpus-mini.zip')
+                                'http://file.hankcs.com/corpus/sogou-text-classification-corpus-mini.zip')
 
 
 def train_or_load_classifier():

@@ -8,7 +8,7 @@ from tests.test_utility import ensure_data
 WordVectorModel = JClass('com.hankcs.hanlp.mining.word2vec.WordVectorModel')
 DocVectorModel = JClass('com.hankcs.hanlp.mining.word2vec.DocVectorModel')
 model_path = os.path.join(
-    ensure_data('hanlp-wiki-vec-zh', 'http://hanlp.linrunsoft.com/release/model/hanlp-wiki-vec-zh.zip'),
+    ensure_data('hanlp-wiki-vec-zh', 'http://file.hankcs.com/model/hanlp-wiki-vec-zh.zip'),
     'hanlp-wiki-vec-zh.txt')
 word2vec = WordVectorModel(model_path)
 doc2vec = DocVectorModel(word2vec)
