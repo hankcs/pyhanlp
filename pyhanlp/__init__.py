@@ -110,13 +110,22 @@ def _start_jvm_for_hanlp():
         JAVA_JAR_CLASSPATH = JAVA_JAR_CLASSPATH + pathsep + os.path.join(STATIC_ROOT, jar)
     if HANLP_VERBOSE: print("设置 JAVA_JAR_CLASSPATH [%s]" % JAVA_JAR_CLASSPATH)
     # 启动JVM
-    startJVM(
-        getDefaultJVMPath(),
-        JAVA_JAR_CLASSPATH,
-        "-Xms%s" %
-        HANLP_JVM_XMS,
-        "-Xmx%s" %
-        HANLP_JVM_XMX,convertStrings=False)
+    try:
+        startJVM(
+            getDefaultJVMPath(),
+            JAVA_JAR_CLASSPATH,
+            "-Xms%s" %
+            HANLP_JVM_XMS,
+            "-Xmx%s" %
+            HANLP_JVM_XMX, convertStrings=False)
+    except TypeError as e:  # TypeError: startJVM() got an unexpected keyword argument 'convertStrings'
+        startJVM(
+            getDefaultJVMPath(),
+            JAVA_JAR_CLASSPATH,
+            "-Xms%s" %
+            HANLP_JVM_XMS,
+            "-Xmx%s" %
+            HANLP_JVM_XMX)
 
 
 _start_jvm_for_hanlp()
