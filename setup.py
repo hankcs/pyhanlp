@@ -17,6 +17,7 @@ setup(
     version='0.1.46',
     description='Python wrapper for HanLP: Han Language Processing',
     long_description=long_description,
+    long_description_content_type="text/markdown",
     url='https://github.com/hankcs/pyhanlp',
     author='hankcs',
     author_email='hankcshe@gmail.com',
