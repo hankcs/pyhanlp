@@ -116,7 +116,7 @@ def _start_jvm_for_hanlp():
         "-Xms%s" %
         HANLP_JVM_XMS,
         "-Xmx%s" %
-        HANLP_JVM_XMX)
+        HANLP_JVM_XMX,convertStrings=False)
 
 
 _start_jvm_for_hanlp()
