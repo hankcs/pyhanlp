@@ -117,7 +117,7 @@ def _start_jvm_for_hanlp():
             "-Xms%s" %
             HANLP_JVM_XMS,
             "-Xmx%s" %
-            HANLP_JVM_XMX, convertStrings=False)
+            HANLP_JVM_XMX, convertStrings=True)
     except TypeError as e:  # TypeError: startJVM() got an unexpected keyword argument 'convertStrings'
         startJVM(
             getDefaultJVMPath(),
