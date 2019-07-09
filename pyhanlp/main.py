@@ -7,12 +7,7 @@ from __future__ import print_function
 import os
 import sys
 import argparse
-from jpype import JClass
-try:
-    from jpype import JavaException
-except ImportError:
-    from jpype import JException as JavaException
-
+from jpype import JClass, JException, java
 # noinspection PyUnresolvedReferences
 from pyhanlp import HanLP, PATH_CONFIG, HANLP_JAR_VERSION, HANLP_JAR_PATH, HANLP_DATA_PATH, \
     hanlp_installed_data_version, STATIC_ROOT
@@ -81,11 +76,13 @@ def main():
         segmenter = None
         try:
             segmenter = HanLP.newSegment(args.algorithm)
-        except JavaException as e:
-            if e.javaClass() == JClass('java.lang.IllegalArgumentException'):
+        except JException as e:
+            if isinstance(e, java.lang.IllegalArgumentException):
                 die('invalid algorithm {}'.format(args.algorithm))
-            elif e.javaClass() == JClass('java.lang.RuntimeException'):
+            elif isinstance(e, java.lang.RuntimeException):
                 die('failed to load required model')
+            else:
+                die('unknown exception {}'.format(repr(e)))
 
         is_lexical_analyzer = hasattr(segmenter, 'analyze')
         if not args.tag:
