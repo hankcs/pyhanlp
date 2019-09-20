@@ -5,6 +5,7 @@ from __future__ import division
 from __future__ import print_function
 
 import os
+import random
 import shutil
 import sys
 import platform
@@ -85,11 +86,14 @@ def hanlp_releases(cache=True):
         jar_version = r['tag_name']
         if jar_version.startswith('v'):
             jar_version = jar_version[1:]
-        m = re.search(r'\[(data-for-.*?\.zip)\]\((.*?)\)', r['body'])
-        data_version, data_url = None, None
-        if m and len(m.groups()) == 2:
-            data_version = m.group(1)[len('data-for-'):-len('.zip')]
-            data_url = m.group(2)
+        data_version, data_url = None, []
+        for m in re.finditer(r"http://.*?/data-for-(.*?)\.zip", r['body'], re.MULTILINE):
+            data_version = m.group(1)
+            data_url.append(m.group(0))
+        if data_url:
+            data_url = random.choice(data_url)
+        else:
+            data_url = None
         meta.append((jar_version, data_version, data_url))
 
     HANLP_RELEASES = meta
