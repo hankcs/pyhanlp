@@ -1,6 +1,6 @@
 # pyhanlp: Python interfaces for HanLP
 
-[HanLP](https://github.com/hankcs/HanLP)的Python接口，支持自动下载与升级[HanLP](https://github.com/hankcs/HanLP)，兼容py2、py3。
+[HanLP](https://github.com/hankcs/HanLP)的Python接口，支持自动下载与升级[HanLP](https://github.com/hankcs/HanLP)，兼容py2、py3。内部算法经过工业界和学术界考验，配套书籍[《自然语言处理入门》](http://nlp.hankcs.com/book.php)已经出版，欢迎查阅[随书代码](https://github.com/hankcs/pyhanlp/tree/master/tests/book)。
 
 ## 安装
 
@@ -150,7 +150,15 @@ python tests/test_hanlp.py
 
 ## 反馈
 
-任何问题，请前往[HanLP issue区](https://github.com/hankcs/HanLP/issues)反馈，谢谢。
+任何问题，请前往[HanLP issue区](https://github.com/hankcs/HanLP/issues)或[论坛](https://bbs.hankcs.com/)反馈，谢谢。
+
+## [《自然语言处理入门》](http://nlp.hankcs.com/book.php)
+
+![img](http://file.hankcs.com/img/nlp-book-squre.jpg)
+
+一本配套HanLP的NLP入门书，基础理论与生产代码并重，Python与Java双实现。从基本概念出发，逐步介绍中文分词、词性标注、命名实体识别、信息抽取、文本聚类、文本分类、句法分析这几个热门问题的算法原理与工程实现。书中通过对多种算法的讲解，比较了它们的优缺点和适用场景，同时详细演示生产级成熟代码，助你真正将自然语言处理应用在生产环境中。
+
+[《自然语言处理入门》](http://nlp.hankcs.com/book.php)由南方科技大学数学系创系主任夏志宏、微软亚洲研究院副院长周明、字节跳动人工智能实验室总监李航、华为诺亚方舟实验室语音语义首席科学家刘群、小米人工智能实验室主任兼NLP首席科学家王斌、中国科学院自动化研究所研究员宗成庆、清华大学副教授刘知远、北京理工大学副教授张华平和52nlp作序推荐。感谢各位前辈老师，希望这个项目和这本书能成为大家工程和学习上的“蝴蝶效应”，帮助大家在NLP之路上蜕变成蝶。
 
 ## 授权协议
 
