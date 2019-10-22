@@ -12,10 +12,18 @@ class DoubleArrayTrie(object):
         m = JClass('java.util.TreeMap')()
         for k, v in dic.items():
             m[k] = v
-        dat = JClass('com.hankcs.hanlp.collection.trie.DoubleArrayTrie')(m)
-        self.base = dat.base
-        self.check = dat.check
-        self.value = dat.v
+        DoubleArrayTrie = JClass('com.hankcs.hanlp.collection.trie.DoubleArrayTrie')
+        dat = DoubleArrayTrie(m)
+        # 自jpype 0.7起，使用反射技术获取私有成员，等效于下列三句话
+        # self.base = dat.base
+        # self.check = dat.check
+        # self.value = dat.v
+        DoubleArrayTrie.class_.getDeclaredField('base').setAccessible(True)
+        DoubleArrayTrie.class_.getDeclaredField('check').setAccessible(True)
+        DoubleArrayTrie.class_.getDeclaredField('v').setAccessible(True)
+        self.base = DoubleArrayTrie.class_.getDeclaredField('base').get(dat)
+        self.check = DoubleArrayTrie.class_.getDeclaredField('check').get(dat)
+        self.value = DoubleArrayTrie.class_.getDeclaredField('v').get(dat)
 
     @staticmethod
     def char_hash(c) -> int:
