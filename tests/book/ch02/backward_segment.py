@@ -17,6 +17,7 @@ def backward_segment(text, dic):
             if word in dic:
                 if len(word) > len(longest_word):   # 越长优先级越高
                     longest_word = word
+                    break
         word_list.insert(0, longest_word)           # 逆向扫描，所以越先查出的单词在位置上越靠后
         i -= len(longest_word)
     return word_list
