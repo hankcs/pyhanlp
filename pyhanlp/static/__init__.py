@@ -15,6 +15,7 @@ sys.path.append(os.path.join(curdir, os.path.pardir))
 PY = 3
 if sys.version_info[0] < 3:
     PY = 2
+    # noinspection PyUnresolvedReferences
     reload(sys)
     sys.setdefaultencoding("utf-8")
     # raise "Must be using Python 3"
@@ -77,8 +78,8 @@ def hanlp_releases(cache=True):
     else:
         content = urllib.urlopen("http://nlp.hankcs.com/download.php?file=version").read()
     content = json.loads(content.decode())
-    jar_version, data_version, data_url = content
-    meta = [(jar_version, data_version, data_url)]
+    jar_version, jar_url, data_version, data_url = content
+    meta = [(jar_version, jar_url, data_version, data_url)]
     HANLP_RELEASES = meta
     return meta
 
@@ -163,39 +164,30 @@ def download(url, path):
             urllib.urlretrieve(url, tmp_path, reporthook)
             print()
         except Exception as e:
-            try:
-                if os.name != 'nt':
-                    os.system('wget {} -O {}'.format(url, tmp_path))
-                else:
-                    raise e
-            except Exception as e:
-                eprint('Failed to download {} due to {}'.format(url, repr(e)))
-                eprint('Please refer to https://github.com/hankcs/pyhanlp for manually installation.')
-                eprint('Or try to download {} to {} by yourself'.format(url, path))
-                exit(1)
+            eprint('Failed to download {} due to {}'.format(url, repr(e)))
+            eprint('Please refer to https://github.com/hankcs/pyhanlp for manually installation.')
+            eprint('Or try to download {} to {} by yourself'.format(url, path))
+            exit(1)
         remove_file(path)
         os.rename(tmp_path, path)
     return True
 
 
-def install_hanlp_jar(version=None):
-    if version is None:
-        version = hanlp_latest_version()[0]
-    url = 'https://github.com/hankcs/HanLP/releases/download/v{}/hanlp-{}-release.zip'.format(
-        version, version)
-    jar_zip = os.path.join(STATIC_ROOT, 'hanlp-{}-release.zip'.format(version))
-    download(url, jar_zip)
+def install_hanlp_jar():
+    jar_version, jar_url, data_version, data_url = hanlp_latest_version()
+    jar_zip = os.path.join(STATIC_ROOT, 'hanlp-{}-release.zip'.format(jar_version))
+    download(jar_url, jar_zip)
     with zipfile.ZipFile(jar_zip, "r") as archive:
         # for f in archive.namelist():
         #     print(f)
-        archive.extract('hanlp-{}-release/hanlp-{}.jar'.format(version, version), STATIC_ROOT)
-    zip_folder = os.path.join(STATIC_ROOT, 'hanlp-{}-release'.format(version))
-    jar_file_name = 'hanlp-{}.jar'.format(version)
+        archive.extract('hanlp-{}-release/hanlp-{}.jar'.format(jar_version, jar_version), STATIC_ROOT)
+    zip_folder = os.path.join(STATIC_ROOT, 'hanlp-{}-release'.format(jar_version))
+    jar_file_name = 'hanlp-{}.jar'.format(jar_version)
     os.rename(os.path.join(zip_folder, jar_file_name), os.path.join(STATIC_ROOT, jar_file_name))
     shutil.rmtree(zip_folder)
     remove_file(jar_zip)
     global HANLP_JAR_VERSION
-    HANLP_JAR_VERSION = version
+    HANLP_JAR_VERSION = jar_version
 
 
 def update_hanlp():
@@ -221,7 +213,7 @@ def update_hanlp_jar():
 
 
 def install_hanlp_data(the_jar_version=HANLP_JAR_VERSION):
-    for jar_version, data_version, data_url in hanlp_releases():
+    for jar_version, jar_url, data_version, data_url in hanlp_releases():
         if jar_version == the_jar_version:
             if data_version == hanlp_installed_data_version():
                 return False
