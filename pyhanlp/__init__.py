@@ -9,7 +9,7 @@ import os
 import sys
 import platform
 
-from jpype import JClass, startJVM, getDefaultJVMPath, isThreadAttachedToJVM, attachThreadToJVM
+from jpype import JClass, startJVM, getDefaultJVMPath, isThreadAttachedToJVM, attachThreadToJVM, java, shutdownJVM
 
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.path.pardir))
 if sys.version_info[0] < 3:
@@ -117,6 +117,15 @@ def _start_jvm_for_hanlp():
         HANLP_JVM_XMS,
         "-Xmx%s" %
         HANLP_JVM_XMX, convertStrings=True)
+    # 确保启动正常
+    try:
+        JClass('com.hankcs.hanlp.HanLP')
+    except java.lang.NoClassDefFoundError as e:
+        from pyhanlp.static import install_hanlp_jar, eprint
+        eprint('Your {} is broken. Now re-downloading.'.format(HANLP_JAR_PATH))
+        install_hanlp_jar()
+        eprint('Successfully downloaded. Please restart your program.')
+        exit(1)
 
 
 _start_jvm_for_hanlp()
