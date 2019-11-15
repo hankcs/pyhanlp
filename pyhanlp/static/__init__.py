@@ -76,7 +76,8 @@ def hanlp_releases(cache=True):
     # print('Request GitHub API')
     if PY == 3:
         import ssl
-        content = urllib.urlopen("https://api.github.com/repos/hankcs/HanLP/releases", context=ssl._create_unverified_context()).read()
+        content = urllib.urlopen("https://api.github.com/repos/hankcs/HanLP/releases",
+                                 context=ssl._create_unverified_context()).read()
     else:
         content = urllib.urlopen("https://api.github.com/repos/hankcs/HanLP/releases").read()
     # https://stackoverflow.com/questions/48174702/python-unable-to-load-a-json-file-with-utf-8-encoding
@@ -185,10 +186,11 @@ def download(url, path):
                     os.system('wget {} -O {}'.format(url, tmp_path))
                 else:
                     raise e
-            except:
-                eprint('Failed to download {}'.format(url))
+            except Exception as e:
+                eprint('Failed to download {} due to {}'.format(url, repr(e)))
                 eprint('Please refer to https://github.com/hankcs/pyhanlp for manually installation.')
-                return False
+                eprint('Or try to download {} to {} by yourself'.format(url, path))
+                exit(1)
         remove_file(path)
         os.rename(tmp_path, path)
     return True
@@ -236,7 +238,7 @@ def update_hanlp_jar():
     return True
 
 
-def install_hanlp_data(the_jar_version):
+def install_hanlp_data(the_jar_version=HANLP_JAR_VERSION):
     for jar_version, data_version, data_url in hanlp_releases():
         if jar_version == the_jar_version:
             if data_version == hanlp_installed_data_version():
