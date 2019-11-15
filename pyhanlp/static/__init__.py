@@ -5,10 +5,9 @@ from __future__ import division
 from __future__ import print_function
 
 import os
-import random
+import platform
 import shutil
 import sys
-import platform
 
 curdir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(curdir, os.path.pardir))
@@ -23,7 +22,6 @@ if sys.version_info[0] < 3:
 import errno
 import glob
 import json
-import re
 import zipfile
 from shutil import copyfile
 
@@ -75,28 +73,12 @@ def hanlp_releases(cache=True):
         return HANLP_RELEASES
     # print('Request GitHub API')
     if PY == 3:
-        import ssl
-        content = urllib.urlopen("https://api.github.com/repos/hankcs/HanLP/releases",
-                                 context=ssl._create_unverified_context()).read()
+        content = urllib.urlopen("http://nlp.hankcs.com/download.php?file=version").read()
     else:
-        content = urllib.urlopen("https://api.github.com/repos/hankcs/HanLP/releases").read()
-    # https://stackoverflow.com/questions/48174702/python-unable-to-load-a-json-file-with-utf-8-encoding
-    content = json.loads(content.decode('utf-8-sig'))
-    meta = []
-    for r in content:
-        jar_version = r['tag_name']
-        if jar_version.startswith('v'):
-            jar_version = jar_version[1:]
-        data_version, data_url = None, []
-        for m in re.finditer(r"http://.*?/data-for-(.*?)\.zip", r['body'], re.MULTILINE):
-            data_version = m.group(1)
-            data_url.append(m.group(0))
-        if data_url:
-            data_url = random.choice(data_url)
-        else:
-            data_url = None
-        meta.append((jar_version, data_version, data_url))
-
+        content = urllib.urlopen("http://nlp.hankcs.com/download.php?file=version").read()
+    content = json.loads(content.decode())
+    jar_version, data_version, data_url = content
+    meta = [(jar_version, data_version, data_url)]
     HANLP_RELEASES = meta
     return meta
 
