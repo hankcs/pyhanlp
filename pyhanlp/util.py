@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#===============================================================================
+# ===============================================================================
 #
 # Copyright (c) 2017 <> All Rights Reserved
 #
@@ -9,7 +9,7 @@
 # Author: Hai Liang Wang
 # Date: 2018-03-19:19:14:56
 #
-#===============================================================================
+# ===============================================================================
 
 """
    
@@ -17,13 +17,15 @@
 from __future__ import print_function
 from __future__ import division
 
-__copyright__ = "Copyright (c) 2017 . All Rights Reserved"
-__author__    = "Hai Liang Wang"
-__date__      = "2018-03-19:19:14:56"
+import webbrowser
 
+__copyright__ = "Copyright (c) 2017 . All Rights Reserved"
+__author__ = "Hai Liang Wang"
+__date__ = "2018-03-19:19:14:56"
 
 import os
 import sys
+
 curdir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(curdir, os.path.pardir))
 
@@ -68,6 +70,7 @@ except ImportError:
             attrs['__exit__'] = lambda self, type, value, traceback: self.close()
         return type('Closing' + base.__name__, (base, object), attrs)
 
+
     def smart_open(fname, mode='rb'):
         _, ext = os.path.splitext(fname)
         if ext == '.bz2':
@@ -92,6 +95,7 @@ def any2utf8(text, errors='strict', encoding='utf8'):
 
 to_utf8 = any2utf8
 
+
 # noinspection PyUnresolvedReferences
 def any2unicode(text, encoding='utf8', errors='strict'):
     """Convert a string (bytestring in `encoding` or unicode), to unicode."""
@@ -101,3 +105,14 @@ def any2unicode(text, encoding='utf8', errors='strict'):
 
 
 to_unicode = any2unicode
+
+
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+
+
+def browser_open(url):
+    option = input('是否前往 {} ？(y/n)'.format(url)).lower()
+    if option in ('y', 'yes', '是'):
+        import webbrowser
+        webbrowser.open_new_tab(url)

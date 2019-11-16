@@ -9,6 +9,8 @@ import platform
 import shutil
 import sys
 
+from pyhanlp.util import eprint, browser_open
+
 curdir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(curdir, os.path.pardir))
 
@@ -50,10 +52,6 @@ HANLP_JAR_VERSION = None
 HANLP_DATA_VERSION = None
 HANLP_RELEASES = None
 INDEX_HTML = os.path.join(STATIC_ROOT, 'index.html')
-
-
-def eprint(*args, **kwargs):
-    print(*args, file=sys.stderr, **kwargs)
 
 
 def remove_file(filename):
@@ -165,8 +163,10 @@ def download(url, path):
             print()
         except Exception as e:
             eprint('下载失败 {} 由于 {}'.format(url, repr(e)))
-            eprint('请参考 https://github.com/hankcs/pyhanlp 执行手动安装.')
+            doc_url = 'https://github.com/hankcs/pyhanlp'
+            eprint('请参考 %s 执行手动安装.' % doc_url)
             eprint('或手动下载 {} 到 {}'.format(url, path))
+            browser_open(doc_url)
             exit(1)
         remove_file(path)
         os.rename(tmp_path, path)

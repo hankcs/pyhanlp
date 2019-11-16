@@ -6,10 +6,12 @@ from __future__ import print_function
 
 import glob
 import os
-import sys
 import platform
+import sys
 
-from jpype import JClass, startJVM, getDefaultJVMPath, isThreadAttachedToJVM, attachThreadToJVM, java, shutdownJVM
+from jpype import JClass, startJVM, getDefaultJVMPath, isThreadAttachedToJVM, attachThreadToJVM, java, \
+    JVMNotFoundException, JVMNotSupportedException
+from pyhanlp.util import eprint, browser_open
 
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.path.pardir))
 if sys.version_info[0] < 3:
@@ -84,10 +86,22 @@ def _start_jvm_for_hanlp():
             print("加载 HanLP jar [%s] ..." % HANLP_JAR_PATH)
             print("加载 HanLP config [%s/hanlp.properties] ..." % (STATIC_ROOT))
             print("加载 HanLP data [%s/data] ..." % (STATIC_ROOT))
+
+    java_url = 'https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html'
     pathsep = os.pathsep
+    jvm_path = None
+    try:
+        jvm_path = getDefaultJVMPath()
+    except JVMNotFoundException as e:
+        eprint('找不到Java，请安装JDK8：%s' % java_url)
+        browser_open(java_url)
+        exit(1)
+    except JVMNotSupportedException as e:
+        eprint('Java位数与Python不一致，请重新安装一致的Java、Python、JPype1（必须都为32位或64位）')
+        browser_open(java_url)
+        exit(1)
     if platform.system().startswith('CYGWIN'):
-        jvmpath = getDefaultJVMPath()
-        if not jvmpath.startswith('/cygdrive'):  # CYGWIN 使用了宿主机器的JVM，必须将路径翻译为真实路径
+        if not jvm_path.startswith('/cygdrive'):  # CYGWIN 使用了宿主机器的JVM，必须将路径翻译为真实路径
             pathsep = ';'
             if STATIC_ROOT.startswith('/usr/lib'):
                 cygwin_root = os.popen('cygpath -w /').read().strip().replace('\\', '/')
@@ -111,7 +125,7 @@ def _start_jvm_for_hanlp():
     if HANLP_VERBOSE: print("设置 JAVA_JAR_CLASSPATH [%s]" % JAVA_JAR_CLASSPATH)
     # 启动JVM
     startJVM(
-        getDefaultJVMPath(),
+        jvm_path,
         JAVA_JAR_CLASSPATH,
         "-Xms%s" %
         HANLP_JVM_XMS,
@@ -121,10 +135,10 @@ def _start_jvm_for_hanlp():
     try:
         JClass('com.hankcs.hanlp.HanLP')
     except java.lang.NoClassDefFoundError as e:
-        from pyhanlp.static import install_hanlp_jar, eprint
-        eprint('Your {} is broken. Now re-downloading.'.format(HANLP_JAR_PATH))
+        from pyhanlp.static import install_hanlp_jar
+        eprint('你的 {} 破损了，现在重新下载'.format(HANLP_JAR_PATH))
         install_hanlp_jar()
-        eprint('Successfully downloaded. Please restart your program.')
+        eprint('下载成功，请重新启动程序')
         exit(1)
 
 
