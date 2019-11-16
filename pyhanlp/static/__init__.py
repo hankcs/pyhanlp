@@ -130,10 +130,10 @@ def download(url, path):
     #                       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36')]
     # urllib.install_opener(opener)
     if os.path.isfile(path):
-        print('Using local {}, ignore {}'.format(path, url))
+        print('使用本地 {}, 忽略 {}'.format(path, url))
         return True
     else:
-        print('Downloading {} to {}'.format(url, path))
+        print('下载 {} 到 {}'.format(url, path))
         tmp_path = '{}.downloading'.format(path)
         remove_file(tmp_path)
         try:
@@ -155,7 +155,7 @@ def download(url, path):
                 eta = duration / ratio * (1 - ratio)
                 minutes = eta / 60
                 seconds = eta % 60
-                sys.stdout.write("\r%.2f%%, %d MB, %d KB/s, ETA %d min %d s" %
+                sys.stdout.write("\r%.2f%%, %d MB, %d KB/s, 还有 %d 分 %2d 秒   " %
                                  (percent, progress_size / (1024 * 1024), speed, minutes, seconds))
                 sys.stdout.flush()
 
@@ -164,9 +164,9 @@ def download(url, path):
             urllib.urlretrieve(url, tmp_path, reporthook)
             print()
         except Exception as e:
-            eprint('Failed to download {} due to {}'.format(url, repr(e)))
-            eprint('Please refer to https://github.com/hankcs/pyhanlp for manually installation.')
-            eprint('Or try to download {} to {} by yourself'.format(url, path))
+            eprint('下载失败 {} 由于 {}'.format(url, repr(e)))
+            eprint('请参考 https://github.com/hankcs/pyhanlp 执行手动安装.')
+            eprint('或手动下载 {} 到 {}'.format(url, path))
             exit(1)
         remove_file(path)
         os.rename(tmp_path, path)
@@ -192,16 +192,16 @@ def install_hanlp_jar():
 
 def update_hanlp():
     if update_hanlp_jar():
-        print('HanLP jar has been updated to the latest version {}'.format(HANLP_JAR_VERSION))
+        print('HanLP jar 已被升级到最新版本 {}'.format(HANLP_JAR_VERSION))
     else:
-        print('HanLP jar is already the latest version {}'.format(HANLP_JAR_VERSION))
+        print('HanLP jar 已经是最新版本 {}'.format(HANLP_JAR_VERSION))
 
     root = read_config()
     if root == STATIC_ROOT:
         if install_hanlp_data(HANLP_JAR_VERSION):
-            print('HanLP data has been updated to the latest version {}'.format(HANLP_DATA_VERSION))
+            print('HanLP data 已被升级到最新版本 {}'.format(HANLP_DATA_VERSION))
         else:
-            print('HanLP data is already the latest version {}'.format(HANLP_DATA_VERSION))
+            print('HanLP data 已经是最新版本 {}'.format(HANLP_DATA_VERSION))
 
 
 def update_hanlp_jar():
@@ -212,7 +212,9 @@ def update_hanlp_jar():
     return True
 
 
-def install_hanlp_data(the_jar_version=HANLP_JAR_VERSION):
+def install_hanlp_data(the_jar_version=None):
+    if not the_jar_version:
+        the_jar_version = HANLP_JAR_VERSION if HANLP_JAR_VERSION else hanlp_latest_version()[0]
     for jar_version, jar_url, data_version, data_url in hanlp_releases():
         if jar_version == the_jar_version:
             if data_version == hanlp_installed_data_version():
@@ -220,7 +222,7 @@ def install_hanlp_data(the_jar_version=HANLP_JAR_VERSION):
             data_zip = 'data-for-{}.zip'.format(data_version)
             data_zip = os.path.join(STATIC_ROOT, data_zip)
             download(data_url, os.path.join(STATIC_ROOT, data_zip))
-            print('Extracting data.zip...')
+            print('解压 data.zip...')
             with zipfile.ZipFile(data_zip, "r") as zip_ref:
                 zip_ref.extractall(STATIC_ROOT)
             os.remove(data_zip)
