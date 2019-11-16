@@ -161,11 +161,12 @@ def download(url, path):
             socket.setdefaulttimeout(10)
             urllib.urlretrieve(url, tmp_path, reporthook)
             print()
-        except Exception as e:
+        except BaseException as e:
             eprint('下载失败 {} 由于 {}'.format(url, repr(e)))
             doc_url = 'https://github.com/hankcs/pyhanlp'
             eprint('请参考 %s 执行手动安装.' % doc_url)
             eprint('或手动下载 {} 到 {}'.format(url, path))
+            os.remove(tmp_path)
             browser_open(doc_url)
             exit(1)
         remove_file(path)
