@@ -123,10 +123,10 @@ def hanlp_installed_data_path():
 
 
 def download(url, path):
-    # opener = urllib.build_opener()
-    # opener.addheaders = [('User-agent',
-    #                       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36')]
-    # urllib.install_opener(opener)
+    opener = urllib.build_opener()
+    opener.addheaders = [('User-agent',
+                          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36')]
+    urllib.install_opener(opener)
     if os.path.isfile(path):
         print('使用本地 {}, 忽略 {}'.format(path, url))
         return True
@@ -166,7 +166,8 @@ def download(url, path):
             doc_url = 'https://github.com/hankcs/pyhanlp'
             eprint('请参考 %s 执行手动安装.' % doc_url)
             eprint('或手动下载 {} 到 {}'.format(url, path))
-            os.remove(tmp_path)
+            if os.path.isfile(tmp_path):
+                os.remove(tmp_path)
             browser_open(doc_url)
             exit(1)
         remove_file(path)
