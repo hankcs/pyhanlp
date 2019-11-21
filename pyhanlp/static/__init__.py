@@ -71,10 +71,12 @@ def hanlp_releases(cache=True):
     if cache and HANLP_RELEASES:
         return HANLP_RELEASES
     # print('Request GitHub API')
+    req = urllib.Request('http://nlp.hankcs.com/download.php?file=version')
+    req.add_header('User-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36')
     if PY == 3:
-        content = urllib.urlopen("http://nlp.hankcs.com/download.php?file=version").read()
+        content = urllib.urlopen(req).read()
     else:
-        content = urllib.urlopen("http://nlp.hankcs.com/download.php?file=version").read()
+        content = urllib.urlopen(req).read()
     content = json.loads(content.decode())
     jar_version, jar_url, data_version, data_url = content
     meta = [(jar_version, jar_url, data_version, data_url)]
