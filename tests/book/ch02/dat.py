@@ -4,6 +4,7 @@
 # 《自然语言处理入门》2.5 双数组字典树
 # 配套书籍：http://nlp.hankcs.com/book.php
 # 讨论答疑：https://bbs.hankcs.com/
+
 from pyhanlp import *
 
 
@@ -14,16 +15,9 @@ class DoubleArrayTrie(object):
             m[k] = v
         DoubleArrayTrie = JClass('com.hankcs.hanlp.collection.trie.DoubleArrayTrie')
         dat = DoubleArrayTrie(m)
-        # 自jpype 0.7起，使用反射技术获取私有成员，等效于下列三句话
-        # self.base = dat.base
-        # self.check = dat.check
-        # self.value = dat.v
-        DoubleArrayTrie.class_.getDeclaredField('base').setAccessible(True)
-        DoubleArrayTrie.class_.getDeclaredField('check').setAccessible(True)
-        DoubleArrayTrie.class_.getDeclaredField('v').setAccessible(True)
-        self.base = DoubleArrayTrie.class_.getDeclaredField('base').get(dat)
-        self.check = DoubleArrayTrie.class_.getDeclaredField('check').get(dat)
-        self.value = DoubleArrayTrie.class_.getDeclaredField('v').get(dat)
+        self.base = dat.getBase()
+        self.check = dat.getCheck()
+        self.value = dat.getValueArray([''])
 
     @staticmethod
     def char_hash(c) -> int:
@@ -65,3 +59,4 @@ if __name__ == '__main__':
     assert dat['自然'] == 'nature'
     assert dat['自然语言'] == 'language'
     assert dat['不存在'] is None
+    assert dat['自然\0在'] is None
