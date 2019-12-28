@@ -270,7 +270,7 @@ def read_config():
         for line in f:
             if line.startswith('root'):
                 root = line.strip().split('=')[1]
-    return root
+    return os.path.abspath(root)
 
 
 def hanlp_jar_path(version):
