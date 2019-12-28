@@ -7,12 +7,14 @@ from __future__ import print_function
 import os
 import platform
 import shutil
+import ssl
 import sys
 
 from pyhanlp.util import eprint, browser_open
 
 curdir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(curdir, os.path.pardir))
+ssl._create_default_https_context = ssl._create_unverified_context
 
 PY = 3
 if sys.version_info[0] < 3:
