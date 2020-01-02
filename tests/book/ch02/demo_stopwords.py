@@ -51,7 +51,7 @@ def replace_stropwords_text(text, replacement, trie):
         result += replacement
         offset = end
     if offset < len(text):
-        result += text[offset]
+        result += text[offset:]
     return result
 
 
