@@ -47,7 +47,6 @@ class Trie(Node):
 if __name__ == '__main__':
     trie = Trie()
     # 增
-    hash()
     trie['自然'] = 'nature'
     trie['自然人'] = 'human'
     trie['自然语言'] = 'language'
