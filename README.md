@@ -1,10 +1,10 @@
-# pyhanlp: Python interfaces for HanLP
+# pyhanlp: Python interfaces for HanLP1.x
 
-[HanLP](https://github.com/hankcs/HanLP)的Python接口，支持自动下载与升级[HanLP](https://github.com/hankcs/HanLP)，兼容py2、py3。内部算法经过工业界和学术界考验，配套书籍[《自然语言处理入门》](http://nlp.hankcs.com/book.php)已经出版，欢迎查阅[随书代码](https://github.com/hankcs/pyhanlp/tree/master/tests/book)。
+[HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)的Python接口，支持自动下载与升级[HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)，兼容py2、py3。内部算法经过工业界和学术界考验，配套书籍[《自然语言处理入门》](http://nlp.hankcs.com/book.php)已经出版，欢迎查阅[随书代码](https://github.com/hankcs/pyhanlp/tree/1.x/tests/book)。基于深度学习的[HanLP2.0](https://github.com/hankcs/HanLP)已与2020年初发布，面向下一个十年的前沿NLP技术，与1.x相辅相成，平行发展。
 
 ## 安装
 
-```
+```bash
 pip install pyhanlp
 ```
 
@@ -14,9 +14,9 @@ pip install pyhanlp
 
 ### 中文分词
 
-使用命令`hanlp segment`进入交互分词模式，输入一个句子并回车，[HanLP](https://github.com/hankcs/HanLP)会输出分词结果：
+使用命令`hanlp segment`进入交互分词模式，输入一个句子并回车，[HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)会输出分词结果：
 
-```
+```python
 $ hanlp segment
 商品和服务
 商品/n 和/cc 服务/vn
@@ -28,7 +28,7 @@ $ hanlp segment
 
 还可以重定向输入输出到文件等：
 
-```
+```python
 $ hanlp segment <<< '欢迎新老师生前来就餐'               
 欢迎/v 新/a 老/a 师生/n 前来/vi 就餐/vi
 ```
@@ -37,7 +37,7 @@ $ hanlp segment <<< '欢迎新老师生前来就餐'
 
 命令为`hanlp parse`，同样支持交互模式和重定向：
 
-```
+```python
 $ hanlp parse <<< '徐先生还具体帮助他确定了把画雄鹰、松鼠和麻雀作为主攻目标。'         
 1	徐先生	徐先生	nh	nr	_	4	主谓关系	_	_
 2	还	还	d	d	_	4	状中结构	_	_
@@ -65,13 +65,13 @@ $ hanlp parse <<< '徐先生还具体帮助他确定了把画雄鹰、松鼠和�
 
 ### 升级
 
-通过`hanlp update`命令来将[HanLP](https://github.com/hankcs/HanLP)升级到最新版。该命令会获取[HanLP主项目最新版本](https://github.com/hankcs/HanLP/releases)并自动下载安装。
+通过`hanlp update`命令来将[HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)升级到最新版。该命令会获取[HanLP主项目最新版本](https://github.com/hankcs/HanLP/releases)并自动下载安装。
 
 欢迎通过`hanlp --help`查看最新帮助手册。
 
 ## API
 
-通过工具类[`HanLP`](https://github.com/hankcs/HanLP/blob/master/src/main/java/com/hankcs/hanlp/HanLP.java#L42)调用常用接口：
+通过工具类[`HanLP`](https://github.com/hankcs/HanLP/blob/1.x/src/main/java/com/hankcs/hanlp/HanLP.java#L55)调用常用接口：
 
 ```python
 from pyhanlp import *
@@ -113,7 +113,7 @@ print(HanLP.parseDependency("徐先生还具体帮助他确定了把画雄鹰、
 - 关键词提取、自动摘要
 - 文本分类、情感分析
 
-请阅读[HanLP主项目文档](https://github.com/hankcs/HanLP/blob/master/README.md)和[demos目录](https://github.com/hankcs/pyhanlp/tree/master/tests/demos)以了解更多。调用更底层的API需要参考Java语法用JClass引入更深的类路径。以感知机词法分析器为例，这个类位于包名[`com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer`](https://github.com/hankcs/HanLP/blob/master/src/main/java/com/hankcs/hanlp/model/perceptron/PerceptronLexicalAnalyzer.java)下，所以先用`JClass`得到类，然后就可以调用了：
+请阅读[HanLP主项目文档](https://github.com/hankcs/HanLP/blob/1.x/README.md)和[demos目录](https://github.com/hankcs/pyhanlp/tree/1.x/tests/demos)以了解更多。调用更底层的API需要参考Java语法用JClass引入更深的类路径。以感知机词法分析器为例，这个类位于包名[`com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer`](https://github.com/hankcs/HanLP/blob/1.x/src/main/java/com/hankcs/hanlp/model/perceptron/PerceptronLexicalAnalyzer.java)下，所以先用`JClass`得到类，然后就可以调用了：
 
 ```
 PerceptronLexicalAnalyzer = JClass('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')
@@ -131,7 +131,7 @@ print(analyzer.analyze("上海华安工业（集团）公司董事长谭旭光�
 
 ## 与其他项目共享data
 
-[HanLP](https://github.com/hankcs/HanLP)具备高度可自定义的特点，所有模型和词典都可以自由替换。如果你希望与别的项目共享同一套data，只需将该项目的配置文件`hanlp.properties`拷贝到pyhanlp的安装目录下即可。本机安装目录可以通过`hanlp --version`获取。
+[HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)具备高度可自定义的特点，所有模型和词典都可以自由替换。如果你希望与别的项目共享同一套data，只需将该项目的配置文件`hanlp.properties`拷贝到pyhanlp的安装目录下即可。本机安装目录可以通过`hanlp --version`获取。
 
 同时，还可以通过`--config`临时加载另一个配置文件：
 
