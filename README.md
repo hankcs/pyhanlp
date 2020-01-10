@@ -1,6 +1,6 @@
 # pyhanlp: Python interfaces for HanLP1.x
 
-[HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)的Python接口，支持自动下载与升级[HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)，兼容py2、py3。内部算法经过工业界和学术界考验，配套书籍[《自然语言处理入门》](http://nlp.hankcs.com/book.php)已经出版，欢迎查阅[随书代码](https://github.com/hankcs/pyhanlp/tree/1.x/tests/book)。基于深度学习的[HanLP2.0](https://github.com/hankcs/HanLP)已与2020年初发布，面向下一个十年的前沿NLP技术，与1.x相辅相成，平行发展。
+[HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)的Python接口，支持自动下载与升级[HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)，兼容py2、py3。内部算法经过工业界和学术界考验，配套书籍[《自然语言处理入门》](http://nlp.hankcs.com/book.php)已经出版，欢迎查阅[随书代码](https://github.com/hankcs/pyhanlp/tree/master/tests/book)。基于深度学习的[HanLP2.0](https://github.com/hankcs/HanLP)已与2020年初发布，面向下一个十年的前沿NLP技术，与1.x相辅相成，平行发展。
 
 ## 安装
 
@@ -113,7 +113,7 @@ print(HanLP.parseDependency("徐先生还具体帮助他确定了把画雄鹰、
 - 关键词提取、自动摘要
 - 文本分类、情感分析
 
-请阅读[HanLP主项目文档](https://github.com/hankcs/HanLP/blob/1.x/README.md)和[demos目录](https://github.com/hankcs/pyhanlp/tree/1.x/tests/demos)以了解更多。调用更底层的API需要参考Java语法用JClass引入更深的类路径。以感知机词法分析器为例，这个类位于包名[`com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer`](https://github.com/hankcs/HanLP/blob/1.x/src/main/java/com/hankcs/hanlp/model/perceptron/PerceptronLexicalAnalyzer.java)下，所以先用`JClass`得到类，然后就可以调用了：
+请阅读[HanLP主项目文档](https://github.com/hankcs/HanLP/blob/1.x/README.md)和[demos目录](https://github.com/hankcs/pyhanlp/tree/master/tests/demos)以了解更多。调用更底层的API需要参考Java语法用JClass引入更深的类路径。以感知机词法分析器为例，这个类位于包名[`com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer`](https://github.com/hankcs/HanLP/blob/1.x/src/main/java/com/hankcs/hanlp/model/perceptron/PerceptronLexicalAnalyzer.java)下，所以先用`JClass`得到类，然后就可以调用了：
 
 ```
 PerceptronLexicalAnalyzer = JClass('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')
