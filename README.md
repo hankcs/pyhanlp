@@ -1,6 +1,6 @@
 # pyhanlp: Python interfaces for HanLP1.x
 
-[HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)的Python接口，支持自动下载与升级[HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)，兼容py2、py3。内部算法经过工业界和学术界考验，配套书籍[《自然语言处理入门》](http://nlp.hankcs.com/book.php)已经出版，欢迎查阅[随书代码](https://github.com/hankcs/pyhanlp/tree/master/tests/book)。基于深度学习的[HanLP2.0](https://github.com/hankcs/HanLP)已与2020年初发布，面向下一个十年的前沿NLP技术，与1.x相辅相成，平行发展。
+[HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)的Python接口，支持自动下载与升级[HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)，兼容py2、py3。内部算法经过工业界和学术界考验，配套书籍[《自然语言处理入门》](http://nlp.hankcs.com/book.php)已经出版，欢迎查阅[随书代码](https://github.com/hankcs/pyhanlp/tree/master/tests/book)。基于深度学习的[HanLP2.0](https://github.com/hankcs/HanLP/tree/doc-zh)已于2020年初发布，面向下一个十年的前沿NLP技术，与1.x相辅相成，平行发展。
 
 ## 安装
 
