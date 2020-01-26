@@ -33,7 +33,7 @@ def prf(gold: str, pred: str, dic) -> tuple:
     :return: (P, R, F1, OOV_R, IV_R)
     """
     A_size, B_size, A_cap_B_size, OOV, IV, OOV_R, IV_R = 0, 0, 0, 0, 0, 0, 0
-    with open(gold) as gd, open(pred) as pd:
+    with open(gold, encoding='utf-8') as gd, open(pred, encoding='utf-8') as pd:
         for g, p in zip(gd, pd):
             A, B = set(to_region(g)), set(to_region(p))
             A_size += len(A)
@@ -68,7 +68,7 @@ if __name__ == '__main__':
 
     DoubleArrayTrieSegment = JClass('com.hankcs.hanlp.seg.Other.DoubleArrayTrieSegment')
     segment = DoubleArrayTrieSegment([msr_dict]).enablePartOfSpeechTagging(True)
-    with open(msr_gold) as test, open(msr_output, 'w') as output:
+    with open(msr_gold, encoding='utf-8') as test, open(msr_output, 'w', encoding='utf-8') as output:
         for line in test:
             output.write("  ".join(term.word for term in segment.seg(re.sub("\\s+", "", line))))
             output.write("\n")
