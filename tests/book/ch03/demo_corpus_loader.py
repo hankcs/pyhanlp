@@ -14,7 +14,7 @@ def my_cws_corpus():
     data_root = test_data_path()
     corpus_path = os.path.join(data_root, 'my_cws_corpus.txt')
     if not os.path.isfile(corpus_path):
-        with open(corpus_path, 'w') as out:
+        with open(corpus_path, 'w', encoding='utf-8') as out:
             out.write('''商品 和 服务
 商品 和服 物美价廉
 服务 和 货币''')
