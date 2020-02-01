@@ -22,10 +22,10 @@ def train_evaluate(ratios):
         model = CWSTrainer().train(msr_train, msr_train, msr_model, 0, 10, 8).getModel()  # 训练模型
     else:
         model = JClass('com.hankcs.hanlp.model.perceptron.model.LinearModel')(msr_model)
-    pre = -1
+    pre = None
     scores = []
     for c in ratios:
-        if c > 0:
+        if pre:
             print('以压缩比{}压缩模型中...'.format(c))
             model.compress(1 - (1 - c) / pre, 0)
         pre = 1 - c
