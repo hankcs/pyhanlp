@@ -28,7 +28,8 @@ def train_evaluate(ratio):
     model = CWSTrainer().train(partial_corpus, partial_corpus, msr_model, 0, 50, 8).getModel()  # 训练模型
     result = CWSEvaluator.evaluate(PerceptronLexicalAnalyzer(model).enableCustomDictionary(False),
                                    msr_test, msr_output, msr_gold, msr_dict)
-    return result.F1
+    # return result.F1
+    return float(str(result).split()[2][3:])
 
 
 if __name__ == '__main__':
