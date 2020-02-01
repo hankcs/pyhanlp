@@ -16,8 +16,8 @@ plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
 
 
 def train_evaluate(ratios):
-    # model = CWSTrainer().train(msr_train, msr_train, msr_model, 0, 1, 8).getModel()  # 训练模型
-    model = JClass('com.hankcs.hanlp.model.perceptron.model.LinearModel')(msr_model)
+    model = CWSTrainer().train(msr_train, msr_train, msr_model, 0, 1, 8).getModel()  # 训练模型
+    # model = JClass('com.hankcs.hanlp.model.perceptron.model.LinearModel')(msr_model)
     pre = -1
     scores = []
     for c in ratios:
@@ -27,7 +27,8 @@ def train_evaluate(ratios):
         pre = 1 - c
         result = CWSEvaluator.evaluate(PerceptronLexicalAnalyzer(model).enableCustomDictionary(False),
                                        msr_test, msr_output, msr_gold, msr_dict)
-        scores.append(result.F1)
+        # scores.append(result.F1)
+        scores.append(float(str(result).split()[2][3:]))
     return scores
 
 
