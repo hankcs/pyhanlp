@@ -8,6 +8,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.datasets import make_regression
+from mpl_toolkits.mplot3d import Axes3D
 
 
 def gradient_descent(x, y, theta_init, step=0.001, maxsteps=0, precision=0.001, ):
