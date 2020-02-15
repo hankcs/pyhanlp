@@ -31,6 +31,7 @@ import zipfile
 from shutil import copyfile
 
 if PY == 3:
+    from urllib.parse import quote
     import urllib.request as urllib
 
 
@@ -163,7 +164,7 @@ def download(url, path):
 
             import socket
             socket.setdefaulttimeout(10)
-            urllib.urlretrieve(url, tmp_path, reporthook)
+            urllib.urlretrieve(quote(url, safe='/:?='), tmp_path, reporthook)
             print()
         except BaseException as e:
             eprint('下载失败 {} 由于 {}'.format(url, repr(e)))
