@@ -48,7 +48,7 @@ def _start_jvm_for_hanlp():
     if "HANLP_JVM_XMS" in ENVIRON:
         HANLP_JVM_XMS = ENVIRON["HANLP_JVM_XMS"]
     else:
-        HANLP_JVM_XMS = "1g"
+        HANLP_JVM_XMS = "512m"
     if "HANLP_JVM_XMX" in ENVIRON:
         HANLP_JVM_XMX = ENVIRON["HANLP_JVM_XMX"]
     else:
