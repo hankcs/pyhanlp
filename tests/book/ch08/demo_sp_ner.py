@@ -22,6 +22,7 @@ if __name__ == '__main__':
     recognizer = train(pku.PKU199801_TRAIN, pku.NER_MODEL)
     test(recognizer)
     analyzer = PerceptronLexicalAnalyzer(PerceptronSegmenter(), PerceptronPOSTagger(), recognizer)  # ①
+    analyzer.enableCustomDictionary(False)
     sentence = Sentence.create("与/c 特朗普/nr 通/v 电话/n 讨论/v [太空/s 探索/vn 技术/n 公司/n]/nt")  # ②
     while not analyzer.analyze(sentence.text()).equals(sentence):  # ③
         analyzer.learn(sentence)
