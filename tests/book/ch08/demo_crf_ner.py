@@ -15,6 +15,7 @@ CRFNERecognizer = JClass('com.hankcs.hanlp.model.crf.CRFNERecognizer')
 def train(corpus, model):
     recognizer = CRFNERecognizer(None)  # 空白
     recognizer.train(corpus, model)
+    recognizer = CRFNERecognizer(model)
     return recognizer
 
 
