@@ -13,7 +13,7 @@ CWSTrainer = JClass('com.hankcs.hanlp.model.perceptron.CWSTrainer')
 
 def train_uncompressed_model():
     model = CWSTrainer().train(msr_train, msr_train, msr_model, 0., 10, 8).getModel()  # 训练模型
-    model.save(msr_train, model.featureMap.entrySet(), 0, True)  # 最后一个参数指定导出txt
+    model.save(msr_model, model.featureMap.entrySet(), 0, True)  # 最后一个参数指定导出txt
 
 
 def train():
