@@ -21,7 +21,7 @@ plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
 
 def train_evaluate(ratio):
     partial_corpus = NamedTemporaryFile(delete=False).name
-    with open(msr_train) as src, open(partial_corpus, 'w') as dst:
+    with open(msr_train, encoding='utf-8') as src, open(partial_corpus, 'w', encoding='utf-8') as dst:
         all_lines = src.readlines()
         dst.writelines(all_lines[:int(ratio * len(all_lines))])
 

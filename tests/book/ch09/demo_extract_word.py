@@ -19,7 +19,7 @@ def test_weibo():
         print(folder)
         big_text = ""
         for file in os.listdir(os.path.join(WEIBO_PATH, folder)):
-            with open(os.path.join(WEIBO_PATH, folder, file)) as src:
+            with open(os.path.join(WEIBO_PATH, folder, file), encoding='utf-8') as src:
                 big_text += "".join(src.readlines())
         word_info_list = HanLP.extractWords(big_text, 100)
         print(word_info_list)

@@ -38,7 +38,7 @@ def load_bigram(model_path, verbose=True, ret_viterbi=True):
     # 以下部分为兼容新标注集，不感兴趣可以跳过
     HanLP.Config.CoreDictionaryTransformMatrixDictionaryPath = model_path + ".tr.txt"  # 词性转移矩阵，分词时可忽略
     if model_path != msr_model:
-        with open(HanLP.Config.CoreDictionaryTransformMatrixDictionaryPath) as src:
+        with open(HanLP.Config.CoreDictionaryTransformMatrixDictionaryPath, encoding='utf-8') as src:
             for tag in src.readline().strip().split(',')[1:]:
                 Nature.create(tag)
     CoreBiGramTableDictionary = SafeJClass('com.hankcs.hanlp.dictionary.CoreBiGramTableDictionary')

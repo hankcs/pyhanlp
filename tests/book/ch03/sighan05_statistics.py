@@ -23,7 +23,7 @@ def count_corpus(train_path: str, test_path: str):
 
 def count_word_freq(train_path):
     f = Counter()
-    with open(train_path) as src:
+    with open(train_path, encoding='utf-8') as src:
         for line in src:
             for word in re.compile("\\s+").split(line.strip()):
                 f[word] += 1

@@ -16,7 +16,7 @@ def load_from_file(path):
     :return: 双数组trie树
     """
     map = JClass('java.util.TreeMap')()  # 创建TreeMap实例
-    with open(path) as src:
+    with open(path, encoding='utf-8') as src:
         for word in src:
             word = word.strip()  # 去掉Python读入的\n
             map[word] = word
