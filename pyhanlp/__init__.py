@@ -52,7 +52,7 @@ def _start_jvm_for_hanlp():
     if "HANLP_JVM_XMX" in ENVIRON:
         HANLP_JVM_XMX = ENVIRON["HANLP_JVM_XMX"]
     else:
-        HANLP_JVM_XMX = "2g"
+        HANLP_JVM_XMX = "8g"  # JVM可用到的内存上限，通常并不会达到上限
     PATH_CONFIG = os.path.join(STATIC_ROOT, 'hanlp.properties')
     if not os.path.exists(HANLP_JAR_PATH):
         raise ValueError(
