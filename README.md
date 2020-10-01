@@ -1,10 +1,15 @@
 # pyhanlp: Python interfaces for HanLP1.x
 
+![pypi](https://img.shields.io/pypi/v/pyhanlp) [![Downloads](https://pepy.tech/badge/pyhanlp)](https://pepy.tech/project/pyhanlp) [![GitHub license](https://img.shields.io/github/license/hankcs/pyhanlp)](https://github.com/hankcs/pyhanlp/blob/master/LICENSE)
+
 [HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)的Python接口，支持自动下载与升级[HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)，兼容py2、py3。内部算法经过工业界和学术界考验，配套书籍[《自然语言处理入门》](http://nlp.hankcs.com/book.php)已经出版，欢迎查阅[随书代码](https://github.com/hankcs/pyhanlp/tree/master/tests/book)。基于深度学习的[HanLP2.0](https://github.com/hankcs/HanLP/tree/doc-zh)已于2020年初发布，面向下一个十年的前沿NLP技术，与1.x相辅相成，平行发展。
 
 ## 安装
 
+先安装[JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)。你需要保证JDK位数、操作系统位数和Python位数一致。然后[设置JAVA_HOME环境变量](https://bbs.hankcs.com/t/hanlp-java/999)，最后执行：
+
 ```bash
+conda install -c conda-forge jpype1==0.7.0      # (可选)conda安装jpype1更方便
 pip install pyhanlp
 ```
 
@@ -150,9 +155,11 @@ python tests/test_hanlp.py
 
 ## 反馈
 
-任何问题，请前往[HanLP issue区](https://github.com/hankcs/HanLP/issues)或[论坛](https://bbs.hankcs.com/)反馈，谢谢。
+任何bug，请前往[HanLP issue区](https://github.com/hankcs/HanLP/issues)。提问请上[论坛](https://bbs.hankcs.com/)反馈，谢谢。
 
 ## [《自然语言处理入门》](http://nlp.hankcs.com/book.php)
+
+自然语言处理是一门博大精深的学科，掌握理论才能发挥出工具的全部性能。新手可考虑这本入门书：
 
 ![img](http://file.hankcs.com/img/nlp-book-squre.jpg)
 
