@@ -6,6 +6,8 @@
 
 ## 安装
 
+**非IT人士**可直接使用[傻瓜虚拟机](https://od.hankcs.com/book/intro_nlp/%E5%82%BB%E7%93%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/)；**新手**建议观看[安装教程（附安装包）](https://od.hankcs.com/book/intro_nlp/%E5%AE%89%E8%A3%85%E5%8C%85/)；**工程师**请：
+
 先安装[JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)。你需要保证JDK位数、操作系统位数和Python位数一致。然后[设置JAVA_HOME环境变量](https://bbs.hankcs.com/t/hanlp-java/999)，最后执行：
 
 ```bash

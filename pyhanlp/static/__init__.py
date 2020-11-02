@@ -168,7 +168,7 @@ def download(url, path):
             print()
         except BaseException as e:
             eprint('下载失败 {} 由于 {}'.format(url, repr(e)))
-            doc_url = 'https://github.com/hankcs/pyhanlp'
+            doc_url = 'https://od.hankcs.com/book/intro_nlp/'
             eprint('请参考 %s 执行手动安装.' % doc_url)
             eprint('或手动下载 {} 到 {}'.format(url, path))
             if os.path.isfile(tmp_path):

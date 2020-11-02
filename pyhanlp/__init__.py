@@ -136,10 +136,10 @@ def _start_jvm_for_hanlp():
         JClass('com.hankcs.hanlp.HanLP')
     except java.lang.NoClassDefFoundError as e:
         from pyhanlp.static import install_hanlp_jar
-        eprint('你的 {} 破损了，现在重新下载'.format(HANLP_JAR_PATH))
+        eprint('找不到jar，可能由于安装路径含有中文，或者你的 {} 破损了，现在重新下载'.format(HANLP_JAR_PATH))
         os.remove(HANLP_JAR_PATH)
         install_hanlp_jar()
-        eprint('下载成功，请重新启动程序')
+        eprint('下载成功，请重新启动程序。如果问题依然存在，请不要安装到中文路径。')
         exit(1)
 
 
