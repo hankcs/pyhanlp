@@ -44,4 +44,5 @@ setup(
             'hanlp=pyhanlp.main:main',
         ],
     },
+    python_requires='<=3.8',
 )
