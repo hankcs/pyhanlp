@@ -10,6 +10,9 @@ import shutil
 import ssl
 import sys
 
+from hanlp_downloader import Downloader
+from hanlp_downloader.log import DownloadCallback
+
 from pyhanlp.util import eprint, browser_open
 
 curdir = os.path.dirname(os.path.abspath(__file__))
@@ -140,32 +143,9 @@ def download(url, path):
         tmp_path = '{}.downloading'.format(path)
         remove_file(tmp_path)
         try:
-            def reporthook(count, block_size, total_size):
-                global start_time, progress_size
-                if count == 0:
-                    start_time = time.time()
-                    progress_size = 0
-                    return
-                duration = time.time() - start_time
-                duration = max(1e-8, duration)  # 防止除零错误
-                progress_size = int(count * block_size)
-                if progress_size > total_size:
-                    progress_size = total_size
-                speed = int(progress_size / (1024 * duration))
-                ratio = progress_size / total_size
-                ratio = max(1e-8, ratio)
-                percent = ratio * 100
-                eta = duration / ratio * (1 - ratio)
-                minutes = eta / 60
-                seconds = eta % 60
-                sys.stdout.write("\r%.2f%%, %d MB, %d KB/s, 还有 %d 分 %2d 秒   " %
-                                 (percent, progress_size / (1024 * 1024), speed, minutes, seconds))
-                sys.stdout.flush()
-
-            import socket
-            socket.setdefaulttimeout(10)
-            urllib.urlretrieve(quote(url, safe='/:?='), tmp_path, reporthook)
-            print()
+            downloader = Downloader(url, tmp_path, 4, headers={'User-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36'})
+            downloader.subscribe(DownloadCallback(show_header=False, out=sys.stdout))
+            downloader.start_sync()
         except BaseException as e:
             eprint('下载失败 {} 由于 {}'.format(url, repr(e)))
             doc_url = 'https://od.hankcs.com/book/intro_nlp/'
