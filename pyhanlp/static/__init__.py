@@ -75,7 +75,8 @@ def hanlp_releases(cache=True):
         return HANLP_RELEASES
     # print('Request GitHub API')
     req = urllib.Request('http://nlp.hankcs.com/download.php?file=version')
-    req.add_header('User-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36')
+    req.add_header('User-agent',
+                   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36')
     if PY == 3:
         content = urllib.urlopen(req).read()
     else:
@@ -157,10 +158,13 @@ def install_hanlp_jar():
     jar_version, jar_url, data_version, data_url = hanlp_latest_version()
     jar_zip = os.path.join(STATIC_ROOT, 'hanlp-{}-release.zip'.format(jar_version))
     download(jar_url, jar_zip)
-    with zipfile.ZipFile(jar_zip, "r") as archive:
-        # for f in archive.namelist():
-        #     print(f)
-        archive.extract('hanlp-{}-release/hanlp-{}.jar'.format(jar_version, jar_version), STATIC_ROOT)
+    try:
+        with zipfile.ZipFile(jar_zip, "r") as archive:
+            archive.extract('hanlp-{}-release/hanlp-{}.jar'.format(jar_version, jar_version), STATIC_ROOT)
+    except zipfile.BadZipFile:
+        remove_file(jar_zip)
+        eprint('解压失败，请重试')
+        exit(1)
     zip_folder = os.path.join(STATIC_ROOT, 'hanlp-{}-release'.format(jar_version))
     jar_file_name = 'hanlp-{}.jar'.format(jar_version)
     os.rename(os.path.join(zip_folder, jar_file_name), os.path.join(STATIC_ROOT, jar_file_name))
@@ -202,9 +206,16 @@ def install_hanlp_data(the_jar_version=None):
             data_zip = 'data-for-{}.zip'.format(data_version)
             data_zip = os.path.join(STATIC_ROOT, data_zip)
             download(data_url, os.path.join(STATIC_ROOT, data_zip))
+            sys.stderr.write('\r' + ' ' * 100 + '\r')  # 清理上一行
+            sys.stderr.flush()
             eprint('解压 data.zip...')
-            with zipfile.ZipFile(data_zip, "r") as zip_ref:
-                zip_ref.extractall(STATIC_ROOT)
+            try:
+                with zipfile.ZipFile(data_zip, "r") as zip_ref:
+                    zip_ref.extractall(STATIC_ROOT)
+            except zipfile.BadZipFile:
+                remove_file(data_zip)
+                eprint('解压失败，请重试')
+                exit(1)
             os.remove(data_zip)
             write_config(root=STATIC_ROOT)
             with open_(PATH_DATA_VERSION, 'w', encoding='utf-8') as f:
