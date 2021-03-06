@@ -34,7 +34,6 @@ import zipfile
 from shutil import copyfile
 
 if PY == 3:
-    from urllib.parse import quote
     import urllib.request as urllib
 
 
@@ -47,8 +46,6 @@ else:
     def open_(*args, **kwargs):
         import codecs
         return codecs.open(*args, **kwargs)
-
-import time
 
 STATIC_ROOT = os.path.dirname(os.path.realpath(__file__))
 PATH_CONFIG = os.path.join(STATIC_ROOT, 'hanlp.properties')
@@ -131,10 +128,6 @@ def hanlp_installed_data_path():
 
 
 def download(url, path):
-    opener = urllib.build_opener()
-    opener.addheaders = [('User-agent',
-                          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36')]
-    urllib.install_opener(opener)
     if os.path.isfile(path):
         print('使用本地 {}, 忽略 {}'.format(path, url))
         return True
@@ -143,7 +136,7 @@ def download(url, path):
         tmp_path = '{}.downloading'.format(path)
         remove_file(tmp_path)
         try:
-            downloader = Downloader(url, tmp_path, 4, headers={'User-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36'})
+            downloader = Downloader(url, tmp_path, 4, headers={'User-agent': 'pyhanlp (' + platform.platform() + ')'})
             downloader.subscribe(DownloadCallback(show_header=False, out=sys.stdout))
             downloader.start_sync()
         except BaseException as e:
@@ -209,7 +202,7 @@ def install_hanlp_data(the_jar_version=None):
             data_zip = 'data-for-{}.zip'.format(data_version)
             data_zip = os.path.join(STATIC_ROOT, data_zip)
             download(data_url, os.path.join(STATIC_ROOT, data_zip))
-            print('解压 data.zip...')
+            eprint('解压 data.zip...')
             with zipfile.ZipFile(data_zip, "r") as zip_ref:
                 zip_ref.extractall(STATIC_ROOT)
             os.remove(data_zip)
