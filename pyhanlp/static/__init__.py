@@ -178,9 +178,9 @@ def install_hanlp_jar():
 
 def update_hanlp():
     if update_hanlp_jar():
-        print('HanLP jar 已被升级到最新版本 {}'.format(HANLP_JAR_VERSION))
+        print('HanLP jar  已被升级到最新版本 {}'.format(HANLP_JAR_VERSION))
     else:
-        print('HanLP jar 已经是最新版本 {}'.format(HANLP_JAR_VERSION))
+        print('HanLP jar  已经是最新版本 {}'.format(HANLP_JAR_VERSION))
 
     root = read_config()
     if root == STATIC_ROOT:
