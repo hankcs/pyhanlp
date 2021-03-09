@@ -8,4 +8,5 @@ dependencies:
   - jpype1==0.7.0
   - python<3.9
   - pip:
+      - sklearn
       - git+https://github.com/hankcs/pyhanlp.git@master
