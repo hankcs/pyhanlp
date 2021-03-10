@@ -1,4 +1,4 @@
-name: pyhanlp-environment
+name: pyhanlp-env
 channels:
   - conda-forge
 dependencies:
@@ -7,6 +7,7 @@ dependencies:
   - openjdk
   - jpype1==0.7.0
   - python<3.9
+  - pip
   - pip:
       - sklearn
-      - git+https://github.com/hankcs/pyhanlp.git@master
+      - pyhanlp
