@@ -94,6 +94,7 @@ def _start_jvm_for_hanlp():
         jvm_path = getDefaultJVMPath()
     except JVMNotFoundException as e:
         eprint('找不到Java，请安装JDK8：%s' % java_url)
+        eprint('或设置环境变量 JAVA_HOME ：https://bbs.hankcs.com/t/hanlp-java/999')
         browser_open(java_url)
         exit(1)
     except JVMNotSupportedException as e:
