@@ -77,7 +77,10 @@ def generate_wordnet(sent, trie):
             for j in range(i + 1, len(vertexes) - 1):  # 寻找第一个非空行 j
                 if len(vertexes[j]):
                     break
-            wordnet.add(i, Vertex.newPunctuationInstance(sent[i - 1: j - 1]))  # 填充[i, j)之间的空白行
+            oov = Vertex.newPunctuationInstance(sent[i - 1: j - 1])
+            oov.attribute.totalFrequency = 1  # 将未登录词的词频设置为一个常数，比如1
+            oov.wordID = 0
+            wordnet.add(i, oov)  # 填充[i, j)之间的空白行
             i = j
         else:
             i += len(vertexes[i][-1].realWord)
