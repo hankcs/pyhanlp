@@ -5,16 +5,29 @@ from os.path import abspath, join, dirname
 import sys
 from setuptools import find_packages, setup
 
-this_dir = abspath(dirname(__file__))
+if sys.version_info >= (3, 9):
+    sys.exit(
+        '''
+----------------------------------------
+
+抱歉，暂不支持 Python 3.9 及以上版本。请执行如下命令：
+
+	conda install -c conda-forge python=3.8 openjdk jpype1=0.7.0 -y
+	pip install pyhanlp
+
+详细安装教程：https://bbs.hankcs.com/t/topic/13#install-1        
+        ''')
+
 if sys.version_info[0] < 3:  # In Python3 TypeError: a bytes-like object is required, not 'str'
     long_description = 'Python wrapper for HanLP: Han Language Processing'
 else:
+    this_dir = abspath(dirname(__file__))
     with open(join(this_dir, 'README.md'), encoding='utf-8') as file:
         long_description = file.read()
 
 setup(
     name='pyhanlp',
-    version='0.1.79',
+    version='0.1.83',
     description='Python wrapper for HanLP: Han Language Processing',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -44,5 +57,5 @@ setup(
             'hanlp=pyhanlp.main:main',
         ],
     },
-    python_requires='<3.9',
+    # python_requires='<3.9',
 )
