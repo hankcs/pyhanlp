@@ -118,6 +118,8 @@ def _start_jvm_for_hanlp():
                 PATH_CONFIG = PATH_CONFIG.replace(cygwin_driver, win_driver)
     JAVA_JAR_CLASSPATH = "-Djava.class.path=%s%s%s" % (
         HANLP_JAR_PATH, pathsep, STATIC_ROOT)
+    if ENVIRON.get("CLASSPATH", None):
+        JAVA_JAR_CLASSPATH = JAVA_JAR_CLASSPATH + pathsep + ENVIRON["CLASSPATH"]
     # 加载插件jar
     for jar in glob.glob(os.path.join(STATIC_ROOT, '*.jar')):
         if HANLP_JAR_PATH.endswith(jar):
