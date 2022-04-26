@@ -1,12 +1,12 @@
 # pyhanlp: Python interfaces for HanLP1.x
 
-![pypi](https://img.shields.io/pypi/v/pyhanlp) [![Downloads](https://pepy.tech/badge/pyhanlp)](https://pepy.tech/project/pyhanlp) [![GitHub license](https://img.shields.io/github/license/hankcs/pyhanlp)](https://github.com/hankcs/pyhanlp/blob/master/LICENSE) [![Run Jupyter](https://img.shields.io/badge/Run-Jupyter-orange?style=flat&logo=Jupyter)](https://play.hanlp.ml/run/pyhanlp) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hankcs/pyhanlp.git/master?filepath=tests%2Fbook%2Findex.ipynb)
+![pypi](https://img.shields.io/pypi/v/pyhanlp) [![Downloads](https://pepy.tech/badge/pyhanlp)](https://pepy.tech/project/pyhanlp) [![GitHub license](https://img.shields.io/github/license/hankcs/pyhanlp)](https://github.com/hankcs/pyhanlp/blob/master/LICENSE) [![Run Jupyter](https://img.shields.io/badge/Run-Jupyter-orange?style=flat&logo=Jupyter)](https://mybinder.org/v2/gh/hankcs/pyhanlp.git/master?filepath=tests%2Fbook%2Findex.ipynb) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hankcs/pyhanlp.git/master?filepath=tests%2Fbook%2Findex.ipynb)
 
 [HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)的Python接口，支持自动下载与升级[HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)，兼容Python<=3.8。内部算法经过工业界和学术界考验，配套书籍[《自然语言处理入门》](http://nlp.hankcs.com/book.php)已经出版，欢迎查阅[随书代码](https://github.com/hankcs/pyhanlp/tree/master/tests/book)或点击[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hankcs/pyhanlp.git/master?filepath=tests%2Fbook%2Findex.ipynb)在线运行。基于深度学习的[HanLP2.x](https://github.com/hankcs/HanLP/tree/doc-zh)已于2020年初发布，次世代最先进的多语种NLP技术，与1.x相辅相成，平行发展。
 
 ## 安装
 
-**懒人**请点击[![Run Jupyter](https://img.shields.io/badge/Run-Jupyter-orange?style=flat&logo=Jupyter)](https://play.hanlp.ml/run/pyhanlp)；**非IT人士**可直接使用[傻瓜虚拟机](https://od.hankcs.com/book/intro_nlp/%E5%82%BB%E7%93%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/)；**工程师**请先安装[conda](https://docs.conda.io/en/latest/miniconda.html)，然后执行：
+**懒人**请点击[![Run Jupyter](https://img.shields.io/badge/Run-Jupyter-orange?style=flat&logo=Jupyter)](https://mybinder.org/v2/gh/hankcs/pyhanlp.git/master?filepath=tests%2Fbook%2Findex.ipynb)；**非IT人士**可直接使用[傻瓜虚拟机](https://od.hankcs.com/book/intro_nlp/%E5%82%BB%E7%93%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/)；**工程师**请先安装[conda](https://docs.conda.io/en/latest/miniconda.html)，然后执行：
 
 ```bash
 conda install -c conda-forge openjdk python=3.8 jpype1=0.7.0 -y
