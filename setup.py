@@ -27,8 +27,8 @@ try:
 except:
     browser_open()
     errors = ['{} 安装失败'.format(JPYPE)]
-    if sys.version_info >= (3, 11):
-        errors.append('暂不支持 Python 3.11 及以上版本')
+    if sys.version_info >= (3, 13):
+        errors.append('暂不支持 Python 3.13 及以上版本')
     sys.exit(
         '''
 ----------------------------------------
