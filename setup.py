@@ -14,7 +14,7 @@ def browser_open(url='https://nlp.hankcs.com/download.php?file=install'):
         pass
 
 
-JPYPE = 'jpype1==1.5.0'
+JPYPE = 'jpype1>=1.5.0'
 
 try:
     import subprocess

@@ -5,7 +5,7 @@ dependencies:
   - numpy
   - matplotlib
   - openjdk
-  - jpype1==0.7.0
+  - jpype1>=1.5.0
   - python<3.9
   - pip
   - pip:
