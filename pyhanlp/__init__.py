@@ -153,8 +153,8 @@ def _attach_jvm_to_thread():
     """
     use attachThreadToJVM to fix multi-thread issues: https://github.com/hankcs/pyhanlp/issues/7
     """
-    if not isThreadAttachedToJVM():
-        attachThreadToJVM()
+    if not java.lang.Thread.isAttached():
+        java.lang.Thread.attach()
 
 
 class SafeJClass(object):

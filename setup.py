@@ -14,7 +14,7 @@ def browser_open(url='https://nlp.hankcs.com/download.php?file=install'):
         pass
 
 
-JPYPE = 'jpype1==0.7.0'
+JPYPE = 'jpype1==1.5.0'
 
 try:
     import subprocess
@@ -27,8 +27,8 @@ try:
 except:
     browser_open()
     errors = ['{} 安装失败'.format(JPYPE)]
-    if sys.version_info >= (3, 9):
-        errors.append('暂不支持 Python 3.9 及以上版本')
+    if sys.version_info >= (3, 13):
+        errors.append('暂不支持 Python 3.13 及以上版本')
     sys.exit(
         '''
 ----------------------------------------
