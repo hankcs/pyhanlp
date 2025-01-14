@@ -14,13 +14,12 @@ __copyright__ = "Copyright (c) 2017 . All Rights Reserved"
 __author__ = "Hai Liang Wang"
 __date__ = "2018-03-23:17:18:30"
 
-import unittest
 import threading
 import time
-from pyhanlp import HanLP, SafeJClass
 
-# 在线程体外部用SafeJClass线程安全地引入类名
-CRFLexicalAnalyzer = SafeJClass("com.hankcs.hanlp.model.crf.CRFLexicalAnalyzer")
+import pytest
+
+from pyhanlp import SafeJClass
 
 
 class MyThread(threading.Thread):
@@ -39,34 +38,32 @@ class MyThread(threading.Thread):
             self.counter -= 1
 
 
-class Test(unittest.TestCase):
-    def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
-
-    def test_multithread(self):
-        # 在线程外部创建对象，供多个线程共用
-        analyzer = CRFLexicalAnalyzer()
-
-        thread1 = MyThread("Thread-1", 1, analyzer)
-        thread2 = MyThread("Thread-2", 2, analyzer)
-
-        thread1.start()
-        thread2.start()
-
-        print('waiting to finish the thread')
-
-        thread1.join()
-        thread2.join()
-
-        print("Exiting Main Thread")
+@pytest.fixture()
+def analyzer():
+    # 在线程体外部用SafeJClass线程安全地引入类名
+    CRFLexicalAnalyzer = SafeJClass("com.hankcs.hanlp.model.crf.CRFLexicalAnalyzer")
+    # 在线程外部创建对象，供多个线程共用
+    analyzer = CRFLexicalAnalyzer()
+    return analyzer
 
 
-def main():
-    unittest.main()
+@pytest.fixture()
+def thread1():
+    return MyThread("Thread-1", 1, analyzer)
 
 
-if __name__ == '__main__':
-    main()
+@pytest.fixture()
+def thread2():
+    return MyThread("Thread-2", 2, analyzer)
+
+
+def test_sth(thread1, thread2):
+    thread1.start()
+    thread2.start()
+
+    print('waiting to finish the thread')
+
+    thread1.join(timeout=3)
+    thread2.join(timeout=3)
+
+    print("Exiting Main Thread")
