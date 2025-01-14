@@ -5,40 +5,7 @@ from os.path import abspath, join, dirname
 import sys
 from setuptools import find_packages, setup
 
-
-def browser_open(url='https://nlp.hankcs.com/download.php?file=install'):
-    try:
-        import webbrowser
-        webbrowser.open_new_tab(url)
-    except:
-        pass
-
-
 JPYPE = 'jpype1>=1.5.0' if sys.version_info >= (3, 8) else 'jpype1==0.7.0'
-
-try:
-    import subprocess
-
-    command = 'pip install ' + JPYPE
-    subprocess.run(
-        [sys.executable, "-m"] + command.split(" "),
-        check=True,
-    )
-except:
-    browser_open()
-    errors = ['{} 安装失败'.format(JPYPE)]
-    sys.exit(
-        '''
-----------------------------------------
-
-{}。请执行如下命令：
-
-	conda install -c conda-forge python=3.8 openjdk {} -y
-	pip install pyhanlp
-
-详细安装教程：https://nlp.hankcs.com/download.php?file=install
-Windows傻瓜安装包：https://nlp.hankcs.com/download.php?file=exe
-        '''.format('，'.join(errors), JPYPE))
 
 if sys.version_info[0] < 3:  # In Python3 TypeError: a bytes-like object is required, not 'str'
     long_description = 'Python wrapper for HanLP: Han Language Processing'
