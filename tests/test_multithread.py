@@ -10,28 +10,10 @@
 # Date: 2018-03-23:17:18:30
 #
 # ===============================================================================
-from __future__ import print_function
-from __future__ import division
-
 __copyright__ = "Copyright (c) 2017 . All Rights Reserved"
 __author__ = "Hai Liang Wang"
 __date__ = "2018-03-23:17:18:30"
 
-import os
-import sys
-
-curdir = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.join(curdir, os.path.pardir))
-
-if sys.version_info[0] < 3:
-    reload(sys)
-    sys.setdefaultencoding("utf-8")
-    # raise "Must be using Python 3"
-
-from absl import flags  # absl-py
-from absl import logging  # absl-py
-
-FLAGS = flags.FLAGS
 import unittest
 import threading
 import time

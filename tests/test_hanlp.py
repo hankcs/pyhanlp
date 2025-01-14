@@ -1,27 +1,13 @@
 # -*- coding:utf-8 -*-
 # Author：hankcs, Hai Liang Wang<hailiang.hl.wang@gmail.com>
 # Date: 2018-03-18 21:07
-# 
-from __future__ import print_function
-from __future__ import division
-
-import os
-import sys
-curdir = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.join(curdir, os.path.pardir))
-
-from absl import flags   #absl-py
-from absl import logging #absl-py
-from absl import app #absl-py
-
-#  支持调试日志
-FLAGS = flags.FLAGS
-FLAGS([__file__, '--verbosity', '1']) # DEBUG 1; INFO 0; WARNING -1; ERROR -2
 
 import unittest
+
 from pyhanlp import *
 
-# run a single testcase: python test_hanlp.py Test.test_keywords 
+
+# run a single testcase: python test_hanlp.py Test.test_keywords
 class Test(unittest.TestCase):
     '''
     Testcase for HanLP
@@ -36,24 +22,20 @@ class Test(unittest.TestCase):
         pass
 
     def test_keywords(self):
-        logging.info("test_keywords")
         # 关键词提取
         print(HanLP.extractKeyword(self.document, 2))
-        
+
     def test_textsum(self):
-        logging.info("test_textsum")
         # 自动摘要
         print(HanLP.extractSummary(self.document, 3))
         # 依存句法分析
-        
+
     def test_parsedependency(self):
-        logging.info("test_parsedependency")
         sentence = "徐先生还具体帮助他确定了把画雄鹰、松鼠和麻雀作为主攻目标。"
-        logging.info(HanLP.parseDependency(sentence))
+        print(HanLP.parseDependency(sentence))
         # 更底层的API需要参考Java语法用JClass引入更深的类路径
 
     def test_analyze(self):
-        logging.info("test_analyze")
         analyzer = PerceptronLexicalAnalyzer()
         print(analyzer.analyze("上海华安工业（集团）公司董事长谭旭光和秘书胡花蕊来到美国纽约现代艺术博物馆参观"))
         # 任何模型总会有失误，特别是98年这种陈旧的语料库
@@ -72,7 +54,6 @@ class Test(unittest.TestCase):
         print(analyzer.analyze("我的名字叫金华"))
 
     def test_segment(self):
-        logging.info("test_segment")
         print(HanLP.segment('你好，欢迎在Python中调用HanLP的API'))
         for term in HanLP.segment('下雨天地面积水'):
             print('{}\t{}'.format(term.word, term.nature)) # 获取单词与词性
@@ -88,7 +69,6 @@ class Test(unittest.TestCase):
 
 
     def test_custom_dict(self):
-        logging.info("test_custom_dict")
         # 动态增加
         text = "攻城狮逆袭单身狗，迎娶白富美，走上人生巅峰" # 怎么可能噗哈哈！
         assert len(HanLP.segment(text)) == 12, "添加自定义词汇前，分词结果预期"
