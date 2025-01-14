@@ -101,10 +101,10 @@ class Test(unittest.TestCase):
         text = "攻城狮逆袭单身狗，迎娶白富美，走上人生巅峰" # 怎么可能噗哈哈！
         assert len(HanLP.segment(text)) == 10, "添加自定义词汇后，分词结果预期"
 
-def test():
+def main():
     unittest.main()
 
 if __name__ == '__main__':
-    test()
+    main()
 
 

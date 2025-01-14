@@ -83,10 +83,10 @@ class Test(unittest.TestCase):
         print("Exiting Main Thread")
 
 
-def test():
+def main():
     unittest.main()
 
 
 if __name__ == '__main__':
     FLAGS([__file__, '--verbosity', '1'])  # DEBUG 1; INFO 0; WARNING -1
-    test()
+    main()
