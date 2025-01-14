@@ -12,8 +12,6 @@ jobs:
   build:
 
     runs-on: ${{ matrix.os }}
-    env:
-      HANLP_STATIC_ROOT: ${{ github.workspace }}/data
     strategy:
       fail-fast: false
       matrix:
@@ -62,7 +60,7 @@ jobs:
       - name: Cache data
         uses: actions/cache@v4
         with:
-          path: ${{ env.HANLP_STATIC_ROOT }}
+          path: ${{ github.workspace }}/pyhanlp/static
           key: hanlp-data
 
       - name: Test with pytest
