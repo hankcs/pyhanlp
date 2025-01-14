@@ -47,7 +47,6 @@ class Test(unittest.TestCase):
         pass
 
     def test_multithread(self):
-        logging.info("test_multithread")
         # 在线程外部创建对象，供多个线程共用
         analyzer = CRFLexicalAnalyzer()
 
@@ -70,5 +69,4 @@ def main():
 
 
 if __name__ == '__main__':
-    FLAGS([__file__, '--verbosity', '1'])  # DEBUG 1; INFO 0; WARNING -1
     main()
