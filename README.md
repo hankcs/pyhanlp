@@ -1,6 +1,6 @@
 # pyhanlp: Python interfaces for HanLP1.x
 
-![pypi](https://img.shields.io/pypi/v/pyhanlp) [![Downloads](https://pepy.tech/badge/pyhanlp)](https://pepy.tech/project/pyhanlp) [![GitHub license](https://img.shields.io/github/license/hankcs/pyhanlp)](https://github.com/hankcs/pyhanlp/blob/master/LICENSE) [![Run Jupyter](https://img.shields.io/badge/Run-Jupyter-orange?style=flat&logo=Jupyter)](https://mybinder.org/v2/gh/hankcs/pyhanlp.git/master?filepath=tests%2Fbook%2Findex.ipynb) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hankcs/pyhanlp.git/master?filepath=tests%2Fbook%2Findex.ipynb)
+[![单元测试](https://github.com/hankcs/pyhanlp/actions/workflows/unit-tests.yml/badge.svg?branch=master)](https://github.com/hankcs/pyhanlp/actions/workflows/unit-tests.yml?query=branch%3Amaster) ![pypi](https://img.shields.io/pypi/v/pyhanlp) [![Downloads](https://pepy.tech/badge/pyhanlp)](https://pepy.tech/project/pyhanlp) [![GitHub license](https://img.shields.io/github/license/hankcs/pyhanlp)](https://github.com/hankcs/pyhanlp/blob/master/LICENSE) [![Run Jupyter](https://img.shields.io/badge/Run-Jupyter-orange?style=flat&logo=Jupyter)](https://mybinder.org/v2/gh/hankcs/pyhanlp.git/master?filepath=tests%2Fbook%2Findex.ipynb) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hankcs/pyhanlp.git/master?filepath=tests%2Fbook%2Findex.ipynb)
 
 [HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)的Python接口，支持自动下载与升级[HanLP1.x](https://github.com/hankcs/HanLP/tree/1.x)，兼容Python>=3.6。内部算法经过工业界和学术界考验，配套书籍[《自然语言处理入门》](http://nlp.hankcs.com/book.php)已经出版，欢迎查阅[随书代码](https://github.com/hankcs/pyhanlp/tree/master/tests/book)或点击[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hankcs/pyhanlp.git/master?filepath=tests%2Fbook%2Findex.ipynb)在线运行。基于深度学习的[HanLP2.x](https://github.com/hankcs/HanLP/tree/doc-zh)已于2020年初发布，次世代最先进的多语种NLP技术，与1.x相辅相成，平行发展。
 
@@ -14,6 +14,9 @@ pip install pyhanlp
 ```
 
 使用命令`hanlp`来验证安装，如因网络等原因自动安装失败，可参考[手动配置](https://github.com/hankcs/pyhanlp/wiki/%E6%89%8B%E5%8A%A8%E9%85%8D%E7%BD%AE)或[Windows指南](https://github.com/hankcs/pyhanlp/wiki/Windows)。
+
+- pyhanlp每次发布都通过了Linux、macOS和Windows上Python3.6至3.13的[单元测试](https://github.com/hankcs/pyhanlp/actions/workflows/unit-tests.yml?query=branch%3Amaster)，不存在安装问题。
+
 
 ## 命令行
 
