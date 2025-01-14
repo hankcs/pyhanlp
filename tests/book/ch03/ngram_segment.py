@@ -9,7 +9,7 @@ from jpype import JString
 from pyhanlp import *
 from tests.book.ch03.demo_corpus_loader import my_cws_corpus
 from tests.book.ch03.msr import msr_model
-from tests.test_utility import test_data_path
+from tests.utility import get_test_data_path
 
 NatureDictionaryMaker = SafeJClass('com.hankcs.hanlp.corpus.dictionary.NatureDictionaryMaker')
 CorpusLoader = SafeJClass('com.hankcs.hanlp.corpus.document.CorpusLoader')
@@ -106,6 +106,6 @@ def viterbi(wordnet):
 
 if __name__ == '__main__':
     corpus_path = my_cws_corpus()
-    model_path = os.path.join(test_data_path(), 'my_cws_model')
+    model_path = os.path.join(get_test_data_path(), 'my_cws_model')
     train_bigram(corpus_path, model_path)
     load_bigram(model_path)

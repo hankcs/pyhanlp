@@ -9,7 +9,7 @@ from collections import Counter
 
 import numpy as np
 
-from tests.test_utility import ensure_data
+from tests.utility import ensure_data
 
 sighan05 = ensure_data('icwb2-data', 'http://sighan.cs.uchicago.edu/bakeoff2005/data/icwb2-data.zip')
 msr = os.path.join(sighan05, 'training', 'msr_training.utf8')

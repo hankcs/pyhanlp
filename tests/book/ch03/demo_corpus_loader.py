@@ -5,13 +5,13 @@
 # 配套书籍：http://nlp.hankcs.com/book.php
 # 讨论答疑：https://bbs.hankcs.com/
 from pyhanlp import *
-from tests.test_utility import test_data_path
+from tests.utility import get_test_data_path
 
 CorpusLoader = SafeJClass('com.hankcs.hanlp.corpus.document.CorpusLoader')
 
 
 def my_cws_corpus():
-    data_root = test_data_path()
+    data_root = get_test_data_path()
     corpus_path = os.path.join(data_root, 'my_cws_corpus.txt')
     if not os.path.isfile(corpus_path):
         with open(corpus_path, 'w', encoding='utf-8') as out:

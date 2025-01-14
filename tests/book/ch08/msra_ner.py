@@ -6,7 +6,7 @@
 # 讨论答疑：https://bbs.hankcs.com/
 import os
 
-from tests.test_utility import ensure_data
+from tests.utility import ensure_data
 
 MSRA_NER = ensure_data("msra-ne", "http://file.hankcs.com/corpus/msra-ne.zip")
 MSRA_NER_TRAIN = os.path.join(MSRA_NER, 'train.txt')

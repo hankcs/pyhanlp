@@ -7,12 +7,12 @@
 from pyhanlp import *
 from tests.book.ch03.ngram_segment import DijkstraSegment
 from tests.book.ch07 import pku
-from tests.test_utility import test_data_path
+from tests.utility import get_test_data_path
 
 EasyDictionary = JClass('com.hankcs.hanlp.corpus.dictionary.EasyDictionary')
 NTDictionaryMaker = JClass('com.hankcs.hanlp.corpus.dictionary.NTDictionaryMaker')
 Sentence = JClass('com.hankcs.hanlp.corpus.document.sentence.Sentence')
-MODEL = test_data_path() + "/ns"
+MODEL = get_test_data_path() + "/ns"
 
 
 def train(corpus, model):

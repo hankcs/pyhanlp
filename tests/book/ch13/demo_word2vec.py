@@ -7,7 +7,7 @@
 
 from pyhanlp import *
 from tests.book.ch03.msr import msr_train
-from tests.test_utility import test_data_path
+from tests.utility import get_test_data_path
 
 IOUtil = JClass('com.hankcs.hanlp.corpus.io.IOUtil')
 DocVectorModel = JClass('com.hankcs.hanlp.mining.word2vec.DocVectorModel')
@@ -16,7 +16,7 @@ WordVectorModel = JClass('com.hankcs.hanlp.mining.word2vec.WordVectorModel')
 
 # 演示词向量的训练与应用
 TRAIN_FILE_NAME = msr_train
-MODEL_FILE_NAME = os.path.join(test_data_path(), "word2vec.txt")
+MODEL_FILE_NAME = os.path.join(get_test_data_path(), "word2vec.txt")
 
 
 def print_nearest(word, model):

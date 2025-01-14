@@ -6,7 +6,7 @@
 # 讨论答疑：https://bbs.hankcs.com/
 import os
 
-from tests.test_utility import ensure_data
+from tests.utility import ensure_data
 
 PKU98 = ensure_data("pku98", "http://file.hankcs.com/corpus/pku98.zip")
 PKU199801 = os.path.join(PKU98, '199801.txt')

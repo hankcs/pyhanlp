@@ -7,12 +7,12 @@
 from pyhanlp import *
 from tests.book.ch03.ngram_segment import DijkstraSegment
 from tests.book.ch07 import pku
-from tests.test_utility import test_data_path
+from tests.utility import get_test_data_path
 
 EasyDictionary = JClass('com.hankcs.hanlp.corpus.dictionary.EasyDictionary')
 NRDictionaryMaker = JClass('com.hankcs.hanlp.corpus.dictionary.NRDictionaryMaker')
 Sentence = JClass('com.hankcs.hanlp.corpus.document.sentence.Sentence')
-MODEL = test_data_path() + "/nr"
+MODEL = get_test_data_path() + "/nr"
 
 
 def demoNR():

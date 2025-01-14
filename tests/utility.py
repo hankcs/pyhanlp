@@ -7,7 +7,7 @@ import os
 from pyhanlp.static import download, remove_file, HANLP_DATA_PATH
 
 
-def test_data_path():
+def get_test_data_path():
     """
     获取测试数据路径，位于$root/data/test，根目录由配置文件指定。
     :return:
@@ -19,7 +19,7 @@ def test_data_path():
 
 
 def ensure_data(data_name, data_url):
-    root_path = test_data_path()
+    root_path = get_test_data_path()
     dest_path = os.path.join(root_path, data_name)
     if os.path.exists(dest_path):
         return dest_path

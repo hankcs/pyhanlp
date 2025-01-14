@@ -6,7 +6,7 @@
 # 讨论答疑：https://bbs.hankcs.com/
 
 from pyhanlp import *
-from tests.test_utility import ensure_data
+from tests.utility import ensure_data
 
 PerceptronNameGenderClassifier = JClass('com.hankcs.hanlp.model.perceptron.PerceptronNameGenderClassifier')
 cnname = ensure_data('cnname', 'http://file.hankcs.com/corpus/cnname.zip')

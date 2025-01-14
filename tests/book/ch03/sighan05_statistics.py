@@ -9,7 +9,7 @@ from collections import Counter
 
 import os
 
-from tests.test_utility import ensure_data
+from tests.utility import ensure_data
 
 
 def count_corpus(train_path: str, test_path: str):

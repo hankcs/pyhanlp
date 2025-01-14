@@ -7,15 +7,15 @@
 from pyhanlp import *
 from pyhanlp.static import HANLP_JAR_PATH
 from tests.book.ch03.demo_corpus_loader import my_cws_corpus
-from tests.test_utility import test_data_path
+from tests.utility import get_test_data_path
 
 CRFSegmenter = JClass('com.hankcs.hanlp.model.crf.CRFSegmenter')
 
 TXT_CORPUS_PATH = my_cws_corpus()
 TSV_CORPUS_PATH = TXT_CORPUS_PATH + ".tsv"
-TEMPLATE_PATH = test_data_path() + "/cws-template.txt"
-CRF_MODEL_PATH = test_data_path() + "/crf-cws-model"
-CRF_MODEL_TXT_PATH = test_data_path() + "/crf-cws-model.txt"
+TEMPLATE_PATH = get_test_data_path() + "/cws-template.txt"
+CRF_MODEL_PATH = get_test_data_path() + "/crf-cws-model"
+CRF_MODEL_TXT_PATH = get_test_data_path() + "/crf-cws-model.txt"
 
 
 def train_or_load(corpus_txt_path=TXT_CORPUS_PATH, model_txt_path=CRF_MODEL_TXT_PATH):

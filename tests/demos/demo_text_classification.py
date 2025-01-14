@@ -4,7 +4,7 @@
 import os
 
 from pyhanlp import SafeJClass
-from tests.test_utility import ensure_data
+from tests.utility import ensure_data
 
 NaiveBayesClassifier = SafeJClass('com.hankcs.hanlp.classification.classifiers.NaiveBayesClassifier')
 IOUtil = SafeJClass('com.hankcs.hanlp.corpus.io.IOUtil')

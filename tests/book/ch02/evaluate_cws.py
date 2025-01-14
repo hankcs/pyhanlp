@@ -6,7 +6,7 @@
 # 讨论答疑：https://bbs.hankcs.com/
 import re
 from pyhanlp import *
-from tests.test_utility import ensure_data
+from tests.utility import ensure_data
 
 
 def to_region(segmentation: str) -> list:

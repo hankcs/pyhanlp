@@ -3,7 +3,7 @@
 # Date: 2019-01-07 13:53
 
 from pyhanlp import *
-from tests.test_utility import ensure_data
+from tests.utility import ensure_data
 
 IClassifier = JClass('com.hankcs.hanlp.classification.classifiers.IClassifier')
 NaiveBayesClassifier = JClass('com.hankcs.hanlp.classification.classifiers.NaiveBayesClassifier')

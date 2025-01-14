@@ -6,7 +6,7 @@
 # 讨论答疑：https://bbs.hankcs.com/
 from tests.book.ch07.demo_hmm_pos import AbstractLexicalAnalyzer, PerceptronSegmenter
 from tests.book.ch07.demo_perceptron_pos import train_perceptron_pos
-from tests.test_utility import ensure_data
+from tests.utility import ensure_data
 
 ZHUXIAN = ensure_data("zhuxian", "http://file.hankcs.com/corpus/zhuxian.zip") + "/train.txt"
 posTagger = train_perceptron_pos(ZHUXIAN)  # 训练

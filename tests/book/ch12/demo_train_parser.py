@@ -6,7 +6,7 @@
 # 讨论答疑：https://bbs.hankcs.com/
 
 from pyhanlp import *
-from tests.test_utility import ensure_data
+from tests.utility import ensure_data
 
 KBeamArcEagerDependencyParser = JClass('com.hankcs.hanlp.dependency.perceptron.parser.KBeamArcEagerDependencyParser')
 CTB_ROOT = ensure_data("ctb8.0-dep", "http://file.hankcs.com/corpus/ctb8.0-dep.zip")

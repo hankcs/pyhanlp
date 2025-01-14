@@ -3,7 +3,7 @@
 # Date: 2018-04-28 10:07
 
 from pyhanlp import *
-from tests.test_utility import ensure_data
+from tests.utility import ensure_data
 
 
 def main():
