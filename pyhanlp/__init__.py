@@ -9,8 +9,7 @@ import os
 import platform
 import sys
 
-from jpype import JClass, startJVM, getDefaultJVMPath, isThreadAttachedToJVM, attachThreadToJVM, java, \
-    JVMNotFoundException, JVMNotSupportedException
+from jpype import JClass, startJVM, getDefaultJVMPath, java, JVMNotFoundException, JVMNotSupportedException
 from pyhanlp.util import eprint, browser_open
 
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.path.pardir))
@@ -148,13 +147,22 @@ def _start_jvm_for_hanlp():
 
 _start_jvm_for_hanlp()
 
+if hasattr(java.lang.Thread, 'isAttached'):
+    def _attach_jvm_to_thread():
+        """
+        use attachThreadToJVM to fix multi-thread issues: https://github.com/hankcs/pyhanlp/issues/7
+        """
+        if not java.lang.Thread.isAttached():
+            java.lang.Thread.attach()
+else:
+    from jpype import isThreadAttachedToJVM, attachThreadToJVM
 
-def _attach_jvm_to_thread():
-    """
-    use attachThreadToJVM to fix multi-thread issues: https://github.com/hankcs/pyhanlp/issues/7
-    """
-    if not java.lang.Thread.isAttached():
-        java.lang.Thread.attach()
+    def _attach_jvm_to_thread():
+        """
+        use attachThreadToJVM to fix multi-thread issues: https://github.com/hankcs/pyhanlp/issues/7
+        """
+        if not isThreadAttachedToJVM():
+            attachThreadToJVM()
 
 
 class SafeJClass(object):
