@@ -9,7 +9,7 @@
 **懒人**请点击[![Run Jupyter](https://img.shields.io/badge/Run-Jupyter-orange?style=flat&logo=Jupyter)](https://mybinder.org/v2/gh/hankcs/pyhanlp.git/master?filepath=tests%2Fbook%2Findex.ipynb)；**小白**可直接使用[傻瓜安装包](https://nlp.hankcs.com/download.php?file=exe)；**工程师**请先安装[conda](https://docs.conda.io/en/latest/miniconda.html)，然后执行：
 
 ```bash
-conda install -c conda-forge openjdk python=3.8 jpype1=0.7.0 -y
+conda install -c conda-forge openjdk python=3.8 -y
 pip install pyhanlp
 ```
 

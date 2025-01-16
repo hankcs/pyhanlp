@@ -19,7 +19,7 @@ if sys.platform in {'win32'} and (sys.version_info.major, sys.version_info.minor
 
 setup(
     name='pyhanlp',
-    version='0.1.88',
+    version='0.1.89',
     description='Python wrapper for HanLP: Han Language Processing',
     long_description=long_description,
     long_description_content_type="text/markdown",
