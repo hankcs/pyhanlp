@@ -17,14 +17,15 @@ __date__ = "2018-03-23:17:18:30"
 import threading
 import time
 
-import pytest
-
 from pyhanlp import SafeJClass
+
+# 在线程体外部用SafeJClass线程安全地引入类名
+CRFLexicalAnalyzer = SafeJClass("com.hankcs.hanlp.model.crf.CRFLexicalAnalyzer")
 
 
 class MyThread(threading.Thread):
     def __init__(self, name, counter, analyzer):
-        threading.Thread.__init__(self)
+        threading.Thread.__init__(self, daemon=True)
         self.thread_name = name
         self.counter = counter
         self.analyzer = analyzer
@@ -34,30 +35,18 @@ class MyThread(threading.Thread):
         while self.counter:
             time.sleep(1)
             sentence = self.analyzer.analyze("商品和服务")
+            assert str(sentence) == '商品/n 和/c 服务/vn'
             print("%s: %s, seg: %s" % (self.thread_name, time.ctime(time.time()), sentence))
             self.counter -= 1
 
 
-@pytest.fixture()
-def analyzer():
-    # 在线程体外部用SafeJClass线程安全地引入类名
-    CRFLexicalAnalyzer = SafeJClass("com.hankcs.hanlp.model.crf.CRFLexicalAnalyzer")
+def main():
     # 在线程外部创建对象，供多个线程共用
     analyzer = CRFLexicalAnalyzer()
-    return analyzer
 
+    thread1 = MyThread("Thread-1", 1, analyzer)
+    thread2 = MyThread("Thread-2", 2, analyzer)
 
-@pytest.fixture()
-def thread1():
-    return MyThread("Thread-1", 1, analyzer)
-
-
-@pytest.fixture()
-def thread2():
-    return MyThread("Thread-2", 2, analyzer)
-
-
-def test_sth(thread1, thread2):
     thread1.start()
     thread2.start()
 
@@ -67,3 +56,7 @@ def test_sth(thread1, thread2):
     thread2.join(timeout=3)
 
     print("Exiting Main Thread")
+
+
+if __name__ == '__main__':
+    main()
